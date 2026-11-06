@@ -1,0 +1,326 @@
+# Curated list of software shown on melashri.net/software.
+#
+# This file is edited by hand. Download links are NOT stored here; they are
+# resolved from the latest release by scripts/sync-releases.py and written to
+# data/releases.json. Asset rules use regular expressions matched against
+# release asset file names, so they keep working when the version changes.
+#
+# Fields
+#   id          slug, used for the page URL and as the key in releases.json
+#   name        display name
+#   section     apps | cli | extensions
+#   repo        owner/name on GitHub
+#   source      github (default) | amo  (Firefox Add-ons is the source of truth)
+#   amo         AMO slug, when source = "amo"
+#   tagline     one line, shown in the index
+#   homepage    optional project site
+#   status      optional label, e.g. "beta"
+#   platforms   shown on the index; downloads below are the real list
+#   install     ordered install methods, first one is the default
+#   asset       one rule per downloadable file
+#                 os     macos | linux | windows | firefox | chrome | vscode
+#                 arch   arm64 | x64 | universal | any
+#                 kind   dmg | zip | tar.gz | appimage | deb | rpm | msi | exe | xpi | vsix
+#                 group  optional sub-heading (e.g. "Snippy TUI")
+#                 match  regex against the asset name; must match exactly one asset
+#   checksums   optional regex for the checksum file to link next to downloads
+
+# ---------------------------------------------------------------------------
+# Apps
+# ---------------------------------------------------------------------------
+
+[[project]]
+id = "mdiff"
+name = "mdiff"
+section = "apps"
+repo = "MohamedElashri/mdiff"
+tagline = "Native code review for macOS and Linux."
+platforms = ["macos", "linux"]
+checksums = '^SHA256SUMS$'
+install = [
+  { label = "Homebrew", cmd = "brew tap MohamedElashri/mdiff https://github.com/MohamedElashri/mdiff && brew install --cask MohamedElashri/mdiff/mdiff" },
+  { label = "Script", cmd = "curl -fsSL https://raw.githubusercontent.com/MohamedElashri/mdiff/main/install.sh | bash" },
+]
+asset = [
+  { os = "macos", arch = "arm64", kind = "zip", match = '-aarch64-apple-darwin\.zip$' },
+  { os = "macos", arch = "x64", kind = "zip", match = '-x86_64-apple-darwin\.zip$' },
+  { os = "linux", arch = "x64", kind = "appimage", match = '-x86_64-unknown-linux-gnu\.AppImage$' },
+  { os = "linux", arch = "x64", kind = "deb", match = '-x86_64-unknown-linux-gnu\.deb$' },
+]
+
+[[project]]
+id = "ternway"
+name = "Ternway"
+section = "apps"
+repo = "MohamedElashri/ternway"
+tagline = "A desktop terminal for local shells and agentless Linux server management over SSH."
+platforms = ["macos", "linux"]
+checksums = '^SHA256SUMS\.txt$'
+install = [
+  { label = "Script", cmd = "curl -fsSL https://raw.githubusercontent.com/MohamedElashri/ternway/main/install.sh | sh" },
+]
+asset = [
+  { os = "macos", arch = "arm64", kind = "dmg", match = '-darwin-aarch64-dmg\.dmg$' },
+  { os = "macos", arch = "x64", kind = "dmg", match = '-darwin-x64-dmg\.dmg$' },
+  { os = "linux", arch = "x64", kind = "appimage", match = '-linux-amd64-appimage\.AppImage$' },
+  { os = "linux", arch = "arm64", kind = "appimage", match = '-linux-aarch64-appimage\.AppImage$' },
+  { os = "linux", arch = "x64", kind = "deb", match = '-linux-amd64-deb\.deb$' },
+  { os = "linux", arch = "arm64", kind = "deb", match = '-linux-arm64-deb\.deb$' },
+  { os = "linux", arch = "x64", kind = "rpm", match = '-linux-x86_64-rpm\.rpm$' },
+  { os = "linux", arch = "arm64", kind = "rpm", match = '-linux-aarch64-rpm\.rpm$' },
+]
+
+[[project]]
+id = "sivro"
+name = "Sivro"
+section = "apps"
+repo = "MohamedElashri/sivro"
+tagline = "A local, read-only explorer for Parquet, CSV, JSON, Excel and SQLite."
+status = "beta"
+platforms = ["macos", "linux", "windows"]
+checksums = '^SHA256SUMS\.txt$'
+install = [
+  { label = "Script", cmd = "curl -fsSL https://raw.githubusercontent.com/MohamedElashri/sivro/main/scripts/install.sh | sh" },
+]
+asset = [
+  { os = "macos", arch = "universal", kind = "dmg", match = '-darwin-universal-dmg\.dmg$' },
+  { os = "linux", arch = "x64", kind = "appimage", match = '-linux-amd64-appimage\.AppImage$' },
+  { os = "linux", arch = "arm64", kind = "appimage", match = '-linux-aarch64-appimage\.AppImage$' },
+  { os = "linux", arch = "x64", kind = "deb", match = '-linux-amd64-deb\.deb$' },
+  { os = "linux", arch = "arm64", kind = "deb", match = '-linux-arm64-deb\.deb$' },
+  { os = "linux", arch = "x64", kind = "rpm", match = '-linux-x86_64-rpm\.rpm$' },
+  { os = "linux", arch = "arm64", kind = "rpm", match = '-linux-aarch64-rpm\.rpm$' },
+  { os = "windows", arch = "x64", kind = "exe", match = '-windows-x64-nsis-setup\.exe$' },
+  { os = "windows", arch = "arm64", kind = "exe", match = '-windows-arm64-nsis-setup\.exe$' },
+  { os = "windows", arch = "x64", kind = "msi", match = '-windows-x64-msi\.msi$' },
+  { os = "windows", arch = "arm64", kind = "msi", match = '-windows-arm64-msi\.msi$' },
+]
+
+[[project]]
+id = "hession"
+name = "Hession"
+section = "apps"
+repo = "MohamedElashri/hession"
+tagline = "A searchable home for coding-agent sessions from this machine and your SSH hosts."
+platforms = ["macos", "linux"]
+checksums = '^SHA256SUMS$'
+install = [
+  { label = "Script", cmd = "curl -fsSL https://raw.githubusercontent.com/MohamedElashri/hession/main/install.sh | sh" },
+]
+asset = [
+  { os = "macos", arch = "universal", kind = "dmg", match = '-darwin-universal-dmg\.dmg$' },
+  { os = "linux", arch = "x64", kind = "appimage", match = '-linux-amd64-appimage\.AppImage$' },
+  { os = "linux", arch = "arm64", kind = "appimage", match = '-linux-aarch64-appimage\.AppImage$' },
+  { os = "linux", arch = "x64", kind = "deb", match = '-linux-amd64-deb\.deb$' },
+  { os = "linux", arch = "arm64", kind = "deb", match = '-linux-arm64-deb\.deb$' },
+  { os = "linux", arch = "x64", kind = "rpm", match = '-linux-x86_64-rpm\.rpm$' },
+  { os = "linux", arch = "arm64", kind = "rpm", match = '-linux-aarch64-rpm\.rpm$' },
+]
+
+[[project]]
+id = "hedit"
+name = "hedit"
+section = "apps"
+repo = "MohamedElashri/hedit"
+tagline = "A text and log editor with durable buffers and CUDA debugging."
+platforms = ["macos", "linux", "windows"]
+install = [
+  { label = "Script", cmd = "curl -fsSL https://raw.githubusercontent.com/MohamedElashri/hedit/main/install.sh | sh" },
+]
+asset = [
+  { os = "macos", arch = "universal", kind = "zip", match = '-macos-universal\.zip$' },
+  { os = "linux", arch = "x64", kind = "tar.gz", match = '-linux-x86_64\.tar\.gz$' },
+  { os = "linux", arch = "arm64", kind = "tar.gz", match = '-linux-aarch64\.tar\.gz$' },
+  { os = "windows", arch = "x64", kind = "zip", match = '-windows-x86_64\.zip$' },
+]
+
+[[project]]
+id = "kwi"
+name = "Kwi for Mac"
+section = "apps"
+repo = "MohamedElashri/kwi-mac"
+tagline = "A Metal-accelerated terminal for Apple Silicon with bidirectional Arabic, Persian and Hebrew."
+platforms = ["macos"]
+checksums = '^SHA256SUMS$'
+install = [
+  { label = "Homebrew", cmd = "brew tap MohamedElashri/kwi-mac https://github.com/MohamedElashri/kwi-mac.git && brew install --cask mohamedelashri/kwi-mac/kwi-mac" },
+  { label = "Script", cmd = "curl -fsSL https://raw.githubusercontent.com/MohamedElashri/kwi-mac/main/install.sh | bash" },
+]
+asset = [
+  { os = "macos", arch = "arm64", kind = "zip", match = '^Kwi-arm64\.zip$' },
+]
+
+[[project]]
+id = "snipo"
+name = "Snipo"
+section = "apps"
+repo = "MohamedElashri/snipo"
+tagline = "A self-hosted snippet manager, with a terminal client and editor and browser extensions."
+homepage = "https://snipo.melashri.dev"
+platforms = ["linux", "macos", "windows"]
+checksums = '^checksums\.txt$'
+install = [
+  { label = "Docker", cmd = "git clone https://github.com/MohamedElashri/snipo.git && cd snipo && cp .env.example .env && docker compose up -d" },
+  { label = "Snippy (Homebrew)", cmd = "brew install MohamedElashri/snippy/snippy" },
+]
+asset = [
+  { group = "Server", os = "linux", arch = "x64", kind = "tar.gz", match = '^snipo_[\d.]+_linux_amd64\.tar\.gz$' },
+  { group = "Server", os = "linux", arch = "arm64", kind = "tar.gz", match = '^snipo_[\d.]+_linux_arm64\.tar\.gz$' },
+  { group = "Snippy TUI", os = "macos", arch = "arm64", kind = "tar.gz", match = '^snippy_[\d.]+_darwin_arm64\.tar\.gz$' },
+  { group = "Snippy TUI", os = "macos", arch = "x64", kind = "tar.gz", match = '^snippy_[\d.]+_darwin_amd64\.tar\.gz$' },
+  { group = "Snippy TUI", os = "linux", arch = "x64", kind = "deb", match = '^snippy_[\d.]+_amd64\.deb$' },
+  { group = "Snippy TUI", os = "linux", arch = "arm64", kind = "deb", match = '^snippy_[\d.]+_arm64\.deb$' },
+  { group = "Snippy TUI", os = "linux", arch = "x64", kind = "rpm", match = '^snippy_[\d.]+_amd64\.rpm$' },
+  { group = "Snippy TUI", os = "linux", arch = "arm64", kind = "rpm", match = '^snippy_[\d.]+_arm64\.rpm$' },
+  { group = "Snippy TUI", os = "linux", arch = "x64", kind = "tar.gz", match = '^snippy_[\d.]+_linux_amd64\.tar\.gz$' },
+  { group = "Snippy TUI", os = "linux", arch = "arm64", kind = "tar.gz", match = '^snippy_[\d.]+_linux_arm64\.tar\.gz$' },
+  { group = "Snippy TUI", os = "windows", arch = "x64", kind = "zip", match = '^snippy_[\d.]+_windows_amd64\.zip$' },
+  { group = "Snippy TUI", os = "windows", arch = "arm64", kind = "zip", match = '^snippy_[\d.]+_windows_arm64\.zip$' },
+  { group = "Extensions", os = "vscode", arch = "any", kind = "vsix", match = '^snipo-[\d.]+\.vsix$' },
+  { group = "Extensions", os = "chrome", arch = "any", kind = "zip", match = '^snipo-chrome-v[\d.]+\.zip$' },
+  { group = "Extensions", os = "firefox", arch = "any", kind = "zip", match = '^snipo-firefox-v[\d.]+\.zip$' },
+]
+
+# ---------------------------------------------------------------------------
+# Command-line tools
+# ---------------------------------------------------------------------------
+
+[[project]]
+id = "txm"
+name = "txm"
+section = "cli"
+repo = "MohamedElashri/txm"
+tagline = "Persistent terminals and supervised jobs across projects and SSH hosts."
+platforms = ["macos", "linux", "windows"]
+checksums = '^checksums\.txt$'
+install = [
+  { label = "Script", cmd = "curl -fsSL https://raw.githubusercontent.com/MohamedElashri/txm/main/utils/install.sh | bash" },
+]
+asset = [
+  { os = "macos", arch = "universal", kind = "zip", match = '^txm_Darwin_universal\.zip$' },
+  { os = "linux", arch = "x64", kind = "zip", match = '^txm_Linux_x86_64\.zip$' },
+  { os = "linux", arch = "arm64", kind = "zip", match = '^txm_Linux_arm64\.zip$' },
+  { group = "musl", os = "linux", arch = "x64", kind = "zip", match = '^txm_Linux_x86_64-musl\.zip$' },
+  { group = "musl", os = "linux", arch = "arm64", kind = "zip", match = '^txm_Linux_arm64-musl\.zip$' },
+  { os = "windows", arch = "x64", kind = "zip", match = '^txm_Windows_x86_64\.zip$' },
+  { os = "windows", arch = "arm64", kind = "zip", match = '^txm_Windows_arm64\.zip$' },
+]
+
+[[project]]
+id = "sanad"
+name = "sanad"
+section = "cli"
+repo = "MohamedElashri/sanad"
+tagline = "Pin and update GitHub Actions to immutable commit SHAs."
+homepage = "https://melashri.net/sanad/"
+platforms = ["macos", "linux", "windows"]
+checksums = '_checksums\.txt$'
+install = [
+  { label = "Homebrew", cmd = "brew install --cask MohamedElashri/sanad/sanad" },
+]
+asset = [
+  { os = "macos", arch = "arm64", kind = "tar.gz", match = '_Darwin_arm64\.tar\.gz$' },
+  { os = "macos", arch = "x64", kind = "tar.gz", match = '_Darwin_x86_64\.tar\.gz$' },
+  { os = "linux", arch = "x64", kind = "tar.gz", match = '_Linux_x86_64\.tar\.gz$' },
+  { os = "linux", arch = "arm64", kind = "tar.gz", match = '_Linux_arm64\.tar\.gz$' },
+  { os = "windows", arch = "x64", kind = "zip", match = '_Windows_x86_64\.zip$' },
+  { os = "windows", arch = "arm64", kind = "zip", match = '_Windows_arm64\.zip$' },
+]
+
+[[project]]
+id = "nida"
+name = "Nida"
+section = "cli"
+repo = "MohamedElashri/nida"
+tagline = "A small static site generator for blogs, personal sites and documentation."
+homepage = "https://melashri.net/nida/"
+platforms = ["macos", "linux", "windows"]
+checksums = '^checksums\.txt$'
+install = [
+  { label = "Homebrew", cmd = "brew install MohamedElashri/nida/nida" },
+  { label = "Script", cmd = "curl -fsSL https://melashri.net/nida/install.sh | sh" },
+  { label = "Go", cmd = "go install github.com/MohamedElashri/nida/cmd/nida@latest" },
+]
+asset = [
+  { os = "macos", arch = "arm64", kind = "tar.gz", match = '_darwin_arm64\.tar\.gz$' },
+  { os = "macos", arch = "x64", kind = "tar.gz", match = '_darwin_x86_64\.tar\.gz$' },
+  { os = "linux", arch = "x64", kind = "tar.gz", match = '_linux_x86_64\.tar\.gz$' },
+  { os = "linux", arch = "arm64", kind = "tar.gz", match = '_linux_arm64\.tar\.gz$' },
+  { os = "windows", arch = "x64", kind = "zip", match = '_windows_x86_64\.zip$' },
+]
+
+[[project]]
+id = "agrep"
+name = "agrep"
+section = "cli"
+repo = "MohamedElashri/agrep"
+tagline = "Arabic-aware grep."
+homepage = "https://melashri.net/agrep/"
+platforms = ["macos", "linux", "windows"]
+checksums = '^checksums\.txt$'
+install = [
+  { label = "Script", cmd = "curl -fsSL https://raw.githubusercontent.com/MohamedElashri/agrep/main/scripts/install.sh | bash" },
+  { label = "Go", cmd = "go install github.com/MohamedElashri/agrep/cmd/agrep@latest" },
+]
+asset = [
+  { os = "macos", arch = "arm64", kind = "tar.gz", match = '_darwin_arm64\.tar\.gz$' },
+  { os = "macos", arch = "x64", kind = "tar.gz", match = '_darwin_amd64\.tar\.gz$' },
+  { os = "linux", arch = "x64", kind = "tar.gz", match = '_linux_amd64\.tar\.gz$' },
+  { os = "linux", arch = "arm64", kind = "tar.gz", match = '_linux_arm64\.tar\.gz$' },
+  { os = "windows", arch = "x64", kind = "zip", match = '_windows_amd64\.zip$' },
+  { os = "windows", arch = "arm64", kind = "zip", match = '_windows_arm64\.zip$' },
+]
+
+[[project]]
+id = "free-mac"
+name = "free for macOS"
+section = "cli"
+repo = "MohamedElashri/free-mac"
+tagline = "The Linux free command, for macOS memory."
+platforms = ["macos"]
+install = [
+  { label = "Homebrew", cmd = "brew tap MohamedElashri/free-mac && brew install free-mac" },
+]
+# Distributed through Homebrew only; releases carry no binaries.
+asset = []
+
+# ---------------------------------------------------------------------------
+# Browser extensions
+# ---------------------------------------------------------------------------
+
+[[project]]
+id = "devtab"
+name = "DevTab"
+section = "extensions"
+repo = "MohamedElashri/DevTab"
+source = "amo"
+amo = "mdevtab"
+tagline = "Developer news on every new tab."
+platforms = ["firefox"]
+install = []
+asset = []
+
+[[project]]
+id = "json-formatter"
+name = "JSON Formatter"
+section = "extensions"
+repo = "MohamedElashri/json-formatter"
+tagline = "Readable, collapsible JSON in Firefox."
+homepage = "https://blog.melashri.net/posts/json-formatter/"
+platforms = ["firefox"]
+install = []
+asset = [
+  { os = "firefox", arch = "any", kind = "xpi", match = '^json-formatter-[\d.]+\.xpi$' },
+]
+
+[[project]]
+id = "imgblock"
+name = "ImgBlock"
+section = "extensions"
+repo = "MohamedElashri/imgblock"
+source = "amo"
+amo = "imgblock"
+tagline = "Remove every non-icon image from a page with one click."
+platforms = ["firefox"]
+install = []
+asset = []
