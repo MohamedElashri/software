@@ -1,12 +1,14 @@
 {
   "agrep": {"widths": [640, 1280, 1600], "width": 1600, "height": 973},
+  "devtab-dark": {"widths": [640, 1280, 1600], "width": 1600, "height": 774},
+  "devtab-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 774},
   "free-mac": {"widths": [640, 1280, 1600], "width": 1600, "height": 973},
   "hedit-dark": {"widths": [640, 1280, 1600], "width": 1600, "height": 975},
   "hedit-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 975},
   "hession-dark": {"widths": [640, 1280, 1440], "width": 1440, "height": 900},
   "hession-light": {"widths": [640, 1280, 1440], "width": 1440, "height": 900},
-  "imgblock-after": {"widths": [640, 1280, 1600], "width": 1600, "height": 738},
-  "imgblock-before": {"widths": [640, 1280, 1600], "width": 1600, "height": 738},
+  "imgblock-dark": {"widths": [640, 1280, 1600], "width": 1600, "height": 1000},
+  "imgblock-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 1000},
   "json-formatter-dark": {"widths": [640, 1280, 1600], "width": 1600, "height": 705},
   "json-formatter-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 705},
   "kwi": {"widths": [640, 1280, 1600], "width": 1600, "height": 800},
@@ -20,6 +22,5 @@
   "snipo-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 1111},
   "ternway-dark": {"widths": [640, 1280, 1600], "width": 1600, "height": 1041},
   "ternway-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 1041},
-  "txm": {"widths": [640, 1280, 1600], "width": 1600, "height": 801},
-  "devtab": {"widths": [640, 1280], "width": 1280, "height": 720}
+  "txm": {"widths": [640, 1280, 1600], "width": 1600, "height": 801}
 }

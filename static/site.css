@@ -251,7 +251,44 @@ ul[role="list"], .dl-rows, .links { list-style: none; margin: 0; padding: 0; }
 .tagline { font-size: var(--t-sm); color: var(--muted); }
 
 .card .dl-rows { margin-top: auto; }
-.card-more { font-size: var(--t-xs); color: var(--muted); align-self: flex-start; }
+.card-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: var(--t-xs);
+}
+.card-links a { color: var(--muted); }
+.card-links a:hover { color: var(--signal); }
+
+.gh-ico { width: 1em; height: 1em; fill: currentColor; flex: none; }
+.gh {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5ch;
+  text-decoration: none;
+  font-weight: 700;
+}
+.card-links .gh { color: var(--ink); }
+.card-links .gh:hover { color: var(--signal); }
+
+.project-actions { margin-top: 1rem; }
+.gh-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75ch;
+  min-height: var(--row-h);
+  padding: 0 0.8rem;
+  border: 1px solid var(--control);
+  border-radius: 7px;
+  background: var(--raised);
+  font-size: var(--t-sm);
+  text-decoration: none;
+  max-width: 100%;
+}
+.gh-button span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gh-button .gh-ico { width: 1.1rem; height: 1.1rem; }
+.gh-button:hover { border-color: var(--signal); color: var(--signal); }
 
 /* Download rows: the obvious way to get a build --------------------------- */
 

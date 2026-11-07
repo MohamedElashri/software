@@ -97,6 +97,12 @@ class BuildTest(unittest.TestCase):
     def test_feed_is_published(self):
         self.assertTrue((PUBLIC / "releases.xml").exists())
 
+    def test_every_card_links_to_github(self):
+        html = (PUBLIC / "index.html").read_text()
+        for project in PROJECTS:
+            with self.subTest(project["id"]):
+                self.assertIn(f'https://github.com/{project["repo"]}"', html)
+
     def test_index_offers_quick_downloads(self):
         html = (PUBLIC / "index.html").read_text()
         for project in PROJECTS:
@@ -113,6 +119,57 @@ class BuildTest(unittest.TestCase):
                 continue  # nida's /page/1/ redirect stub
             with self.subTest(path.relative_to(PUBLIC).as_posix()):
                 self.assertIn("theme-toggle", path.read_text())
+
+
+@unittest.skipUnless((PUBLIC / "index.html").exists(), "run `nida build` first")
+class SeoTest(unittest.TestCase):
+    SITE = "https://melashri.net/software/"
+
+    def head(self, rel):
+        html = (PUBLIC / rel).read_text()
+        return html[: html.index("</head>")]
+
+    def meta(self, head, key):
+        match = re.search(r'<meta (?:name|property)="?%s"? content="([^"]*)"' % re.escape(key), head)
+        return match.group(1) if match else None
+
+    def jsonld(self, head):
+        blocks = re.findall(r'<script type="?application/ld\+json"?>(.*?)</script>', head, re.S)
+        return [json.loads(b) for b in blocks]
+
+    def test_every_page_has_metadata(self):
+        titles = set()
+        pages = ["index.html"] + [f'{p["id"]}/index.html' for p in PROJECTS]
+        for rel in pages:
+            with self.subTest(rel):
+                head = self.head(rel)
+                title = re.search(r"<title>(.+?)</title>", head).group(1)
+                self.assertNotIn(title, titles, "duplicate title")
+                titles.add(title)
+                self.assertTrue(self.meta(head, "description"))
+                self.assertRegex(head, r'<link rel="?canonical"? href="?https://melashri\.net/software/')
+                image = self.meta(head, "og:image")
+                self.assertTrue(image.startswith(self.SITE + "og/"), image)
+                self.assertTrue((PUBLIC / image[len(self.SITE):]).exists(), image)
+                self.assertEqual(self.meta(head, "twitter:card"), "summary_large_image")
+                self.assertTrue(self.jsonld(head))
+
+    def test_project_pages_describe_the_software(self):
+        for project in PROJECTS:
+            with self.subTest(project["id"]):
+                apps = [d for d in self.jsonld(self.head(f'{project["id"]}/index.html'))
+                        if d.get("@type") == "SoftwareApplication"]
+                self.assertEqual(len(apps), 1)
+                app = apps[0]
+                self.assertEqual(app["name"], project["name"])
+                self.assertEqual(app["url"], f'{self.SITE}{project["id"]}/')
+                self.assertEqual(app.get("softwareVersion"), RELEASES[project["id"]].get("version"))
+                self.assertEqual(app["offers"]["price"], "0")
+
+    def test_index_lists_every_project(self):
+        lists = [d for d in self.jsonld(self.head("index.html")) if d.get("@type") == "ItemList"]
+        urls = [item["url"] for item in lists[0]["itemListElement"]]
+        self.assertEqual(urls, [f'{self.SITE}{p["id"]}/' for p in PROJECTS])
 
 
 class Audit(HTMLParser):

@@ -1,5 +1,5 @@
 base_url = "https://melashri.net/software/"
-title = "Software"
+title = "Software by Mohamed Elashri"
 description = "Desktop apps, command-line tools and browser extensions by Mohamed Elashri."
 language = "en"
 author = "Mohamed Elashri"
@@ -17,6 +17,10 @@ enabled = false
 
 [sitemap]
 enabled = true
+
+# Crawlers read robots.txt only at the domain root (melashri.net/robots.txt).
+[robots]
+enabled = false
 
 [pipeline]
 fingerprint = true

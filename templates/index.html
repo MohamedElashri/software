@@ -41,8 +41,11 @@
             <button type="button" class="copy" data-copy="{{ .cmd }}" aria-label="Copy {{ $p.name }} {{ .label }} install command" hidden>Copy</button>
           </div>
           {{- end }}{{ end }}
-          {{- $more := "Details" }}{{ with $r }}{{ with .assets }}{{ if gt (len .) 1 }}{{ $more = printf "All %d downloads and details" (len .) }}{{ end }}{{ end }}{{ end }}
-          <a class="card-more" href="{{ $.BasePath }}/{{ .id }}/" aria-label="{{ .name }}: {{ lower $more }}">{{ $more }}</a>
+          {{- $more := "Details" }}{{ with $r }}{{ with .assets }}{{ if gt (len .) 1 }}{{ $more = printf "All %d downloads" (len .) }}{{ end }}{{ end }}{{ end }}
+          <p class="card-links">
+            <a href="{{ $.BasePath }}/{{ .id }}/{{ if ne $more "Details" }}#downloads{{ end }}" aria-label="{{ .name }}: {{ lower $more }}">{{ $more }}</a>
+            <a class="gh" href="https://github.com/{{ .repo }}" aria-label="{{ .name }} on GitHub">{{ template "gh-icon" }}GitHub</a>
+          </p>
         </div>
       </article>
     </li>
