@@ -14,4 +14,4 @@ A native text editor for Linux, macOS and Windows that keeps your open files and
 - Git workspace with file, hunk and line staging, history, branches, conflict review and stashes
 - Paged large files and read-only log following
 - Right-to-left Arabic and Hebrew, UTF-8, UTF-16 and legacy encodings
-- CUDA source editing on every platform, with local CUDA tools on Linux
+- CUDA editing on every platform; on Linux, a CUDA panel that debugs with `cuda-gdb` and checks programs with `compute-sanitizer`
