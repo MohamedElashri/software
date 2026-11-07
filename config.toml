@@ -9,6 +9,8 @@ template_dir = "templates"
 static_dir = "static"
 output_dir = "public"
 minify_html = true
+# The index lists every project itself; keep nida from paginating the root section.
+paginate = 1000
 
 [feed]
 enabled = false

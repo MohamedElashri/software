@@ -23,17 +23,36 @@ links for that project are kept and the failure is reported, so the site never
 publishes a broken download.
 
 ```sh
-python3 scripts/sync-releases.py            # refresh data/releases.json
+python3 scripts/sync-releases.py            # refresh data/releases.json and static/releases.xml
 python3 scripts/sync-releases.py --strict   # exit 1 if any project failed
+python3 scripts/sync-releases.py --check    # validate projects.toml and the feed, offline
 ```
 
 Requires Python 3.11+ and a GitHub token (`GITHUB_TOKEN`, or a logged-in `gh`).
+
+## Updating on release
+
+The sync also runs within minutes of a release when a project's release workflow
+sends a `repository_dispatch` event. Create a fine-grained token with
+**Contents: read and write** on `MohamedElashri/software` only, store it in the
+project repository as `SOFTWARE_SITE_TOKEN`, and add this step after the release
+is published:
+
+```yaml
+- name: Update melashri.net/software
+  env:
+    GH_TOKEN: ${{ secrets.SOFTWARE_SITE_TOKEN }}
+  run: gh api repos/MohamedElashri/software/dispatches -f event_type=release-published
+```
+
+Without it, new releases still appear within six hours.
 
 ## Building
 
 ```sh
 nida serve                   # http://127.0.0.1:1717/software/ with live reload
 nida build && nida check     # writes public/
+python3 -m unittest discover -s tests   # data, content and build checks
 scripts/build-images.sh      # after adding or replacing a screenshot in assets/shots/
 ```
 

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Software releases by Mohamed Elashri</title>
+  <subtitle>The latest release of each project on melashri.net/software</subtitle>
+  <link rel="self" type="application/atom+xml" href="https://melashri.net/software/releases.xml"/>
+  <link rel="alternate" type="text/html" href="https://melashri.net/software/"/>
+  <id>https://melashri.net/software/</id>
+  <updated>2026-11-06T23:37:36Z</updated>
+  <author><name>Mohamed Elashri</name></author>
+  <entry>
+    <title>Ternway 0.3.1</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/ternway/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/ternway/releases/tag/v0.3.1"/>
+    <id>tag:melashri.net,2026:software/ternway/0.3.1</id>
+    <published>2026-11-06T23:37:36Z</published>
+    <updated>2026-11-06T23:37:36Z</updated>
+    <summary>A desktop terminal for local shells and agentless Linux server management over SSH.</summary>
+  </entry>
+  <entry>
+    <title>hedit 0.2.1</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/hedit/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/hedit/releases/tag/v0.2.1"/>
+    <id>tag:melashri.net,2026:software/hedit/0.2.1</id>
+    <published>2026-11-06T22:31:03Z</published>
+    <updated>2026-11-06T22:31:03Z</updated>
+    <summary>A text and log editor with durable buffers and CUDA debugging.</summary>
+  </entry>
+  <entry>
+    <title>Snipo 2.2.1</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/snipo/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.1"/>
+    <id>tag:melashri.net,2026:software/snipo/2.2.1</id>
+    <published>2026-11-06T22:09:05Z</published>
+    <updated>2026-11-06T22:09:05Z</updated>
+    <summary>A self-hosted snippet manager, with a terminal client and editor and browser extensions.</summary>
+  </entry>
+  <entry>
+    <title>mdiff 0.1.3</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/mdiff/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/mdiff/releases/tag/v0.1.3"/>
+    <id>tag:melashri.net,2026:software/mdiff/0.1.3</id>
+    <published>2026-11-06T21:38:36Z</published>
+    <updated>2026-11-06T21:38:36Z</updated>
+    <summary>Native code review for macOS and Linux.</summary>
+  </entry>
+  <entry>
+    <title>Nida 0.8.4</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/nida/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/nida/releases/tag/v0.8.4"/>
+    <id>tag:melashri.net,2026:software/nida/0.8.4</id>
+    <published>2026-11-05T14:38:14Z</published>
+    <updated>2026-11-05T14:38:14Z</updated>
+    <summary>A small static site generator for blogs, personal sites and documentation.</summary>
+  </entry>
+  <entry>
+    <title>Kwi for Mac 0.2.0</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/kwi/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/kwi-mac/releases/tag/v0.2.0"/>
+    <id>tag:melashri.net,2026:software/kwi/0.2.0</id>
+    <published>2026-11-04T11:41:18Z</published>
+    <updated>2026-11-04T11:41:18Z</updated>
+    <summary>A Metal-accelerated terminal for Apple Silicon with bidirectional Arabic, Persian and Hebrew.</summary>
+  </entry>
+  <entry>
+    <title>txm 2.1.0</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/txm/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/txm/releases/tag/v2.1.0"/>
+    <id>tag:melashri.net,2026:software/txm/2.1.0</id>
+    <published>2026-11-01T14:15:08Z</published>
+    <updated>2026-11-01T14:15:08Z</updated>
+    <summary>Persistent terminals and supervised jobs across projects and SSH hosts.</summary>
+  </entry>
+  <entry>
+    <title>Sanad 1.0.1</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/sanad/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/sanad/releases/tag/v1.0.1"/>
+    <id>tag:melashri.net,2026:software/sanad/1.0.1</id>
+    <published>2026-10-25T06:56:30Z</published>
+    <updated>2026-10-25T06:56:30Z</updated>
+    <summary>Generate, review and update GitHub's native Actions lockfiles.</summary>
+  </entry>
+  <entry>
+    <title>Hession 0.1.2</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/hession/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/hession/releases/tag/v0.1.2"/>
+    <id>tag:melashri.net,2026:software/hession/0.1.2</id>
+    <published>2026-10-24T20:36:52Z</published>
+    <updated>2026-10-24T20:36:52Z</updated>
+    <summary>A searchable home for coding-agent sessions from this machine and your SSH hosts.</summary>
+  </entry>
+  <entry>
+    <title>Sivro 0.1.1</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/sivro/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/sivro/releases/tag/v0.1.1"/>
+    <id>tag:melashri.net,2026:software/sivro/0.1.1</id>
+    <published>2026-10-22T13:25:36Z</published>
+    <updated>2026-10-22T13:25:36Z</updated>
+    <summary>A local, read-only explorer for Parquet, CSV, JSON, Excel and SQLite.</summary>
+  </entry>
+  <entry>
+    <title>DevTab 1.3.0</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/devtab/"/>
+    <link rel="related" type="text/html" href="https://addons.mozilla.org/en-US/firefox/addon/mdevtab/"/>
+    <id>tag:melashri.net,2026:software/devtab/1.3.0</id>
+    <published>2026-10-17T21:00:49Z</published>
+    <updated>2026-10-17T21:00:49Z</updated>
+    <summary>Developer news on every new tab.</summary>
+  </entry>
+  <entry>
+    <title>agrep 0.1.1</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/agrep/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/agrep/releases/tag/v0.1.1"/>
+    <id>tag:melashri.net,2026:software/agrep/0.1.1</id>
+    <published>2026-09-30T21:36:06Z</published>
+    <updated>2026-09-30T21:36:06Z</updated>
+    <summary>Arabic-aware grep.</summary>
+  </entry>
+  <entry>
+    <title>JSON Formatter 1.0.1</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/json-formatter/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/json-formatter/releases/tag/v1.0.1"/>
+    <id>tag:melashri.net,2026:software/json-formatter/1.0.1</id>
+    <published>2026-04-11T02:35:59Z</published>
+    <updated>2026-04-11T02:35:59Z</updated>
+    <summary>Readable, collapsible JSON in Firefox.</summary>
+  </entry>
+  <entry>
+    <title>free for macOS 0.4</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/free-mac/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/free-mac/releases/tag/v0.4"/>
+    <id>tag:melashri.net,2025:software/free-mac/0.4</id>
+    <published>2025-12-09T23:32:35Z</published>
+    <updated>2025-12-09T23:32:35Z</updated>
+    <summary>The Linux free command, for macOS memory.</summary>
+  </entry>
+  <entry>
+    <title>ImgBlock 1.0.1</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/imgblock/"/>
+    <link rel="related" type="text/html" href="https://addons.mozilla.org/en-US/firefox/addon/imgblock/"/>
+    <id>tag:melashri.net,2025:software/imgblock/1.0.1</id>
+    <published>2025-10-14T02:14:05Z</published>
+    <updated>2025-10-14T02:14:05Z</updated>
+    <summary>Remove every non-icon image from a page with one click.</summary>
+  </entry>
+</feed>

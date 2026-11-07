@@ -4,7 +4,7 @@
 {{- $rel := .Data.releases.projects }}
 {{- $osNames := dict "macos" "macOS" "linux" "Linux" "windows" "Windows" "firefox" "Firefox" }}
 {{- $latestID := "" }}{{ $latestDate := "" }}
-{{- range $projects }}{{ $pid := .id }}{{ with index $rel .id }}{{ if and .published (gt .published $latestDate) }}{{ $latestDate = .published }}{{ $latestID = $pid }}{{ end }}{{ end }}{{ end }}
+{{- range $projects }}{{ $pid := .id }}{{ with index $rel .id }}{{ if and .published_at (gt .published_at $latestDate) }}{{ $latestDate = .published_at }}{{ $latestID = $pid }}{{ end }}{{ end }}{{ end }}
 
 <section class="intro">
   <h1>Software I build and maintain</h1>

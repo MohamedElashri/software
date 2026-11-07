@@ -27,12 +27,15 @@ import sys
 import tomllib
 import urllib.error
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
+from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parent.parent
 PROJECTS = ROOT / "data" / "projects.toml"
 RELEASES = ROOT / "data" / "releases.json"
+FEED = ROOT / "static" / "releases.xml"
+CONFIG = ROOT / "config.toml"
 
 GRAPHQL_URL = "https://api.github.com/graphql"
 AMO_URL = "https://addons.mozilla.org/api/v5/addons/addon/{slug}/"
@@ -67,8 +70,114 @@ KIND_LABELS = {
 }
 
 
+SECTIONS = {"apps", "cli", "extensions"}
+SOURCES = {"github", "amo"}
+
+
 class SyncError(Exception):
     pass
+
+
+def validate_projects(projects: list[dict]) -> list[str]:
+    """Return problems in projects.toml; an empty list means it is usable."""
+    errors = []
+    seen = set()
+    for i, project in enumerate(projects):
+        where = f"project {project.get('id', f'#{i + 1}')}"
+        for key in ("id", "name", "section", "repo", "tagline"):
+            if not isinstance(project.get(key), str) or not project[key].strip():
+                errors.append(f"{where}: missing {key}")
+        pid = project.get("id")
+        if pid in seen:
+            errors.append(f"{where}: duplicate id")
+        seen.add(pid)
+        if pid and not re.fullmatch(r"[a-z0-9][a-z0-9-]*", pid):
+            errors.append(f"{where}: id must be lowercase letters, digits and hyphens")
+        if project.get("section") not in SECTIONS:
+            errors.append(f"{where}: section must be one of {sorted(SECTIONS)}")
+        if not re.fullmatch(r"[\w.-]+/[\w.-]+", project.get("repo", "")):
+            errors.append(f"{where}: repo must be owner/name")
+        source = project.get("source", "github")
+        if source not in SOURCES:
+            errors.append(f"{where}: source must be one of {sorted(SOURCES)}")
+        if source == "amo" and not project.get("amo"):
+            errors.append(f"{where}: source = amo needs an amo slug")
+        for os_name in project.get("platforms", []):
+            if os_name not in OS_LABELS:
+                errors.append(f"{where}: unknown platform {os_name!r}")
+        for method in project.get("install", []):
+            if not method.get("label") or not method.get("cmd"):
+                errors.append(f"{where}: install entries need label and cmd")
+        for pattern in [project.get("checksums")] + [r.get("match") for r in project.get("asset", [])]:
+            if pattern is None:
+                continue
+            try:
+                re.compile(pattern)
+            except re.error as err:
+                errors.append(f"{where}: bad regex {pattern!r}: {err}")
+        for rule in project.get("asset", []):
+            if not rule.get("match"):
+                errors.append(f"{where}: asset rule without match")
+            if rule.get("os") not in OS_LABELS:
+                errors.append(f"{where}: asset os {rule.get('os')!r} is not one of {sorted(OS_LABELS)}")
+            if rule.get("arch") not in ARCH_LABELS:
+                errors.append(f"{where}: asset arch {rule.get('arch')!r} is not one of {sorted(ARCH_LABELS)}")
+            if rule.get("kind") not in KIND_LABELS:
+                errors.append(f"{where}: asset kind {rule.get('kind')!r} is not one of {sorted(KIND_LABELS)}")
+    return errors
+
+
+def iso_utc(value: str) -> str:
+    when = datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
+    return when.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def build_feed(projects: list[dict], resolved: dict[str, dict], site_url: str) -> str:
+    """Atom feed with the latest release of every project, newest first."""
+    entries = []
+    for project in projects:
+        entry = resolved.get(project["id"], {})
+        if entry.get("version") and entry.get("published_at"):
+            entries.append((entry["published_at"], project, entry))
+    entries.sort(key=lambda item: (item[0], item[1]["id"]), reverse=True)
+    updated = entries[0][0] if entries else "1970-01-01T00:00:00Z"
+    host = re.sub(r"^https?://", "", site_url).split("/")[0]
+    lines = [
+        '<?xml version="1.0" encoding="utf-8"?>',
+        '<feed xmlns="http://www.w3.org/2005/Atom">',
+        "  <title>Software releases by Mohamed Elashri</title>",
+        "  <subtitle>The latest release of each project on melashri.net/software</subtitle>",
+        f'  <link rel="self" type="application/atom+xml" href="{escape(site_url)}releases.xml"/>',
+        f'  <link rel="alternate" type="text/html" href="{escape(site_url)}"/>',
+        f"  <id>{escape(site_url)}</id>",
+        f"  <updated>{updated}</updated>",
+        "  <author><name>Mohamed Elashri</name></author>",
+    ]
+    for published, project, entry in entries:
+        page = f"{site_url}{project['id']}/"
+        notes = entry.get("release_url") or entry.get("store_url") or page
+        lines += [
+            "  <entry>",
+            f"    <title>{escape(project['name'])} {escape(entry['version'])}</title>",
+            f'    <link rel="alternate" type="text/html" href="{escape(page)}"/>',
+            f'    <link rel="related" type="text/html" href="{escape(notes)}"/>',
+            f"    <id>tag:{host},{published[:4]}:software/{project['id']}/{escape(entry['version'])}</id>",
+            f"    <published>{published}</published>",
+            f"    <updated>{published}</updated>",
+            f"    <summary>{escape(project['tagline'])}</summary>",
+            "  </entry>",
+        ]
+    lines.append("</feed>")
+    return "\n".join(lines) + "\n"
+
+
+def write_if_changed(path: Path, text: str) -> bool:
+    if path.exists() and path.read_text() == text:
+        return False
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text)
+    print(f"wrote {path.relative_to(ROOT)}")
+    return True
 
 
 def token() -> str:
@@ -227,6 +336,7 @@ def resolve_github(project: dict, repo: dict) -> dict:
         "tag": tag,
         "version": re.sub(r"^[^\d]*", "", tag) or tag,
         "published": date,
+        "published_at": iso_utc(release["publishedAt"]),
         "published_label": date_text,
         "release_url": release["url"],
         "repo_url": repo["url"],
@@ -248,11 +358,13 @@ def resolve_amo(project: dict, repo: dict) -> dict:
         raise SyncError(f"AMO listing {project['amo']!r} is {addon.get('status')!r}")
     version = addon["current_version"]
     file = version["file"]
-    date, date_text = date_label(file.get("created") or addon["last_updated"])
+    created = file.get("created") or addon["last_updated"]
+    date, date_text = date_label(created)
     entry = {
         "source": "amo",
         "version": version["version"],
         "published": date,
+        "published_at": iso_utc(created),
         "published_label": date_text,
         "store_url": addon["url"],
         "repo_url": repo.get("url") or f"https://github.com/{project['repo']}",
@@ -282,17 +394,31 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--report", type=Path, help="write failures as Markdown here")
     parser.add_argument("--strict", action="store_true", help="exit 1 on any failure")
+    parser.add_argument("--check", action="store_true",
+                        help="only validate projects.toml and the feed; no network")
     args = parser.parse_args()
 
     with PROJECTS.open("rb") as fh:
         projects = tomllib.load(fh)["project"]
-    ids = [p["id"] for p in projects]
-    if len(ids) != len(set(ids)):
-        sys.exit("error: duplicate project ids in projects.toml")
+    problems = validate_projects(projects)
+    if problems:
+        for problem in problems:
+            print(f"error: {problem}", file=sys.stderr)
+        return 1
+    with CONFIG.open("rb") as fh:
+        site_url = tomllib.load(fh)["base_url"].rstrip("/") + "/"
 
     previous = {}
     if RELEASES.exists():
         previous = json.loads(RELEASES.read_text()).get("projects", {})
+
+    if args.check:
+        feed = build_feed(projects, previous, site_url)
+        stale = not FEED.exists() or FEED.read_text() != feed
+        print(f"projects.toml ok ({len(projects)} projects)")
+        if stale:
+            print("error: static/releases.xml is out of date; run the sync", file=sys.stderr)
+        return 1 if stale else 0
 
     repos = fetch_github(projects, token())
     resolved: dict[str, dict] = {}
@@ -313,10 +439,9 @@ def main() -> int:
         print(f"{status:4}  {pid:16} {entry.get('version', '-'):10} {len(entry.get('assets', []))} assets")
 
     out = json.dumps({"projects": resolved}, indent=2, ensure_ascii=False) + "\n"
-    if not RELEASES.exists() or RELEASES.read_text() != out:
-        RELEASES.write_text(out)
-        print(f"wrote {RELEASES.relative_to(ROOT)}")
-    else:
+    changed = write_if_changed(RELEASES, out)
+    changed |= write_if_changed(FEED, build_feed(projects, resolved, site_url))
+    if not changed:
         print("no changes")
 
     if args.report:

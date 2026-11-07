@@ -1,0 +1,78 @@
+# Validate, build, test and deploy the site to GitHub Pages.
+#
+# Runs on every push and pull request (pull requests build and test only), and
+# is called by sync.yml after it commits new release data, because pushes made
+# with GITHUB_TOKEN do not trigger workflows on their own.
+name: Site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        description: Commit to build
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+env:
+  NIDA_VERSION: 0.8.4
+  NIDA_SHA256: c84bd792414336e5dd47e6496e0884ed155d7461b288b7c74bd356544cc7ac3d
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          persist-credentials: false
+
+      - name: Install nida
+        run: |
+          archive="nida_${NIDA_VERSION}_linux_x86_64.tar.gz"
+          curl -fsSLo "$RUNNER_TEMP/$archive" "https://github.com/MohamedElashri/nida/releases/download/v${NIDA_VERSION}/$archive"
+          echo "${NIDA_SHA256}  $RUNNER_TEMP/$archive" | sha256sum --check --strict
+          mkdir -p "$RUNNER_TEMP/bin"
+          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP/bin" nida
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
+
+      - name: Validate project data
+        run: python3 scripts/sync-releases.py --check
+
+      - name: Build
+        run: nida build
+
+      - name: Check links and templates
+        run: nida check
+
+      - name: Test
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Upload site
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
