@@ -13,7 +13,7 @@ ROOT=$(cd "$(dirname "$0")/.." && pwd)
 SRC="$ROOT/assets/shots"
 OUT="$ROOT/static/shots"
 MANIFEST="$ROOT/data/shots.json"
-WIDTHS="960 1600"
+WIDTHS="640 1280 1600"
 
 for tool in magick avifenc cwebp; do
   command -v "$tool" >/dev/null || { echo "error: $tool not found" >&2; exit 1; }

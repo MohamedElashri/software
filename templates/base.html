@@ -5,6 +5,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var d = document.documentElement, t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      d.dataset.theme = t;
+      var ua = navigator.userAgent;
+      d.dataset.os = /iPhone|iPad|Android/.test(ua) ? "mobile" : /Mac/.test(ua) ? "macos" : /Win/.test(ua) ? "windows" : /Linux|X11|CrOS/.test(ua) ? "linux" : "";
+      if (/Firefox\//.test(ua)) d.dataset.browser = "firefox";
+    })();
+  </script>
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f4f1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161718">
   {{ template "nida-seo" . }}
@@ -14,39 +25,101 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header wrap">
-    <p class="mark"><a href="https://melashri.net/">melashri.net</a><span aria-hidden="true">/</span><a href="{{ .BasePath }}/"{{ if eq .CurrentURL "/" }} aria-current="page"{{ end }}>software</a></p>
-    <nav aria-label="Elsewhere">
-      <a href="https://github.com/MohamedElashri">GitHub</a>
-    </nav>
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="mark" href="{{ .BasePath }}/"{{ if eq .CurrentURL "/" }} aria-current="page"{{ end }}><span>melashri.net/</span>software</a>
+      <nav class="site-nav" aria-label="Sections">
+        <a href="{{ .BasePath }}/#apps">Apps</a>
+        <a href="{{ .BasePath }}/#cli">Command line</a>
+        <a href="{{ .BasePath }}/#extensions">Extensions</a>
+      </nav>
+      <button type="button" class="theme-toggle" aria-label="Switch to dark theme" title="Switch theme">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6z"/></svg>
+      </button>
+    </div>
   </header>
   <main id="main" class="wrap">
     {{- template "content" . }}
   </main>
-  <footer class="site-footer wrap">
-    <p>Download links follow each project’s latest release on GitHub.</p>
-    <p><a href="{{ .BasePath }}/releases.xml">Releases feed</a>, <a href="https://github.com/MohamedElashri/software">source for this site</a>, set in <a href="https://commitmono.com/">Commit Mono</a>.</p>
+  <footer class="site-footer">
+    <div class="wrap bar">
+      <p>© {{ (now).Year }} Mohamed Elashri</p>
+      <p><a href="{{ .BasePath }}/releases.xml">Releases feed</a> <a href="https://github.com/MohamedElashri/software">Source</a></p>
+    </div>
   </footer>
+  <p class="sr-only" role="status" aria-live="polite" id="live"></p>
+  <script>
+    (function () {
+      var d = document.documentElement, live = document.getElementById("live");
+      var btn = document.querySelector(".theme-toggle");
+      function label() {
+        btn.setAttribute("aria-label", "Switch to " + (d.dataset.theme === "dark" ? "light" : "dark") + " theme");
+      }
+      label();
+      btn.addEventListener("click", function () {
+        d.dataset.theme = d.dataset.theme === "dark" ? "light" : "dark";
+        try { localStorage.setItem("theme", d.dataset.theme); } catch (e) {}
+        label();
+      });
+      matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+        var saved = null;
+        try { saved = localStorage.getItem("theme"); } catch (err) {}
+        if (!saved) { d.dataset.theme = e.matches ? "dark" : "light"; label(); }
+      });
+      if (!navigator.clipboard) return;
+      document.querySelectorAll("button.copy").forEach(function (b) {
+        b.hidden = false;
+        b.addEventListener("click", function () {
+          navigator.clipboard.writeText(b.dataset.copy).then(function () {
+            var text = b.textContent;
+            b.textContent = "Copied";
+            live.textContent = "Copied to clipboard";
+            setTimeout(function () { b.textContent = text; live.textContent = ""; }, 1600);
+          });
+        });
+      });
+    })();
+  </script>
   {{- template "nida-scripts" . }}
 </body>
 </html>
 {{- end }}
 
-{{- /* Responsive screenshot. Call with (dict "Shots" .Data.shots "Name" "<base>" "Alt" "…" "Sizes" "…" "Eager" bool). */ -}}
+{{- /* Screenshot in light and dark variants. Call with
+       (dict "Shots" .Data.shots "Name" "<base>" "Alt" "…" "Sizes" "…" "Eager" bool). */ -}}
 {{- define "shot" -}}
 {{- $light := printf "%s-light" .Name -}}
-{{- $dark := printf "%s-dark" .Name -}}
 {{- $lm := index .Shots $light -}}
 {{- if not $lm }}{{ $light = .Name }}{{ $lm = index .Shots .Name }}{{ end -}}
+{{- $dark := printf "%s-dark" .Name -}}
 {{- $dm := index .Shots $dark -}}
-{{- with $lm -}}
-<picture>
-  {{- if $dm }}
-  <source media="(prefers-color-scheme: dark)" type="image/avif" sizes="{{ $.Sizes }}" srcset="{{ range $i, $w := $dm.widths }}{{ if $i }}, {{ end }}{{ asset (printf "shots/%s-%v.avif" $dark $w) }} {{ $w }}w{{ end }}">
-  <source media="(prefers-color-scheme: dark)" type="image/webp" sizes="{{ $.Sizes }}" srcset="{{ range $i, $w := $dm.widths }}{{ if $i }}, {{ end }}{{ asset (printf "shots/%s-%v.webp" $dark $w) }} {{ $w }}w{{ end }}">
-  {{- end }}
-  <source type="image/avif" sizes="{{ $.Sizes }}" srcset="{{ range $i, $w := .widths }}{{ if $i }}, {{ end }}{{ asset (printf "shots/%s-%v.avif" $light $w) }} {{ $w }}w{{ end }}">
-  <img src="{{ asset (printf "shots/%s-%v.webp" $light (index .widths 0)) }}" sizes="{{ $.Sizes }}" srcset="{{ range $i, $w := .widths }}{{ if $i }}, {{ end }}{{ asset (printf "shots/%s-%v.webp" $light $w) }} {{ $w }}w{{ end }}" width="{{ .width }}" height="{{ .height }}" alt="{{ $.Alt }}" loading="{{ if $.Eager }}eager{{ else }}lazy{{ end }}" decoding="async">
+{{- $cls := "" }}{{ if $dm }}{{ $cls = "only-light" }}{{ end -}}
+{{- with $lm }}{{ template "picture" (dict "N" $light "M" . "Alt" $.Alt "Sizes" $.Sizes "Eager" $.Eager "Class" $cls) }}{{ end -}}
+{{- with $dm }}{{ template "picture" (dict "N" $dark "M" . "Alt" $.Alt "Sizes" $.Sizes "Eager" $.Eager "Class" "only-dark") }}{{ end -}}
+{{- end -}}
+
+{{- define "picture" -}}
+<picture{{ with .Class }} class="{{ . }}"{{ end }}>
+  <source type="image/avif" sizes="{{ .Sizes }}" srcset="{{ range $i, $w := .M.widths }}{{ if $i }}, {{ end }}{{ asset (printf "shots/%s-%v.avif" $.N $w) }} {{ $w }}w{{ end }}">
+  <img src="{{ asset (printf "shots/%s-%v.webp" .N (index .M.widths 0)) }}" sizes="{{ .Sizes }}" srcset="{{ range $i, $w := .M.widths }}{{ if $i }}, {{ end }}{{ asset (printf "shots/%s-%v.webp" $.N $w) }} {{ $w }}w{{ end }}" width="{{ .M.width }}" height="{{ .M.height }}" alt="{{ .Alt }}" loading="{{ if .Eager }}eager{{ else }}lazy{{ end }}" decoding="async">
 </picture>
 {{- end -}}
+
+{{- /* Quick download rows, one per platform. Call with (dict "P" project "R" release). */ -}}
+{{- define "dl-rows" -}}
+{{- $r := .R }}{{ $p := .P -}}
+<ul class="dl-rows">
+  {{- range $r.assets }}{{ if .primary }}
+  <li data-os="{{ .os }}">
+    <a class="dl-row" href="{{ if eq $r.source "amo" }}{{ $r.store_url }}{{ else }}{{ .url }}{{ end }}"
+       aria-label="{{ if eq .os "firefox" }}Add {{ $p.name }} to Firefox{{ if eq $r.source "amo" }} from Firefox Add-ons{{ end }}{{ else }}Download {{ $p.name }} {{ $r.version }} for {{ .os_label }}{{ with .arch_label }}, {{ . }}{{ end }}, {{ .kind_label }}, {{ .size_label }}{{ end }}">
+      <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v8m0 0L4.8 7.3M8 10.5l3.2-3.2M3 13.5h10"/></svg>
+      <span class="dl-os">{{ if eq .os "firefox" }}Add to Firefox{{ else }}{{ .os_label }}{{ end }}</span>
+      <span class="dl-meta">{{ if eq $r.source "amo" }}Firefox Add-ons{{ else }}{{ with .arch_label }}{{ . }} {{ end }}{{ .kind_short }}{{ end }}</span>
+      <span class="dl-size">{{ if ne $r.source "amo" }}{{ .size_label }}{{ end }}</span>
+    </a>
+  </li>
+  {{- end }}{{ end }}
+</ul>
 {{- end -}}

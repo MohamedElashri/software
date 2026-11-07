@@ -56,6 +56,10 @@ ARCH_LABELS = {
     "any": "",
 }
 MACOS_ARCH_LABELS = {"arm64": "Apple silicon", "x64": "Intel"}
+KIND_SHORT = {
+    "dmg": ".dmg", "zip": ".zip", "tar.gz": ".tar.gz", "appimage": "AppImage", "deb": ".deb",
+    "rpm": ".rpm", "msi": ".msi", "exe": ".exe", "xpi": ".xpi", "vsix": ".vsix",
+}
 KIND_LABELS = {
     "dmg": "Disk image (.dmg)",
     "zip": "Archive (.zip)",
@@ -115,6 +119,9 @@ def validate_projects(projects: list[dict]) -> list[str]:
                 re.compile(pattern)
             except re.error as err:
                 errors.append(f"{where}: bad regex {pattern!r}: {err}")
+        groups = {rule.get("group", "") for rule in project.get("asset", [])}
+        if project.get("primary_group") and project["primary_group"] not in groups:
+            errors.append(f"{where}: primary_group {project['primary_group']!r} matches no asset group")
         for rule in project.get("asset", []):
             if not rule.get("match"):
                 errors.append(f"{where}: asset rule without match")
@@ -273,6 +280,7 @@ def asset_labels(rule: dict) -> dict:
         "os_label": OS_LABELS[os_name],
         "arch_label": arch_text,
         "kind_label": KIND_LABELS[rule["kind"]],
+        "kind_short": KIND_SHORT[rule["kind"]],
     }
 
 
@@ -321,11 +329,12 @@ def resolve_github(project: dict, repo: dict) -> dict:
             }
         )
 
-    # The first ungrouped asset per OS is the one offered as "Download for <OS>";
-    # rule order in projects.toml sets the preference.
+    # The first asset per OS in the primary group (ungrouped by default) is the one
+    # offered as the quick download; rule order in projects.toml sets the preference.
     seen = set()
+    primary_group = project.get("primary_group", "")
     for asset in assets:
-        asset["primary"] = not asset["group"] and asset["os"] not in seen
+        asset["primary"] = asset["group"] == primary_group and asset["os"] not in seen
         if asset["primary"]:
             seen.add(asset["os"])
 

@@ -52,7 +52,7 @@ Without it, new releases still appear within six hours.
 ```sh
 nida serve                   # http://127.0.0.1:1717/software/ with live reload
 nida build && nida check     # writes public/
-python3 -m unittest discover -s tests   # data, content and build checks
+python3 -m unittest discover -s tests   # data, content, build and accessibility checks
 scripts/build-images.sh      # after adding or replacing a screenshot in assets/shots/
 ```
 

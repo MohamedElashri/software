@@ -2,6 +2,7 @@
 
 Each project's own repository is the first source. When it has no screenshot,
 the installed app is captured on macOS with demo data, never real hosts or files.
+Terminal tools run in a separate Kwi window with a throwaway `$HOME`.
 
 | File | Source |
 |---|---|
@@ -15,3 +16,8 @@ the installed app is captured on macOS with demo data, never real hosts or files
 | `ternway-{light,dark}.png` | Ternway 0.3.0, launched with a throwaway `$HOME` and demo SSH hosts on documentation IP ranges |
 | `json-formatter-{light,dark}.png` | JSON Formatter 1.0.1 content script on a local page of `releases.json`, cropped to the page |
 | `imgblock-{before,after}.png` | ImgBlock 1.0.1 in Firefox on a local demo article, cropped to the page |
+| `txm.png` | `txm dashboard` (2.1.0 release binary) in Kwi, with three demo native sessions |
+| `sanad.png` | `sanad check && sanad plan` (1.0.1) in Kwi, run in a clone of this repository |
+| `agrep.png` | agrep 0.1.1 in Kwi on a short demo Arabic corpus, matching across tashkil, tatweel and ta marbuta |
+| `free-mac.png` | `free -h -t && free -m -s 1 -c 2` (free-mac 0.4) in Kwi |
+| `nida-{light,dark}.png` | The Nida documentation site (built with Nida), headless Waterfox at 1440 px |

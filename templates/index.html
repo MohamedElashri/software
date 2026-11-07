@@ -2,64 +2,52 @@
 {{- define "content" }}
 {{- $projects := .Data.projects.project }}
 {{- $rel := .Data.releases.projects }}
-{{- $osNames := dict "macos" "macOS" "linux" "Linux" "windows" "Windows" "firefox" "Firefox" }}
-{{- $latestID := "" }}{{ $latestDate := "" }}
-{{- range $projects }}{{ $pid := .id }}{{ with index $rel .id }}{{ if and .published_at (gt .published_at $latestDate) }}{{ $latestDate = .published_at }}{{ $latestID = $pid }}{{ end }}{{ end }}{{ end }}
+{{- $latestID := "" }}{{ $latestAt := "" }}
+{{- range $projects }}{{ $pid := .id }}{{ with index $rel .id }}{{ if and .published_at (gt .published_at $latestAt) }}{{ $latestAt = .published_at }}{{ $latestID = $pid }}{{ end }}{{ end }}{{ end }}
 
 <section class="intro">
-  <h1>Software I build and maintain</h1>
-  <p class="lead">Desktop apps, command-line tools and browser extensions. Each page has install commands and the latest builds for your platform.</p>
+  <h1>Software</h1>
+  <p class="lead">Desktop apps, command-line tools and browser extensions I build and maintain. Every download below is the latest release.</p>
   {{- range $projects }}{{ if eq .id $latestID }}{{ $r := index $rel .id }}
-  <p class="latest">Latest release: <a href="{{ $.BasePath }}/{{ .id }}/">{{ .name }} {{ $r.version }}</a>, <time datetime="{{ $r.published }}">{{ $r.published_label }}</time></p>
+  <p class="latest">Latest release <a href="{{ $.BasePath }}/{{ .id }}/">{{ .name }} {{ $r.version }}</a> <time datetime="{{ $r.published }}">{{ $r.published_label }}</time></p>
   {{- end }}{{ end }}
 </section>
 
-<style>
-{{- range $projects }}
-  .index:has(.row[data-id="{{ .id }}"]:is(:hover, :focus-within)) .pv[data-id="{{ .id }}"] { display: block; }
+{{- range $sec := slice (dict "id" "apps" "title" "Apps") (dict "id" "cli" "title" "Command-line tools") (dict "id" "extensions" "title" "Browser extensions") }}
+{{- $items := where $projects "section" $sec.id }}
+<section class="group" id="{{ $sec.id }}" aria-labelledby="h-{{ $sec.id }}">
+  <h2 id="h-{{ $sec.id }}">{{ $sec.title }} <span class="count">{{ len $items }}</span></h2>
+  <ul class="cards" role="list">
+    {{- range $i, $p := $items }}{{ $r := index $rel .id }}
+    <li class="card">
+      <article aria-labelledby="c-{{ .id }}">
+        {{- with .screenshot }}
+        <a class="card-shot" href="{{ $.BasePath }}/{{ $p.id }}/" tabindex="-1" aria-hidden="true">
+          {{ template "shot" (dict "Shots" $.Data.shots "Name" . "Alt" "" "Sizes" "(min-width: 1500px) 340px, (min-width: 1100px) 31vw, (min-width: 700px) 47vw, 94vw" "Eager" (and (eq $sec.id "apps") (lt $i 4))) }}
+        </a>
+        {{- end }}
+        <div class="card-body">
+          <header class="card-head">
+            <h3 id="c-{{ .id }}"><a href="{{ $.BasePath }}/{{ .id }}/">{{ .name }}</a></h3>
+            {{- with $r }}{{ with .version }}<span class="version">{{ . }}</span>{{ end }}{{ end }}
+            {{- with $r }}{{ with .published_label }}<time datetime="{{ $r.published }}">{{ . }}</time>{{ end }}{{ end }}
+          </header>
+          <p class="tagline">{{ .tagline }}</p>
+          {{- with $r }}{{ with .assets }}{{ template "dl-rows" (dict "P" $p "R" $r) }}{{ end }}{{ end }}
+          {{- with .install }}{{ with index . 0 }}
+          <div class="cmd" title="{{ .cmd }}">
+            <span class="cmd-label">{{ .label }}</span>
+            <code>{{ .cmd }}</code>
+            <button type="button" class="copy" data-copy="{{ .cmd }}" aria-label="Copy {{ $p.name }} {{ .label }} install command" hidden>Copy</button>
+          </div>
+          {{- end }}{{ end }}
+          {{- $more := "Details" }}{{ with $r }}{{ with .assets }}{{ if gt (len .) 1 }}{{ $more = printf "All %d downloads and details" (len .) }}{{ end }}{{ end }}{{ end }}
+          <a class="card-more" href="{{ $.BasePath }}/{{ .id }}/" aria-label="{{ .name }}: {{ lower $more }}">{{ $more }}</a>
+        </div>
+      </article>
+    </li>
+    {{- end }}
+  </ul>
+</section>
 {{- end }}
-</style>
-
-<div class="index">
-  <div class="sections">
-    {{- range $sec := slice (dict "id" "apps" "title" "Apps") (dict "id" "cli" "title" "Command-line tools") (dict "id" "extensions" "title" "Browser extensions") }}
-    {{- $items := where $projects "section" $sec.id }}
-    <section class="group" aria-labelledby="g-{{ $sec.id }}">
-      <h2 id="g-{{ $sec.id }}">{{ $sec.title }} <span class="count">{{ len $items }}</span></h2>
-      <ul class="rows">
-        {{- range $items }}{{ $r := index $rel .id }}
-        <li class="row" data-id="{{ .id }}">
-          <a href="{{ $.BasePath }}/{{ .id }}/">
-            <span class="name">{{ .name }}{{ with .status }} <span class="status">{{ . }}</span>{{ end }}</span>
-            <span class="tagline">{{ .tagline }}</span>
-            <span class="version">{{ with $r }}{{ .version }}{{ end }}</span>
-          </a>
-        </li>
-        {{- end }}
-      </ul>
-    </section>
-    {{- end }}
-  </div>
-
-  <aside class="preview" aria-hidden="true">
-    {{- range $i, $p := $projects }}{{ $r := index $rel .id }}
-    <figure class="pv" data-id="{{ .id }}">
-      {{- if .screenshot }}
-      {{ template "shot" (dict "Shots" $.Data.shots "Name" .screenshot "Alt" "" "Sizes" "(min-width: 1200px) 560px, 45vw" "Eager" (eq $i 0)) }}
-      {{- else }}
-      <div class="term">
-        {{- range .install }}
-        <p class="term-label">{{ .label }}</p>
-        <pre><code>{{ .cmd }}</code></pre>
-        {{- end }}
-      </div>
-      {{- end }}
-      <figcaption>
-        <span>{{ range $j, $os := .platforms }}{{ if $j }}, {{ end }}{{ index $osNames $os }}{{ end }}</span>
-        {{- with $r }}{{ with .published_label }}<span>Released {{ . }}</span>{{ end }}{{ end }}
-      </figcaption>
-    </figure>
-    {{- end }}
-  </aside>
-</div>
 {{- end }}

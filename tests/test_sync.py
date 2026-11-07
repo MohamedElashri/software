@@ -85,6 +85,19 @@ class ResolveGithubTest(unittest.TestCase):
         assets = sync.resolve_github(PROJECT, repo(*NAMES))["assets"]
         self.assertEqual([a["primary"] for a in assets], [True, False, True, False])
 
+    def test_primary_group_picks_grouped_assets(self):
+        project = copy.deepcopy(PROJECT)
+        for rule in project["asset"]:
+            rule["group"] = "Client" if rule["os"] == "macos" or rule["kind"] == "deb" else "Server"
+        project["primary_group"] = "Client"
+        assets = sync.resolve_github(project, repo(*NAMES))["assets"]
+        self.assertEqual([a["primary"] for a in assets], [True, False, False, True])
+
+    def test_kind_short(self):
+        assets = sync.resolve_github(PROJECT, repo(*NAMES))["assets"]
+        self.assertEqual(assets[0]["kind_short"], ".tar.gz")
+        self.assertEqual(assets[3]["kind_short"], ".deb")
+
     def test_variant_is_shown_with_arch(self):
         project = copy.deepcopy(PROJECT)
         project["asset"][2]["variant"] = "musl"
@@ -130,12 +143,14 @@ class ValidateTest(unittest.TestCase):
         bad["asset"][0]["os"] = "plan9"
         bad["asset"][1]["match"] = "("
         amo = dict(PROJECT, id="ext", source="amo", asset=[])
-        errors = "\n".join(sync.validate_projects([bad, dict(PROJECT), amo]))
+        grouped = dict(PROJECT, id="grouped", primary_group="Nope")
+        errors = "\n".join(sync.validate_projects([bad, dict(PROJECT), amo, grouped]))
         self.assertIn("section must be one of", errors)
         self.assertIn("'plan9'", errors)
         self.assertIn("bad regex", errors)
         self.assertIn("duplicate id", errors)
         self.assertIn("needs an amo slug", errors)
+        self.assertIn("primary_group 'Nope' matches no asset group", errors)
 
 
 class FeedTest(unittest.TestCase):

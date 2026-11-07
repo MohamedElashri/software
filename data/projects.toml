@@ -17,6 +17,7 @@
 #   screenshot  optional base name in data/shots.json; "<name>-light"/"<name>-dark" are
 #               used when present, otherwise "<name>" itself
 #   status      optional label, e.g. "beta"
+#   primary_group  asset group offered as the quick downloads when every asset is grouped
 #   platforms   shown on the index; downloads below are the real list
 #   install     ordered install methods, first one is the default
 #   asset       one rule per downloadable file
@@ -82,7 +83,6 @@ section = "apps"
 repo = "MohamedElashri/sivro"
 tagline = "A local, read-only explorer for Parquet, CSV, JSON, Excel and SQLite."
 screenshot = "sivro"
-status = "beta"
 platforms = ["macos", "linux", "windows"]
 checksums = '^SHA256SUMS\.txt$'
 install = [
@@ -165,6 +165,7 @@ name = "Snipo"
 section = "apps"
 repo = "MohamedElashri/snipo"
 tagline = "A self-hosted snippet manager, with a terminal client and editor and browser extensions."
+primary_group = "Snippy TUI"
 screenshot = "snipo"
 homepage = "https://snipo.melashri.dev"
 platforms = ["linux", "macos", "windows"]
@@ -201,6 +202,7 @@ name = "txm"
 section = "cli"
 repo = "MohamedElashri/txm"
 tagline = "Persistent terminals and supervised jobs across projects and SSH hosts."
+screenshot = "txm"
 platforms = ["macos", "linux", "windows"]
 checksums = '^checksums\.txt$'
 install = [
@@ -222,6 +224,7 @@ name = "Sanad"
 section = "cli"
 repo = "MohamedElashri/sanad"
 tagline = "Generate, review and update GitHub's native Actions lockfiles."
+screenshot = "sanad"
 homepage = "https://melashri.net/sanad/"
 platforms = ["macos", "linux", "windows"]
 checksums = '_checksums\.txt$'
@@ -243,6 +246,7 @@ name = "Nida"
 section = "cli"
 repo = "MohamedElashri/nida"
 tagline = "A small static site generator for blogs, personal sites and documentation."
+screenshot = "nida"
 homepage = "https://melashri.net/nida/"
 platforms = ["macos", "linux", "windows"]
 checksums = '^checksums\.txt$'
@@ -265,6 +269,7 @@ name = "agrep"
 section = "cli"
 repo = "MohamedElashri/agrep"
 tagline = "Arabic-aware grep."
+screenshot = "agrep"
 homepage = "https://melashri.net/agrep/"
 platforms = ["macos", "linux", "windows"]
 checksums = '^checksums\.txt$'
@@ -287,6 +292,7 @@ name = "free for macOS"
 section = "cli"
 repo = "MohamedElashri/free-mac"
 tagline = "The Linux free command, for macOS memory."
+screenshot = "free-mac"
 platforms = ["macos"]
 install = [
   { label = "Homebrew", cmd = "brew tap MohamedElashri/free-mac && brew install free-mac" },

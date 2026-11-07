@@ -7,6 +7,7 @@ import json
 import re
 import tomllib
 import unittest
+from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -95,6 +96,87 @@ class BuildTest(unittest.TestCase):
 
     def test_feed_is_published(self):
         self.assertTrue((PUBLIC / "releases.xml").exists())
+
+    def test_index_offers_quick_downloads(self):
+        html = (PUBLIC / "index.html").read_text()
+        for project in PROJECTS:
+            entry = RELEASES[project["id"]]
+            for item in entry.get("assets", []):
+                if item["primary"]:
+                    url = entry["store_url"] if entry["source"] == "amo" else item["url"]
+                    with self.subTest(project["id"], os=item["os"]):
+                        self.assertIn(url, html)
+
+    def test_pages_have_theme_toggle(self):
+        for path in PUBLIC.rglob("index.html"):
+            if path.parent.name == "1":
+                continue  # nida's /page/1/ redirect stub
+            with self.subTest(path.relative_to(PUBLIC).as_posix()):
+                self.assertIn("theme-toggle", path.read_text())
+
+
+class Audit(HTMLParser):
+    """Collects what the structural accessibility checks need from one page."""
+
+    VOID = {"img", "input", "br", "hr", "meta", "link", "source", "path", "circle"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.problems, self.headings, self.ids = [], [], []
+        self.lang = self.main = self.skip = False
+        self.stack = []  # open link/button elements: [tag, attrs, text]
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag == "html":
+            self.lang = bool(a.get("lang"))
+        if tag == "main":
+            self.main = True
+        if "id" in a:
+            self.ids.append(a["id"])
+        if tag == "img" and "alt" not in a:
+            self.problems.append(f"img without alt: {a.get('src')}")
+        if re.fullmatch(r"h[1-6]", tag):
+            self.headings.append(int(tag[1]))
+        if tag == "a" and a.get("href") == "#main":
+            self.skip = True
+        if tag in ("a", "button"):
+            self.stack.append([tag, a, ""])
+
+    def handle_data(self, data):
+        for item in self.stack:
+            item[2] += data
+
+    def handle_endtag(self, tag):
+        if tag in ("a", "button") and self.stack and self.stack[-1][0] == tag:
+            _, a, text = self.stack.pop()
+            hidden = a.get("aria-hidden") == "true"
+            if not hidden and not text.strip() and not a.get("aria-label"):
+                self.problems.append(f"<{tag}> without an accessible name: {a.get('href') or a.get('class')}")
+
+
+@unittest.skipUnless((PUBLIC / "index.html").exists(), "run `nida build` first")
+class AccessibilityTest(unittest.TestCase):
+    def pages(self):
+        for path in sorted(PUBLIC.rglob("*.html")):
+            if "Redirect" in path.read_text()[:300]:
+                continue
+            yield path
+
+    def test_structure(self):
+        for path in self.pages():
+            with self.subTest(path.relative_to(PUBLIC).as_posix()):
+                audit = Audit()
+                audit.feed(path.read_text())
+                self.assertEqual(audit.problems, [])
+                self.assertTrue(audit.lang, "html has no lang")
+                self.assertTrue(audit.main, "no <main> landmark")
+                self.assertTrue(audit.skip, "no skip link to #main")
+                self.assertEqual(audit.headings.count(1), 1, "expected exactly one h1")
+                for before, after in zip(audit.headings, audit.headings[1:]):
+                    self.assertLessEqual(after - before, 1, f"heading level jumps {before} to {after}")
+                duplicates = {i for i in audit.ids if audit.ids.count(i) > 1}
+                self.assertEqual(duplicates, set(), "duplicate ids")
 
 
 if __name__ == "__main__":
