@@ -31,3 +31,11 @@ minify_js = true
 host = "127.0.0.1"
 port = 1717
 livereload = true
+
+# Visitor counting with the self-hosted Umami used across melashri.net.
+# Tracking is on when website_id is set; the footer shows a visitor count when
+# share_id (from the website's "Share URL" in Umami) is set too.
+[extra.umami]
+host = "https://uma.elashri.net"
+website_id = ""
+share_id = ""

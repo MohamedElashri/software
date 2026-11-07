@@ -16,6 +16,8 @@ PUBLIC = ROOT / "public"
 with (ROOT / "data" / "projects.toml").open("rb") as fh:
     PROJECTS = tomllib.load(fh)["project"]
 RELEASES = json.loads((ROOT / "data" / "releases.json").read_text())["projects"]
+with (ROOT / "config.toml").open("rb") as fh:
+    CONFIG = tomllib.load(fh)
 SHOTS = json.loads((ROOT / "data" / "shots.json").read_text())
 
 
@@ -87,12 +89,15 @@ class BuildTest(unittest.TestCase):
 
     def test_no_third_party_assets(self):
         # Anything the browser loads: scripts, images, and stylesheet/icon/preload links.
+        # The only exception is the self-hosted Umami configured in config.toml.
         pattern = re.compile(
             r'<(?:script|img|source|link\b[^>]*\brel="?(?:stylesheet|icon|preload|modulepreload)"?)\b'
-            r'[^>]*\b(?:src|href|srcset)="?(?:https?:)?//', re.I)
+            r'[^>]*\b(?:src|href|srcset)="?((?:https?:)?//[^"\s>]+)', re.I)
+        umami = CONFIG.get("extra", {}).get("umami", {}).get("host", "")
         for path in PUBLIC.rglob("*.html"):
             with self.subTest(path.relative_to(PUBLIC).as_posix()):
-                self.assertIsNone(pattern.search(path.read_text()))
+                external = [u for u in pattern.findall(path.read_text()) if not (umami and u.startswith(umami + "/"))]
+                self.assertEqual(external, [])
 
     def test_feed_is_published(self):
         self.assertTrue((PUBLIC / "releases.xml").exists())

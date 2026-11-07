@@ -24,6 +24,10 @@
   <link rel="icon" href="{{ asset "favicon-32.png" }}" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="{{ asset "apple-touch-icon.png" }}">
   <link rel="alternate" type="application/atom+xml" title="Software releases" href="{{ .BasePath }}/releases.xml">
+  {{- $umami := dig .Config.Extra "umami" }}
+  {{- with $umami }}{{ if .website_id }}
+  <script defer src="{{ .host }}/script.js" data-website-id="{{ .website_id }}" data-domains="melashri.net" data-do-not-track="true"></script>
+  {{- end }}{{ end }}
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -46,7 +50,7 @@
   </main>
   <footer class="site-footer">
     <div class="wrap bar">
-      <p>© {{ (now).Year }} Mohamed Elashri</p>
+      <p>© {{ (now).Year }} Mohamed Elashri{{ with $umami := dig .Config.Extra "umami" }}{{ if and .website_id .share_id }} <span id="visits" data-host="{{ .host }}" data-share="{{ .share_id }}" hidden></span>{{ end }}{{ end }}</p>
       <p><a href="{{ .BasePath }}/releases.xml">Releases feed</a> <a href="https://github.com/MohamedElashri/software">Source</a></p>
     </div>
   </footer>
@@ -69,6 +73,24 @@
         try { saved = localStorage.getItem("theme"); } catch (err) {}
         if (!saved) { d.dataset.theme = e.matches ? "dark" : "light"; label(); }
       });
+      var visits = document.getElementById("visits");
+      if (visits && window.fetch) {
+        var host = visits.dataset.host;
+        fetch(host + "/api/share/" + visits.dataset.share)
+          .then(function (r) { return r.json(); })
+          .then(function (share) {
+            return fetch(host + "/api/websites/" + share.websiteId + "/stats?startAt=0&endAt=" + Date.now(),
+              { headers: { "x-umami-share-token": share.token } });
+          })
+          .then(function (r) { return r.json(); })
+          .then(function (stats) {
+            var n = stats.visitors && typeof stats.visitors === "object" ? stats.visitors.value : stats.visitors;
+            if (typeof n !== "number") return;
+            visits.textContent = n.toLocaleString("en-US") + " visitors";
+            visits.hidden = false;
+          })
+          .catch(function () {});
+      }
       if (!navigator.clipboard) return;
       document.querySelectorAll("button.copy").forEach(function (b) {
         b.hidden = false;
