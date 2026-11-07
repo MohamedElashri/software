@@ -3,7 +3,8 @@
 # Runs every six hours, on demand, and when a project's release workflow sends a
 # `release-published` repository_dispatch event (see README.md). Projects that
 # fail to resolve keep their previous links and are listed in an open issue,
-# which is closed again once every project resolves.
+# which is closed again once every project resolves. If the repository has
+# issues turned off, the run fails with the list in its summary instead.
 name: Sync releases
 
 on:
@@ -62,6 +63,15 @@ jobs:
         run: |
           title="Release sync could not resolve some projects"
           report="$RUNNER_TEMP/sync-report.md"
+          # Without issues, fail the run instead; GitHub notifies about failed scheduled runs.
+          if [ "$(gh api "repos/$GITHUB_REPOSITORY" --jq .has_issues)" != "true" ]; then
+            if [ -f "$report" ]; then
+              cat "$report" >> "$GITHUB_STEP_SUMMARY"
+              echo "::error::Some projects could not be resolved; see the run summary."
+              exit 1
+            fi
+            exit 0
+          fi
           number=$(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[0].number // empty')
           if [ -f "$report" ]; then
             printf '\nLast checked in %s\n' "$RUN_URL" >> "$report"
@@ -76,7 +86,8 @@ jobs:
 
   deploy:
     needs: sync
-    if: needs.sync.outputs.changed == 'true'
+    # Deploy committed data even when only the failure report step failed.
+    if: ${{ !cancelled() && needs.sync.outputs.changed == 'true' }}
     permissions:
       contents: read
       pages: write
