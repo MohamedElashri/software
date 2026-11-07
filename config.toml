@@ -1,0 +1,27 @@
+base_url = "https://melashri.net/software/"
+title = "Software"
+description = "Desktop apps, command-line tools and browser extensions by Mohamed Elashri."
+language = "en"
+author = "Mohamed Elashri"
+
+content_dir = "content"
+template_dir = "templates"
+static_dir = "static"
+output_dir = "public"
+minify_html = true
+
+[feed]
+enabled = false
+
+[sitemap]
+enabled = true
+
+[pipeline]
+fingerprint = true
+minify_css = true
+minify_js = true
+
+[server]
+host = "127.0.0.1"
+port = 1717
+livereload = true

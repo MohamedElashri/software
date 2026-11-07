@@ -1,0 +1,19 @@
+{
+  "hedit-dark": {"widths": [960, 1600], "width": 1600, "height": 975},
+  "hedit-light": {"widths": [960, 1600], "width": 1600, "height": 975},
+  "hession-dark": {"widths": [960, 1440], "width": 1440, "height": 900},
+  "hession-light": {"widths": [960, 1440], "width": 1440, "height": 900},
+  "imgblock-after": {"widths": [960, 1600], "width": 1600, "height": 738},
+  "imgblock-before": {"widths": [960, 1600], "width": 1600, "height": 738},
+  "json-formatter-dark": {"widths": [960, 1600], "width": 1600, "height": 705},
+  "json-formatter-light": {"widths": [960, 1600], "width": 1600, "height": 705},
+  "kwi": {"widths": [960, 1600], "width": 1600, "height": 800},
+  "mdiff": {"widths": [960, 1600], "width": 1600, "height": 981},
+  "sivro-dark": {"widths": [960, 1600], "width": 1600, "height": 872},
+  "sivro-light": {"widths": [960, 1600], "width": 1600, "height": 872},
+  "snipo-dark": {"widths": [960, 1600], "width": 1600, "height": 1111},
+  "snipo-light": {"widths": [960, 1600], "width": 1600, "height": 1111},
+  "ternway-dark": {"widths": [960, 1600], "width": 1600, "height": 1041},
+  "ternway-light": {"widths": [960, 1600], "width": 1600, "height": 1041},
+  "devtab": {"widths": [960, 1280], "width": 1280, "height": 720}
+}

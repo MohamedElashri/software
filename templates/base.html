@@ -1,0 +1,51 @@
+{{- define "base" -}}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f4f1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161718">
+  {{ template "nida-seo" . }}
+  <link rel="stylesheet" href="{{ asset "site.css" }}">
+  <link rel="icon" href="{{ asset "favicon.svg" }}" type="image/svg+xml">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <p class="mark"><a href="https://melashri.net/">melashri.net</a><span aria-hidden="true">/</span><a href="{{ .BasePath }}/"{{ if eq .CurrentURL "/" }} aria-current="page"{{ end }}>software</a></p>
+    <nav aria-label="Elsewhere">
+      <a href="https://github.com/MohamedElashri">GitHub</a>
+    </nav>
+  </header>
+  <main id="main" class="wrap">
+    {{- template "content" . }}
+  </main>
+  <footer class="site-footer wrap">
+    <p>Download links follow each project’s latest release on GitHub.</p>
+    <p><a href="https://github.com/MohamedElashri/software">Source for this site</a>, set in <a href="https://commitmono.com/">Commit Mono</a>.</p>
+  </footer>
+  {{- template "nida-scripts" . }}
+</body>
+</html>
+{{- end }}
+
+{{- /* Responsive screenshot. Call with (dict "Shots" .Data.shots "Name" "<base>" "Alt" "…" "Sizes" "…" "Eager" bool). */ -}}
+{{- define "shot" -}}
+{{- $light := printf "%s-light" .Name -}}
+{{- $dark := printf "%s-dark" .Name -}}
+{{- $lm := index .Shots $light -}}
+{{- if not $lm }}{{ $light = .Name }}{{ $lm = index .Shots .Name }}{{ end -}}
+{{- $dm := index .Shots $dark -}}
+{{- with $lm -}}
+<picture>
+  {{- if $dm }}
+  <source media="(prefers-color-scheme: dark)" type="image/avif" sizes="{{ $.Sizes }}" srcset="{{ range $i, $w := $dm.widths }}{{ if $i }}, {{ end }}{{ asset (printf "shots/%s-%v.avif" $dark $w) }} {{ $w }}w{{ end }}">
+  <source media="(prefers-color-scheme: dark)" type="image/webp" sizes="{{ $.Sizes }}" srcset="{{ range $i, $w := $dm.widths }}{{ if $i }}, {{ end }}{{ asset (printf "shots/%s-%v.webp" $dark $w) }} {{ $w }}w{{ end }}">
+  {{- end }}
+  <source type="image/avif" sizes="{{ $.Sizes }}" srcset="{{ range $i, $w := .widths }}{{ if $i }}, {{ end }}{{ asset (printf "shots/%s-%v.avif" $light $w) }} {{ $w }}w{{ end }}">
+  <img src="{{ asset (printf "shots/%s-%v.webp" $light (index .widths 0)) }}" sizes="{{ $.Sizes }}" srcset="{{ range $i, $w := .widths }}{{ if $i }}, {{ end }}{{ asset (printf "shots/%s-%v.webp" $light $w) }} {{ $w }}w{{ end }}" width="{{ .width }}" height="{{ .height }}" alt="{{ $.Alt }}" loading="{{ if $.Eager }}eager{{ else }}lazy{{ end }}" decoding="async">
+</picture>
+{{- end -}}
+{{- end -}}

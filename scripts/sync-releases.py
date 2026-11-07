@@ -47,22 +47,23 @@ OS_LABELS = {
     "vscode": "VS Code",
 }
 ARCH_LABELS = {
-    "arm64": "Apple silicon",  # replaced per-OS below
+    "arm64": "ARM64",
     "x64": "x64",
     "universal": "Universal",
     "any": "",
 }
+MACOS_ARCH_LABELS = {"arm64": "Apple silicon", "x64": "Intel"}
 KIND_LABELS = {
-    "dmg": ".dmg",
-    "zip": ".zip",
-    "tar.gz": ".tar.gz",
+    "dmg": "Disk image (.dmg)",
+    "zip": "Archive (.zip)",
+    "tar.gz": "Archive (.tar.gz)",
     "appimage": "AppImage",
-    "deb": ".deb",
-    "rpm": ".rpm",
-    "msi": ".msi",
-    "exe": "Installer",
-    "xpi": ".xpi",
-    "vsix": ".vsix",
+    "deb": "Debian package (.deb)",
+    "rpm": "RPM package (.rpm)",
+    "msi": "Installer (.msi)",
+    "exe": "Installer (.exe)",
+    "xpi": "Add-on (.xpi)",
+    "vsix": "Extension (.vsix)",
 }
 
 
@@ -151,18 +152,19 @@ def date_label(iso: str) -> tuple[str, str]:
     return when.date().isoformat(), f"{when:%b} {when.day}, {when.year}"
 
 
-def asset_label(rule: dict) -> str:
-    os_name, arch, kind = rule["os"], rule["arch"], rule["kind"]
-    if arch == "arm64":
-        arch_text = "Apple silicon" if os_name == "macos" else "ARM64"
-    elif arch == "x64" and os_name == "macos":
-        arch_text = "Intel"
+def asset_labels(rule: dict) -> dict:
+    os_name, arch = rule["os"], rule["arch"]
+    if os_name == "macos" and arch in MACOS_ARCH_LABELS:
+        arch_text = MACOS_ARCH_LABELS[arch]
     else:
         arch_text = ARCH_LABELS[arch]
-    parts = [OS_LABELS[os_name], arch_text, KIND_LABELS[kind]]
-    if rule.get("group") == "musl":
-        parts.append("musl")
-    return " · ".join(p for p in parts if p)
+    if rule.get("variant"):
+        arch_text += f" ({rule['variant']})"
+    return {
+        "os_label": OS_LABELS[os_name],
+        "arch_label": arch_text,
+        "kind_label": KIND_LABELS[rule["kind"]],
+    }
 
 
 def strip_digest(digest: str | None) -> str | None:
@@ -201,7 +203,7 @@ def resolve_github(project: dict, repo: dict) -> dict:
                 "arch": rule["arch"],
                 "kind": rule["kind"],
                 "group": rule.get("group", ""),
-                "label": asset_label(rule),
+                **asset_labels(rule),
                 "name": hit["name"],
                 "url": hit["downloadUrl"],
                 "size": hit["size"],
@@ -209,6 +211,14 @@ def resolve_github(project: dict, repo: dict) -> dict:
                 "sha256": strip_digest(hit.get("digest")),
             }
         )
+
+    # The first ungrouped asset per OS is the one offered as "Download for <OS>";
+    # rule order in projects.toml sets the preference.
+    seen = set()
+    for asset in assets:
+        asset["primary"] = not asset["group"] and asset["os"] not in seen
+        if asset["primary"]:
+            seen.add(asset["os"])
 
     tag = release["tagName"]
     date, date_text = date_label(release["publishedAt"])
@@ -256,12 +266,13 @@ def resolve_amo(project: dict, repo: dict) -> dict:
             "arch": "any",
             "kind": "xpi",
             "group": "",
-            "label": "Firefox · .xpi",
+            **asset_labels({"os": "firefox", "arch": "any", "kind": "xpi"}),
             "name": file["url"].rsplit("/", 1)[-1],
             "url": file["url"],
             "size": file["size"],
             "size_label": human_size(file["size"]),
             "sha256": strip_digest(file.get("hash")),
+            "primary": True,
         }
     ]
     return entry

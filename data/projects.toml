@@ -14,6 +14,8 @@
 #   amo         AMO slug, when source = "amo"
 #   tagline     one line, shown in the index
 #   homepage    optional project site
+#   screenshot  optional base name in data/shots.json; "<name>-light"/"<name>-dark" are
+#               used when present, otherwise "<name>" itself
 #   status      optional label, e.g. "beta"
 #   platforms   shown on the index; downloads below are the real list
 #   install     ordered install methods, first one is the default
@@ -22,6 +24,7 @@
 #                 arch   arm64 | x64 | universal | any
 #                 kind   dmg | zip | tar.gz | appimage | deb | rpm | msi | exe | xpi | vsix
 #                 group  optional sub-heading (e.g. "Snippy TUI")
+#                 variant optional build variant shown with the arch (e.g. "musl")
 #                 match  regex against the asset name; must match exactly one asset
 #   checksums   optional regex for the checksum file to link next to downloads
 
@@ -35,6 +38,7 @@ name = "mdiff"
 section = "apps"
 repo = "MohamedElashri/mdiff"
 tagline = "Native code review for macOS and Linux."
+screenshot = "mdiff"
 platforms = ["macos", "linux"]
 checksums = '^SHA256SUMS$'
 install = [
@@ -54,6 +58,7 @@ name = "Ternway"
 section = "apps"
 repo = "MohamedElashri/ternway"
 tagline = "A desktop terminal for local shells and agentless Linux server management over SSH."
+screenshot = "ternway"
 platforms = ["macos", "linux"]
 checksums = '^SHA256SUMS\.txt$'
 install = [
@@ -76,6 +81,7 @@ name = "Sivro"
 section = "apps"
 repo = "MohamedElashri/sivro"
 tagline = "A local, read-only explorer for Parquet, CSV, JSON, Excel and SQLite."
+screenshot = "sivro"
 status = "beta"
 platforms = ["macos", "linux", "windows"]
 checksums = '^SHA256SUMS\.txt$'
@@ -102,6 +108,7 @@ name = "Hession"
 section = "apps"
 repo = "MohamedElashri/hession"
 tagline = "A searchable home for coding-agent sessions from this machine and your SSH hosts."
+screenshot = "hession"
 platforms = ["macos", "linux"]
 checksums = '^SHA256SUMS$'
 install = [
@@ -123,6 +130,7 @@ name = "hedit"
 section = "apps"
 repo = "MohamedElashri/hedit"
 tagline = "A text and log editor with durable buffers and CUDA debugging."
+screenshot = "hedit"
 platforms = ["macos", "linux", "windows"]
 install = [
   { label = "Script", cmd = "curl -fsSL https://raw.githubusercontent.com/MohamedElashri/hedit/main/install.sh | sh" },
@@ -140,6 +148,7 @@ name = "Kwi for Mac"
 section = "apps"
 repo = "MohamedElashri/kwi-mac"
 tagline = "A Metal-accelerated terminal for Apple Silicon with bidirectional Arabic, Persian and Hebrew."
+screenshot = "kwi"
 platforms = ["macos"]
 checksums = '^SHA256SUMS$'
 install = [
@@ -156,6 +165,7 @@ name = "Snipo"
 section = "apps"
 repo = "MohamedElashri/snipo"
 tagline = "A self-hosted snippet manager, with a terminal client and editor and browser extensions."
+screenshot = "snipo"
 homepage = "https://snipo.melashri.dev"
 platforms = ["linux", "macos", "windows"]
 checksums = '^checksums\.txt$'
@@ -200,18 +210,18 @@ asset = [
   { os = "macos", arch = "universal", kind = "zip", match = '^txm_Darwin_universal\.zip$' },
   { os = "linux", arch = "x64", kind = "zip", match = '^txm_Linux_x86_64\.zip$' },
   { os = "linux", arch = "arm64", kind = "zip", match = '^txm_Linux_arm64\.zip$' },
-  { group = "musl", os = "linux", arch = "x64", kind = "zip", match = '^txm_Linux_x86_64-musl\.zip$' },
-  { group = "musl", os = "linux", arch = "arm64", kind = "zip", match = '^txm_Linux_arm64-musl\.zip$' },
+  { variant = "musl", os = "linux", arch = "x64", kind = "zip", match = '^txm_Linux_x86_64-musl\.zip$' },
+  { variant = "musl", os = "linux", arch = "arm64", kind = "zip", match = '^txm_Linux_arm64-musl\.zip$' },
   { os = "windows", arch = "x64", kind = "zip", match = '^txm_Windows_x86_64\.zip$' },
   { os = "windows", arch = "arm64", kind = "zip", match = '^txm_Windows_arm64\.zip$' },
 ]
 
 [[project]]
 id = "sanad"
-name = "sanad"
+name = "Sanad"
 section = "cli"
 repo = "MohamedElashri/sanad"
-tagline = "Pin and update GitHub Actions to immutable commit SHAs."
+tagline = "Generate, review and update GitHub's native Actions lockfiles."
 homepage = "https://melashri.net/sanad/"
 platforms = ["macos", "linux", "windows"]
 checksums = '_checksums\.txt$'
@@ -296,6 +306,7 @@ repo = "MohamedElashri/DevTab"
 source = "amo"
 amo = "mdevtab"
 tagline = "Developer news on every new tab."
+screenshot = "devtab"
 platforms = ["firefox"]
 install = []
 asset = []
@@ -306,6 +317,7 @@ name = "JSON Formatter"
 section = "extensions"
 repo = "MohamedElashri/json-formatter"
 tagline = "Readable, collapsible JSON in Firefox."
+screenshot = "json-formatter"
 homepage = "https://blog.melashri.net/posts/json-formatter/"
 platforms = ["firefox"]
 install = []
@@ -321,6 +333,7 @@ repo = "MohamedElashri/imgblock"
 source = "amo"
 amo = "imgblock"
 tagline = "Remove every non-icon image from a page with one click."
+screenshot = "imgblock-after"
 platforms = ["firefox"]
 install = []
 asset = []

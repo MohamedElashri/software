@@ -29,8 +29,24 @@ python3 scripts/sync-releases.py --strict   # exit 1 if any project failed
 
 Requires Python 3.11+ and a GitHub token (`GITHUB_TOKEN`, or a logged-in `gh`).
 
+## Building
+
+```sh
+nida serve                   # http://127.0.0.1:1717/software/ with live reload
+nida build && nida check     # writes public/
+scripts/build-images.sh      # after adding or replacing a screenshot in assets/shots/
+```
+
+`scripts/build-images.sh` turns the PNG sources in `assets/shots/` into AVIF and
+WebP files in `static/shots/` and records their sizes in `data/shots.json`. It
+needs ImageMagick, `avifenc` and `cwebp`, so its output is committed and the
+deploy doesn't need those tools.
+
 ## Adding a project
 
 1. Add a `[[project]]` block to `data/projects.toml`.
 2. Run the sync script and check that every rule resolves.
-3. Add a screenshot to `assets/shots/` and a page in `content/`.
+3. Add a screenshot to `assets/shots/` (`<name>.png`, or `<name>-light.png` and
+   `<name>-dark.png`), run `scripts/build-images.sh`, and set `screenshot` in the
+   project block.
+4. Add `content/<id>.md` with `template = "project"` and `extra.id`.

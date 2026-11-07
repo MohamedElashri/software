@@ -1,0 +1,7 @@
+{{- define "404" -}}{{ template "base" . }}{{- end }}
+{{- define "content" }}
+<section class="intro">
+  <h1>Page not found</h1>
+  <p class="lead">This address doesn’t match any project. <a href="{{ .BasePath }}/">See all software</a>.</p>
+</section>
+{{- end }}

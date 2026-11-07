@@ -1,0 +1,124 @@
+{{- define "project" -}}{{ template "base" . }}{{- end }}
+{{- define "content" }}
+{{- $id := .Page.Extra.id }}
+{{- $p := dict }}{{ range .Data.projects.project }}{{ if eq .id $id }}{{ $p = . }}{{ end }}{{ end }}
+{{- $r := index .Data.releases.projects $id }}
+<article class="project">
+  <p class="crumb"><a href="{{ .BasePath }}/">All software</a></p>
+
+  <header class="project-head">
+    <h1>{{ $p.name }}</h1>
+    <p class="facts">
+      {{- with $r }}{{ with .version }}<span class="version">{{ . }}</span>{{ end }}{{ end }}
+      {{- with $p.status }}<span class="status">{{ . }}</span>{{ end }}
+      {{- with $r }}{{ with .published_label }}<span>Released <time datetime="{{ $r.published }}">{{ . }}</time></span>{{ end }}{{ end }}
+      {{- with $r }}{{ with .license }}<span>{{ . }} license</span>{{ end }}{{ end }}
+    </p>
+    <p class="lead">{{ $p.tagline }}</p>
+  </header>
+
+  {{- $primaries := 0 }}{{ with $r }}{{ range .assets }}{{ if .primary }}{{ $primaries = add $primaries 1 }}{{ end }}{{ end }}{{ end }}
+  {{- if or $primaries $p.install }}
+  <section class="get" aria-label="Get {{ $p.name }}">
+    {{- if $primaries }}
+    <div class="get-buttons">
+      {{- $first := true }}
+      {{- range $r.assets }}{{ if .primary }}
+      <a class="dl" data-os="{{ .os }}" href="{{ if eq $r.source "amo" }}{{ $r.store_url }}{{ else }}{{ .url }}{{ end }}"{{ if not $first }} hidden{{ end }}>
+        {{- if eq .os "firefox" }}
+        <span class="dl-main">Add to Firefox</span>
+        <span class="dl-sub">{{ if eq $r.source "amo" }}From Firefox Add-ons{{ else }}{{ .kind_label }}, {{ .size_label }}{{ end }}</span>
+        {{- else }}
+        <span class="dl-main">Download for {{ .os_label }}</span>
+        <span class="dl-sub">{{ with .arch_label }}{{ . }}, {{ end }}{{ .kind_label }}, {{ .size_label }}</span>
+        {{- end }}
+      </a>
+      {{- $first = false }}{{ end }}{{ end }}
+      {{- if gt (len $r.assets) 1 }}
+      <p class="get-more"><a href="#downloads">All {{ len $r.assets }} downloads</a></p>
+      {{- end }}
+    </div>
+    {{- end }}
+
+    {{- with $p.install }}
+    <div class="install">
+      <h2>Install</h2>
+      {{- range . }}
+      <div class="cmd">
+        <p class="cmd-label">{{ .label }}</p>
+        <div class="cmd-line">
+          <pre><code>{{ .cmd }}</code></pre>
+          <button type="button" class="copy" data-copy="{{ .cmd }}" hidden>Copy</button>
+        </div>
+      </div>
+      {{- end }}
+    </div>
+    {{- end }}
+  </section>
+  {{- end }}
+
+  {{- with $p.screenshot }}
+  <figure class="screenshot">
+    {{ template "shot" (dict "Shots" $.Data.shots "Name" . "Alt" (printf "%s screenshot" $p.name) "Sizes" "(min-width: 1200px) 1120px, 94vw" "Eager" true) }}
+  </figure>
+  {{- end }}
+
+  <div class="prose">
+    {{ unsafeHTML .Page.BodyHTML }}
+  </div>
+
+  {{- with $r }}{{ with .assets }}
+  <section class="downloads" id="downloads" aria-labelledby="downloads-title">
+    <h2 id="downloads-title">Downloads <span class="count">{{ $r.version }}</span></h2>
+    <table>
+      <thead>
+        <tr><th scope="col">Platform</th><th scope="col">Architecture</th><th scope="col">Format</th><th scope="col" class="num">Size</th><th scope="col">SHA-256</th></tr>
+      </thead>
+      <tbody>
+        {{- $group := "" }}
+        {{- range . }}
+        {{- if ne .group $group }}{{ $group = .group }}
+        <tr class="group-row"><th scope="rowgroup" colspan="5">{{ .group }}</th></tr>
+        {{- end }}
+        <tr>
+          <td data-label="Platform"><a href="{{ .url }}" download>{{ .os_label }}</a></td>
+          <td data-label="Architecture">{{ default .arch_label "Any" }}</td>
+          <td data-label="Format">{{ .kind_label }}</td>
+          <td data-label="Size" class="num">{{ .size_label }}</td>
+          <td data-label="SHA-256" class="sha">{{ with .sha256 }}<code title="{{ . }}">{{ . }}</code><button type="button" class="copy" data-copy="{{ . }}" aria-label="Copy SHA-256" hidden>Copy</button>{{ end }}</td>
+        </tr>
+        {{- end }}
+      </tbody>
+    </table>
+  </section>
+  {{- end }}{{ end }}
+
+  <ul class="links">
+    {{- with $r }}{{ with .release_url }}<li><a href="{{ . }}">Release notes</a></li>{{ end }}{{ end }}
+    {{- with $r }}{{ with .store_url }}<li><a href="{{ . }}">Firefox Add-ons listing</a></li>{{ end }}{{ end }}
+    {{- with $r }}{{ with .checksums_url }}<li><a href="{{ . }}">Checksums file</a></li>{{ end }}{{ end }}
+    {{- with $p.homepage }}<li><a href="{{ . }}">Website</a></li>{{ end }}
+    <li><a href="https://github.com/{{ $p.repo }}">Source code</a></li>
+  </ul>
+</article>
+
+<script>
+(function () {
+  var ua = navigator.userAgent;
+  var os = /iPhone|iPad|Android/.test(ua) ? "" : /Mac/.test(ua) ? "macos" : /Win/.test(ua) ? "windows" : /Linux|X11|CrOS/.test(ua) ? "linux" : "";
+  if (/Firefox\//.test(ua) && document.querySelector('.dl[data-os="firefox"]')) os = "firefox";
+  var pick = os && document.querySelector('.dl[data-os="' + os + '"]');
+  if (pick) document.querySelectorAll(".dl").forEach(function (el) { el.hidden = el !== pick; });
+  if (!navigator.clipboard) return;
+  document.querySelectorAll("button.copy").forEach(function (btn) {
+    btn.hidden = false;
+    btn.addEventListener("click", function () {
+      navigator.clipboard.writeText(btn.dataset.copy).then(function () {
+        btn.textContent = "Copied";
+        setTimeout(function () { btn.textContent = "Copy"; }, 1600);
+      });
+    });
+  });
+})();
+</script>
+{{- end }}

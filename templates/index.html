@@ -1,0 +1,65 @@
+{{- define "index" -}}{{ template "base" . }}{{- end }}
+{{- define "content" }}
+{{- $projects := .Data.projects.project }}
+{{- $rel := .Data.releases.projects }}
+{{- $osNames := dict "macos" "macOS" "linux" "Linux" "windows" "Windows" "firefox" "Firefox" }}
+{{- $latestID := "" }}{{ $latestDate := "" }}
+{{- range $projects }}{{ $pid := .id }}{{ with index $rel .id }}{{ if and .published (gt .published $latestDate) }}{{ $latestDate = .published }}{{ $latestID = $pid }}{{ end }}{{ end }}{{ end }}
+
+<section class="intro">
+  <h1>Software I build and maintain</h1>
+  <p class="lead">Desktop apps, command-line tools and browser extensions. Each page has install commands and the latest builds for your platform.</p>
+  {{- range $projects }}{{ if eq .id $latestID }}{{ $r := index $rel .id }}
+  <p class="latest">Latest release: <a href="{{ $.BasePath }}/{{ .id }}/">{{ .name }} {{ $r.version }}</a>, <time datetime="{{ $r.published }}">{{ $r.published_label }}</time></p>
+  {{- end }}{{ end }}
+</section>
+
+<style>
+{{- range $projects }}
+  .index:has(.row[data-id="{{ .id }}"]:is(:hover, :focus-within)) .pv[data-id="{{ .id }}"] { display: block; }
+{{- end }}
+</style>
+
+<div class="index">
+  <div class="sections">
+    {{- range $sec := slice (dict "id" "apps" "title" "Apps") (dict "id" "cli" "title" "Command-line tools") (dict "id" "extensions" "title" "Browser extensions") }}
+    {{- $items := where $projects "section" $sec.id }}
+    <section class="group" aria-labelledby="g-{{ $sec.id }}">
+      <h2 id="g-{{ $sec.id }}">{{ $sec.title }} <span class="count">{{ len $items }}</span></h2>
+      <ul class="rows">
+        {{- range $items }}{{ $r := index $rel .id }}
+        <li class="row" data-id="{{ .id }}">
+          <a href="{{ $.BasePath }}/{{ .id }}/">
+            <span class="name">{{ .name }}{{ with .status }} <span class="status">{{ . }}</span>{{ end }}</span>
+            <span class="tagline">{{ .tagline }}</span>
+            <span class="version">{{ with $r }}{{ .version }}{{ end }}</span>
+          </a>
+        </li>
+        {{- end }}
+      </ul>
+    </section>
+    {{- end }}
+  </div>
+
+  <aside class="preview" aria-hidden="true">
+    {{- range $i, $p := $projects }}{{ $r := index $rel .id }}
+    <figure class="pv" data-id="{{ .id }}">
+      {{- if .screenshot }}
+      {{ template "shot" (dict "Shots" $.Data.shots "Name" .screenshot "Alt" "" "Sizes" "(min-width: 1200px) 560px, 45vw" "Eager" (eq $i 0)) }}
+      {{- else }}
+      <div class="term">
+        {{- range .install }}
+        <p class="term-label">{{ .label }}</p>
+        <pre><code>{{ .cmd }}</code></pre>
+        {{- end }}
+      </div>
+      {{- end }}
+      <figcaption>
+        <span>{{ range $j, $os := .platforms }}{{ if $j }}, {{ end }}{{ index $osNames $os }}{{ end }}</span>
+        {{- with $r }}{{ with .published_label }}<span>Released {{ . }}</span>{{ end }}{{ end }}
+      </figcaption>
+    </figure>
+    {{- end }}
+  </aside>
+</div>
+{{- end }}
