@@ -56,6 +56,7 @@
       <ul class="links">
         {{- with $r }}{{ with .release_url }}<li><a href="{{ . }}">Release notes</a></li>{{ end }}{{ end }}
         {{- with $r }}{{ with .store_url }}<li><a href="{{ . }}">Firefox Add-ons</a></li>{{ end }}{{ end }}
+        {{- with $p.chrome_store }}<li><a href="{{ . }}">Chrome Web Store</a></li>{{ end }}
         {{- with $p.homepage }}<li><a href="{{ . }}">Website</a></li>{{ end }}
         <li><a href="https://github.com/{{ $p.repo }}">GitHub repository</a></li>
         <li><a href="https://github.com/{{ $p.repo }}/issues">Report an issue</a></li>

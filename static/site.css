@@ -327,11 +327,13 @@ ul[role="list"], .dl-rows, .links { list-style: none; margin: 0; padding: 0; }
 :root[data-os="macos"] .dl-rows li[data-os="macos"],
 :root[data-os="linux"] .dl-rows li[data-os="linux"],
 :root[data-os="windows"] .dl-rows li[data-os="windows"],
-:root[data-browser="firefox"] .dl-rows li[data-os="firefox"] { order: -1; }
+:root[data-browser="firefox"] .dl-rows li[data-os="firefox"],
+:root[data-browser="chrome"] .dl-rows li[data-os="chrome"] { order: -1; }
 :root[data-os="macos"] .dl-rows li[data-os="macos"] .dl-row,
 :root[data-os="linux"] .dl-rows li[data-os="linux"] .dl-row,
 :root[data-os="windows"] .dl-rows li[data-os="windows"] .dl-row,
-.dl-rows li[data-os="firefox"] .dl-row {
+:root:not([data-browser="chrome"]) .dl-rows li[data-os="firefox"] .dl-row,
+:root[data-browser="chrome"] .dl-rows li[data-os="chrome"] .dl-row {
   background: var(--signal);
   border-color: var(--signal);
   color: var(--signal-ink);
@@ -339,7 +341,8 @@ ul[role="list"], .dl-rows, .links { list-style: none; margin: 0; padding: 0; }
 :root[data-os="macos"] .dl-rows li[data-os="macos"] :is(.dl-meta, .dl-size),
 :root[data-os="linux"] .dl-rows li[data-os="linux"] :is(.dl-meta, .dl-size),
 :root[data-os="windows"] .dl-rows li[data-os="windows"] :is(.dl-meta, .dl-size),
-.dl-rows li[data-os="firefox"] :is(.dl-meta, .dl-size) { color: inherit; }
+:root:not([data-browser="chrome"]) .dl-rows li[data-os="firefox"] :is(.dl-meta, .dl-size),
+:root[data-browser="chrome"] .dl-rows li[data-os="chrome"] :is(.dl-meta, .dl-size) { color: inherit; }
 
 /* Install commands ------------------------------------------------------- */
 

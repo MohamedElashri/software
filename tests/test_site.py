@@ -125,6 +125,22 @@ class BuildTest(unittest.TestCase):
             with self.subTest(path.relative_to(PUBLIC).as_posix()):
                 self.assertIn("theme-toggle", path.read_text())
 
+    def test_chrome_store_install_links(self):
+        index = (PUBLIC / "index.html").read_text()
+        for project in PROJECTS:
+            if not project.get("chrome_store"):
+                continue
+            with self.subTest(project["id"]):
+                page = (PUBLIC / project["id"] / "index.html").read_text()
+                for html in (index, page):
+                    self.assertRegex(
+                        html,
+                        r'<a class="?dl-row"? href="?' + re.escape(project["chrome_store"])
+                        + r'"? aria-label="Add ' + re.escape(project["name"])
+                        + r' to Chrome from Chrome Web Store">',
+                    )
+                    self.assertIn(RELEASES[project["id"]]["store_url"], html)
+
 
 @unittest.skipUnless((PUBLIC / "index.html").exists(), "run `nida build` first")
 class SeoTest(unittest.TestCase):
@@ -175,6 +191,18 @@ class SeoTest(unittest.TestCase):
         lists = [d for d in self.jsonld(self.head("index.html")) if d.get("@type") == "ItemList"]
         urls = [item["url"] for item in lists[0]["itemListElement"]]
         self.assertEqual(urls, [f'{self.SITE}{p["id"]}/' for p in PROJECTS])
+
+    def test_chrome_store_metadata(self):
+        for project in PROJECTS:
+            if not project.get("chrome_store"):
+                continue
+            with self.subTest(project["id"]):
+                head = self.head(f'{project["id"]}/index.html')
+                app = next(d for d in self.jsonld(head) if d.get("@type") == "SoftwareApplication")
+                self.assertIn("Chrome", app["operatingSystem"])
+                self.assertIn("Chrome", self.meta(head, "description"))
+                self.assertIn(project["chrome_store"], app["installUrl"])
+                self.assertIn(RELEASES[project["id"]]["store_url"], app["installUrl"])
 
 
 class Audit(HTMLParser):

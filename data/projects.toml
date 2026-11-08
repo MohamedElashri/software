@@ -1,6 +1,6 @@
 # Curated list of software shown on melashri.net/software.
 #
-# This file is edited by hand. Download links are NOT stored here; they are
+# This file is edited by hand. Release download links are
 # resolved from the latest release by scripts/sync-releases.py and written to
 # data/releases.json. Asset rules use regular expressions matched against
 # release asset file names, so they keep working when the version changes.
@@ -12,6 +12,7 @@
 #   repo        owner/name on GitHub
 #   source      github (default) | amo  (Firefox Add-ons is the source of truth)
 #   amo         AMO slug, when source = "amo"
+#   chrome_store optional Chrome Web Store listing URL
 #   tagline     one line, shown in the index
 #   homepage    optional project site
 #   screenshot  optional base name in data/shots.json; "<name>-light"/"<name>-dark" are
@@ -338,9 +339,10 @@ section = "extensions"
 repo = "MohamedElashri/DevTab"
 source = "amo"
 amo = "mdevtab"
+chrome_store = "https://chromewebstore.google.com/detail/devtab/bohcncbmpdonbeamifbibleeghmbdece/"
 tagline = "Developer news on every new tab."
 screenshot = "devtab"
-platforms = ["firefox"]
+platforms = ["chrome", "firefox"]
 install = []
 asset = []
 
