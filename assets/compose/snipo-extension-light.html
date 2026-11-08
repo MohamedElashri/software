@@ -1,0 +1,690 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:CM;src:url(../../static/fonts/commit-mono-400-regular.woff2)}
+*{box-sizing:border-box}html,body{margin:0;width:1600px;height:1000px;overflow:hidden;background:#f3f4f1;color:#1b1d1f;font-family:system-ui,sans-serif}
+main{padding:52px 56px}h1{margin:0 0 10px;font-size:36px;font-weight:650;letter-spacing:-.03em}.subtitle{font-size:21px;color:#575c60;margin:0 0 36px}
+.flow{display:grid;grid-template-columns:864px 540px;gap:40px}figure{margin:0}figcaption{display:flex;gap:12px;align-items:center;font-size:21px;font-weight:600;margin-bottom:16px}.step{display:inline-grid;place-items:center;width:30px;height:30px;border:1px solid #d6d9d4;border-radius:50%;font:16px CM}
+.frame{height:724px;overflow:hidden;border:1px solid #d6d9d4;border-radius:12px;background:#ffffff}.bar{height:48px;border-bottom:1px solid #d6d9d4;display:flex;align-items:center;padding:0 20px;color:#575c60;font:14px CM}.dots{display:flex;gap:7px;margin-right:24px}.dots i{width:9px;height:9px;border-radius:50%;background:#d6d9d4}.article{padding:32px}.label{font:13px CM;letter-spacing:.1em;color:#575c60}.article h2{font-size:28px;margin:14px 0 12px;letter-spacing:-.02em}.article p{font-size:17px;line-height:1.65;color:#575c60;margin:0 0 22px}
+pre{margin:0;white-space:pre;font:15px/23px CM,monospace;padding:20px 12px;background:#e4edfa;border-radius:6px;overflow:hidden;color:#1b1d1f}.file{font:13px CM;color:#575c60;margin:0 0 10px}iframe{border:0;width:100%;height:100%;display:block;background:#1e293b}.foot{font:13px CM;color:#575c60;margin-top:20px}
+</style></head><body><main><h1>Save code to Snipo as you browse.</h1><p class="subtitle">Select a useful snippet, then give it a title, a folder and tags.</p><div class="flow"><figure><figcaption><span class="step">1</span>Select code on a page</figcaption><div class="frame"><div class="bar"><span class="dots"><i></i><i></i><i></i></span>docs.example.com / recipes / fetch-json</div><div class="article"><span class="label">TYPESCRIPT / RECIPES</span><h2>Fetch JSON with retry</h2><p>Use a timeout and exponential backoff to handle temporary network failures.</p><div class="file">fetch-json.ts</div><pre>export async function fetchJSON&lt;T&gt;(url: string, retries = 3): Promise&lt;T&gt; {
+  for (let attempt = 1; attempt &lt;= retries; attempt++) {
+    try {
+      const response = await fetch(url, {
+        headers: { Accept: &quot;application/json&quot; },
+        signal: AbortSignal.timeout(5000),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return await response.json() as T;
+    } catch (error) {
+      if (attempt === retries) throw error;
+      // Back off before trying again.
+      await new Promise(resolve =&gt; setTimeout(resolve, 250 * 2 ** attempt));
+    }
+  }
+  throw new Error(&quot;Request failed&quot;);
+}</pre><div class="foot">Select code → Save to Snipo</div></div></div></figure><figure><figcaption><span class="step">2</span>Review and organize</figcaption><div class="frame"><iframe title="Snipo save dialog" srcdoc="&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;/* Snipo Injected Styles */
+
+.snipo-btn {
+    position: absolute;
+    /* Sticky allows it to stay visible while scrolling */
+    top: 5px;
+    right: 5px;
+    z-index: 10000;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #1e293b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s, background-color 0.2s, transform 0.1s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Enclosing Wrapper */
+/* Ensure container has relative positioning so absolute button works */
+/* .snipo-wrapper is ONLY added when we need to force relative */
+.snipo-wrapper {
+    position: relative !important;
+}
+
+/* Visibility trigger - relies on .snipo-container being always added */
+.snipo-container:hover .snipo-btn {
+    opacity: 1;
+}
+
+.snipo-btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+}
+
+.snipo-btn:active {
+    transform: translateY(0);
+}
+
+.snipo-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: #f8fafc;
+}
+
+/* Toast Notification */
+.snipo-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 2147483647;
+    /* Max z-index */
+    padding: 12px 20px;
+    background-color: #1e293b;
+    color: #f8fafc;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+    border: 1px solid #334155;
+}
+
+.snipo-toast.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.snipo-toast.success {
+    border-left: 4px solid #10b981;
+}
+
+.snipo-toast.error {
+    border-left: 4px solid #ef4444;
+}
+
+.snipo-toast-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* MODAL STYLES */
+
+.snipo-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2147483646;
+    /* Just below max */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.snipo-modal-overlay.visible {
+    opacity: 1;
+}
+
+.snipo-modal {
+    background-color: #1e293b;
+    width: 500px;
+    max-width: 90vw;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    color: #f8fafc;
+    border: 1px solid #334155;
+    transform: scale(0.95);
+    transition: transform 0.2s;
+}
+
+.snipo-modal-overlay.visible .snipo-modal {
+    transform: scale(1);
+}
+
+.snipo-modal h2 {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.snipo-form-group {
+    margin-bottom: 16px;
+}
+
+.snipo-form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.snipo-input,
+.snipo-textarea,
+.snipo-select {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    color: #f8fafc;
+    font-size: 14px;
+    box-sizing: border-box;
+    /* Critical for extending existing CSS */
+    transition: border-color 0.2s;
+    font-family: inherit;
+}
+
+.snipo-input:focus,
+.snipo-textarea:focus,
+.snipo-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.snipo-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.snipo-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.snipo-btn-primary,
+.snipo-btn-secondary {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.snipo-btn-primary {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.snipo-btn-primary:hover {
+    background-color: #2563eb;
+}
+
+.snipo-btn-secondary {
+    background-color: transparent;
+    color: #94a3b8;
+    border: 1px solid #334155;
+}
+
+.snipo-btn-secondary:hover {
+    background-color: #334155;
+    color: #f8fafc;
+}
+
+/* Autocomplete Suggestions */
+.snipo-suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 4px;
+    z-index: 1000;
+    display: none;
+}
+
+/* Form Row Layout */
+.snipo-form-group-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.snipo-form-group-row .snipo-form-group {
+    flex: 1;
+    margin-bottom: 0;
+    min-width: 0;
+}
+
+.snipo-suggestions {
+    position: absolute;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 2147483647;
+    width: 100%;
+    margin-top: 4px;
+    display: none;
+}
+
+.snipo-suggestions.visible {
+    display: block;
+}
+
+.snipo-suggestion-item {
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #cbd5e1;
+    cursor: pointer;
+    border-bottom: 1px solid #334155;
+}
+
+.snipo-suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.snipo-suggestion-item:hover {
+    background-color: #334155;
+    color: #f8fafc;
+}
+
+.snipo-suggestion-item .match {
+    color: #60a5fa;
+    font-weight: 600;
+}
+html, body { margin: 0; min-width: 280px; background: #1e293b; color: #f8fafc; }
+*, *::before, *::after { box-sizing: border-box; }
+.snipo-modal-overlay { position: static; background: transparent; min-height: 100vh; align-items: flex-start; }
+.snipo-modal { width: 100%; max-width: 100%; border: 0; border-radius: 0; box-shadow: none; transform: none; }
+#save-status { margin: 0; padding: 0 24px; font: 14px system-ui, sans-serif; color: #fca5a5; }
+#save-status:not(:empty) { padding-top: 16px; }
+.snipo-input, .snipo-select, .snipo-textarea { width: 100%; }
+*{transition:none!important}&lt;/style&gt;&lt;p id=&quot;save-status&quot; role=&quot;alert&quot;&gt;&lt;/p&gt;&lt;script&gt;window.chrome={runtime:{lastError:null,sendMessage(message,callback){queueMicrotask(()=&gt;callback({success:true,data:message.action===&#x27;getSaveDraft&#x27;?{&quot;title&quot;: &quot;Fetch JSON with retry&quot;, &quot;code&quot;: &quot;export async function fetchJSON&lt;T&gt;(url: string, retries = 3): Promise&lt;T&gt; {\n  for (let attempt = 1; attempt &lt;= retries; attempt++) {\n    try {\n      const response = await fetch(url, {\n        headers: { Accept: \&quot;application/json\&quot; },\n        signal: AbortSignal.timeout(5000),\n      });\n      if (!response.ok) throw new Error(`HTTP ${response.status}`);\n      return await response.json() as T;\n    } catch (error) {\n      if (attempt === retries) throw error;\n      // Back off before trying again.\n      await new Promise(resolve =&gt; setTimeout(resolve, 250 * 2 ** attempt));\n    }\n  }\n  throw new Error(\&quot;Request failed\&quot;);\n}&quot;, &quot;language&quot;: &quot;typescript&quot;, &quot;sourceURL&quot;: &quot;https://docs.example.com/recipes/fetch-json&quot;}:message.action===&#x27;fetchFolders&#x27;?[{id:1,name:&#x27;Web development&#x27;}]:[{name:&#x27;typescript&#x27;},{name:&#x27;http&#x27;},{name:&#x27;utilities&#x27;}]}));}}};&lt;/script&gt;&lt;script&gt;// This page belongs to the extension and is never exposed to visited websites.
+const draftId = new URLSearchParams(window.location.search).get(&#x27;draft&#x27;);
+function showToast(_success, message) {
+    document.querySelector(&#x27;#save-status&#x27;).textContent = message || &#x27;Unable to save snippet.&#x27;;
+}
+chrome.runtime.sendMessage({ action: &#x27;getSaveDraft&#x27;, draftId }, response =&gt; {
+    if (chrome.runtime.lastError || !response?.success) {
+        showToast(false, &#x27;This save window has expired. Close it and try saving again.&#x27;);
+        return;
+    }
+    showModal(response.data).catch(() =&gt; showToast(false, &#x27;Unable to load the save dialog.&#x27;));
+});
+
+// --- MODAL LOGIC ---
+
+let modalOpen = false;
+async function showModal(snippetData) {
+    if (modalOpen) return;
+    modalOpen = true;
+    // 1. Fetch Tags and Folders in parallel
+    const [tagsRes, foldersRes] = await Promise.all([
+        new Promise(resolve =&gt; chrome.runtime.sendMessage({ action: &quot;fetchTags&quot; }, res =&gt; resolve(res || {}))),
+        new Promise(resolve =&gt; chrome.runtime.sendMessage({ action: &quot;fetchFolders&quot; }, res =&gt; resolve(res || {})))
+    ]);
+
+    const tags = tagsRes &amp;&amp; tagsRes.success ? tagsRes.data : [];
+    const folders = foldersRes &amp;&amp; foldersRes.success ? foldersRes.data : [];
+
+    // List of common supported languages
+    const supportedLanguages = [
+        &#x27;plaintext&#x27;, &#x27;javascript&#x27;, &#x27;typescript&#x27;, &#x27;python&#x27;, &#x27;go&#x27;, &#x27;rust&#x27;, &#x27;java&#x27;,
+        &#x27;c&#x27;, &#x27;cpp&#x27;, &#x27;csharp&#x27;, &#x27;php&#x27;, &#x27;ruby&#x27;, &#x27;swift&#x27;, &#x27;kotlin&#x27;, &#x27;scala&#x27;,
+        &#x27;html&#x27;, &#x27;css&#x27;, &#x27;scss&#x27;, &#x27;json&#x27;, &#x27;yaml&#x27;, &#x27;xml&#x27;, &#x27;markdown&#x27;,
+        &#x27;sql&#x27;, &#x27;bash&#x27;, &#x27;shell&#x27;, &#x27;powershell&#x27;, &#x27;dockerfile&#x27;, &#x27;cuda&#x27;, &#x27;tex&#x27;, &#x27;bibtex&#x27;
+    ];
+
+    // Ensure detected language is in list or add it if valid, otherwise fallback
+    let safeLanguage = snippetData.language || &#x27;plaintext&#x27;;
+
+    // Helper to get extension
+    const getExt = (lang) =&gt; {
+        const extMap = {
+            &#x27;cuda&#x27;: &#x27;cu&#x27;, &#x27;tex&#x27;: &#x27;tex&#x27;, &#x27;bibtex&#x27;: &#x27;bib&#x27;,
+            &#x27;plaintext&#x27;: &#x27;txt&#x27;, &#x27;javascript&#x27;: &#x27;js&#x27;, &#x27;typescript&#x27;: &#x27;ts&#x27;, &#x27;python&#x27;: &#x27;py&#x27;,
+            &#x27;go&#x27;: &#x27;go&#x27;, &#x27;rust&#x27;: &#x27;rs&#x27;, &#x27;java&#x27;: &#x27;java&#x27;, &#x27;c&#x27;: &#x27;c&#x27;, &#x27;cpp&#x27;: &#x27;cpp&#x27;,
+            &#x27;csharp&#x27;: &#x27;cs&#x27;, &#x27;php&#x27;: &#x27;php&#x27;, &#x27;ruby&#x27;: &#x27;rb&#x27;, &#x27;swift&#x27;: &#x27;swift&#x27;,
+            &#x27;kotlin&#x27;: &#x27;kt&#x27;, &#x27;scala&#x27;: &#x27;scala&#x27;, &#x27;html&#x27;: &#x27;html&#x27;, &#x27;css&#x27;: &#x27;css&#x27;,
+            &#x27;scss&#x27;: &#x27;scss&#x27;, &#x27;json&#x27;: &#x27;json&#x27;, &#x27;yaml&#x27;: &#x27;yaml&#x27;, &#x27;xml&#x27;: &#x27;xml&#x27;,
+            &#x27;markdown&#x27;: &#x27;md&#x27;, &#x27;sql&#x27;: &#x27;sql&#x27;, &#x27;bash&#x27;: &#x27;sh&#x27;, &#x27;shell&#x27;: &#x27;sh&#x27;,
+            &#x27;powershell&#x27;: &#x27;ps1&#x27;, &#x27;dockerfile&#x27;: &#x27;dockerfile&#x27;
+        };
+        return extMap[lang] || &#x27;txt&#x27;;
+    };
+
+    // Default Filename Logic
+    const generateDefaultFilename = (lang) =&gt; `snippet.${getExt(lang)}`;
+    let currentFilename = generateDefaultFilename(safeLanguage);
+
+    // 2. Create Modal HTML using safe DOM methods
+    const overlay = document.createElement(&#x27;div&#x27;);
+    overlay.className = &#x27;snipo-modal-overlay&#x27;;
+
+    const modal = document.createElement(&#x27;div&#x27;);
+    modal.className = &#x27;snipo-modal&#x27;;
+
+    const h2 = document.createElement(&#x27;h2&#x27;);
+    h2.textContent = &#x27;Save Snippet&#x27;;
+    modal.appendChild(h2);
+
+    // Title field
+    const titleGroup = document.createElement(&#x27;div&#x27;);
+    titleGroup.className = &#x27;snipo-form-group&#x27;;
+    const titleLabel = document.createElement(&#x27;label&#x27;);
+    titleLabel.textContent = &#x27;Title&#x27;;
+    const titleInput = document.createElement(&#x27;input&#x27;);
+    titleInput.type = &#x27;text&#x27;;
+    titleInput.id = &#x27;snipo-title&#x27;;
+    titleInput.className = &#x27;snipo-input&#x27;;
+    titleInput.value = snippetData.title;
+    titleGroup.appendChild(titleLabel);
+    titleGroup.appendChild(titleInput);
+    modal.appendChild(titleGroup);
+
+    // Language and Filename row
+    const rowGroup = document.createElement(&#x27;div&#x27;);
+    rowGroup.className = &#x27;snipo-form-group-row&#x27;;
+
+    const langGroup = document.createElement(&#x27;div&#x27;);
+    langGroup.className = &#x27;snipo-form-group half-width&#x27;;
+    const langLabel = document.createElement(&#x27;label&#x27;);
+    langLabel.textContent = &#x27;Language&#x27;;
+    const langSelect = document.createElement(&#x27;select&#x27;);
+    langSelect.id = &#x27;snipo-language&#x27;;
+    langSelect.className = &#x27;snipo-select&#x27;;
+    supportedLanguages.forEach(lang =&gt; {
+        const option = document.createElement(&#x27;option&#x27;);
+        option.value = lang;
+        option.textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
+        if (lang === safeLanguage) option.selected = true;
+        langSelect.appendChild(option);
+    });
+    if (!supportedLanguages.includes(safeLanguage)) {
+        const option = document.createElement(&#x27;option&#x27;);
+        option.value = safeLanguage;
+        option.textContent = safeLanguage + &#x27; (Detected)&#x27;;
+        option.selected = true;
+        langSelect.appendChild(option);
+    }
+    langGroup.appendChild(langLabel);
+    langGroup.appendChild(langSelect);
+
+    const filenameGroup = document.createElement(&#x27;div&#x27;);
+    filenameGroup.className = &#x27;snipo-form-group half-width&#x27;;
+    const filenameLabel = document.createElement(&#x27;label&#x27;);
+    filenameLabel.textContent = &#x27;Filename&#x27;;
+    const filenameInput = document.createElement(&#x27;input&#x27;);
+    filenameInput.type = &#x27;text&#x27;;
+    filenameInput.id = &#x27;snipo-filename&#x27;;
+    filenameInput.className = &#x27;snipo-input&#x27;;
+    filenameInput.value = currentFilename;
+    filenameGroup.appendChild(filenameLabel);
+    filenameGroup.appendChild(filenameInput);
+
+    rowGroup.appendChild(langGroup);
+    rowGroup.appendChild(filenameGroup);
+    modal.appendChild(rowGroup);
+
+    // Description field
+    const descGroup = document.createElement(&#x27;div&#x27;);
+    descGroup.className = &#x27;snipo-form-group&#x27;;
+    const descLabel = document.createElement(&#x27;label&#x27;);
+    descLabel.textContent = &#x27;Description&#x27;;
+    const descTextarea = document.createElement(&#x27;textarea&#x27;);
+    descTextarea.id = &#x27;snipo-desc&#x27;;
+    descTextarea.className = &#x27;snipo-textarea&#x27;;
+    descTextarea.textContent = &#x27;Saved from &#x27; + snippetData.sourceURL;
+    descGroup.appendChild(descLabel);
+    descGroup.appendChild(descTextarea);
+    modal.appendChild(descGroup);
+
+    // Folder field
+    const folderGroup = document.createElement(&#x27;div&#x27;);
+    folderGroup.className = &#x27;snipo-form-group&#x27;;
+    const folderLabel = document.createElement(&#x27;label&#x27;);
+    folderLabel.textContent = &#x27;Folder&#x27;;
+    const folderSelect = document.createElement(&#x27;select&#x27;);
+    folderSelect.id = &#x27;snipo-folder&#x27;;
+    folderSelect.className = &#x27;snipo-select&#x27;;
+    const noFolderOption = document.createElement(&#x27;option&#x27;);
+    noFolderOption.value = &#x27;&#x27;;
+    noFolderOption.textContent = &#x27;No Folder&#x27;;
+    folderSelect.appendChild(noFolderOption);
+    function appendFolders(items, parentPath = &#x27;&#x27;) {
+        items.forEach(folder =&gt; {
+            const path = parentPath ? `${parentPath} / ${folder.name}` : folder.name;
+            const option = document.createElement(&#x27;option&#x27;);
+            option.value = folder.id;
+            option.textContent = path;
+            folderSelect.appendChild(option);
+            if (folder.children?.length) appendFolders(folder.children, path);
+        });
+    }
+    appendFolders(folders);
+    folderGroup.appendChild(folderLabel);
+    folderGroup.appendChild(folderSelect);
+    modal.appendChild(folderGroup);
+
+    // Tags field
+    const tagsGroup = document.createElement(&#x27;div&#x27;);
+    tagsGroup.className = &#x27;snipo-form-group&#x27;;
+    tagsGroup.style.position = &#x27;relative&#x27;;
+    const tagsLabel = document.createElement(&#x27;label&#x27;);
+    tagsLabel.textContent = &#x27;Tags&#x27;;
+    const tagInputContainer = document.createElement(&#x27;div&#x27;);
+    tagInputContainer.className = &#x27;snipo-tag-input-container&#x27;;
+    const tagsInput = document.createElement(&#x27;input&#x27;);
+    tagsInput.type = &#x27;text&#x27;;
+    tagsInput.id = &#x27;snipo-tags&#x27;;
+    tagsInput.className = &#x27;snipo-input&#x27;;
+    tagsInput.placeholder = &#x27;Type to add tags...&#x27;;
+    tagsInput.autocomplete = &#x27;off&#x27;;
+    const tagsList = document.createElement(&#x27;div&#x27;);
+    tagsList.id = &#x27;snipo-tags-list&#x27;;
+    tagsList.className = &#x27;snipo-tags-list&#x27;;
+    tagInputContainer.appendChild(tagsInput);
+    tagInputContainer.appendChild(tagsList);
+    const tagSuggestions = document.createElement(&#x27;div&#x27;);
+    tagSuggestions.id = &#x27;snipo-tag-suggestions&#x27;;
+    tagSuggestions.className = &#x27;snipo-suggestions-dropdown&#x27;;
+    tagsGroup.appendChild(tagsLabel);
+    tagsGroup.appendChild(tagInputContainer);
+    tagsGroup.appendChild(tagSuggestions);
+    modal.appendChild(tagsGroup);
+
+    // Action buttons
+    const actionsDiv = document.createElement(&#x27;div&#x27;);
+    actionsDiv.className = &#x27;snipo-modal-actions&#x27;;
+    const cancelBtn = document.createElement(&#x27;button&#x27;);
+    cancelBtn.id = &#x27;snipo-cancel&#x27;;
+    cancelBtn.className = &#x27;snipo-btn-secondary&#x27;;
+    cancelBtn.textContent = &#x27;Cancel&#x27;;
+    const saveBtn = document.createElement(&#x27;button&#x27;);
+    saveBtn.id = &#x27;snipo-save&#x27;;
+    saveBtn.className = &#x27;snipo-btn-primary&#x27;;
+    saveBtn.textContent = &#x27;Save Snippet&#x27;;
+    actionsDiv.appendChild(cancelBtn);
+    actionsDiv.appendChild(saveBtn);
+    modal.appendChild(actionsDiv);
+
+    overlay.appendChild(modal);
+
+    document.body.appendChild(overlay);
+
+    langSelect.addEventListener(&#x27;change&#x27;, (e) =&gt; {
+        const newLang = e.target.value;
+        const currentVal = filenameInput.value;
+        const currentExt = currentVal.split(&#x27;.&#x27;).pop();
+
+        // Simple logic: if filename looks like default (snippet.ext), update fully.
+        // If custom, try to update extension.
+        if (currentVal.startsWith(&#x27;snippet.&#x27;)) {
+            filenameInput.value = generateDefaultFilename(newLang);
+        } else {
+            // Replace extension
+            const newExt = getExt(newLang);
+            // If we can identify the old extension, swap it.
+            // If no dot, append.
+            if (currentVal.includes(&#x27;.&#x27;)) {
+                const parts = currentVal.split(&#x27;.&#x27;);
+                parts.pop();
+                filenameInput.value = parts.join(&#x27;.&#x27;) + &#x27;.&#x27; + newExt;
+            } else {
+                filenameInput.value = currentVal + &#x27;.&#x27; + newExt;
+            }
+        }
+    });
+
+    // Animation
+    requestAnimationFrame(() =&gt; overlay.classList.add(&#x27;visible&#x27;));
+
+    // Event Listeners
+    const close = () =&gt; {
+        modalOpen = false;
+        document.removeEventListener(&#x27;keydown&#x27;, onDialogKeyDown, true);
+        overlay.classList.remove(&#x27;visible&#x27;);
+        window.close();
+    };
+
+    const onDialogKeyDown = event =&gt; {
+        if (event.key === &#x27;Escape&#x27;) {
+            event.preventDefault();
+            event.stopPropagation();
+            close();
+        }
+    };
+    document.addEventListener(&#x27;keydown&#x27;, onDialogKeyDown, true);
+    titleInput.focus();
+
+    const suggestionsBox = overlay.querySelector(&#x27;#snipo-tag-suggestions&#x27;);
+
+    // Autocomplete Logic
+    tagsInput.addEventListener(&#x27;input&#x27;, () =&gt; {
+        const val = tagsInput.value;
+        const tokens = val.split(&#x27;,&#x27;);
+        const currentToken = tokens[tokens.length - 1].trim().toLowerCase();
+
+        if (!currentToken) {
+            suggestionsBox.classList.remove(&#x27;visible&#x27;);
+            return;
+        }
+
+        // Filter tags
+        const usedTags = tokens.slice(0, -1).map(t =&gt; t.trim().toLowerCase());
+        const matches = tags.filter(t =&gt;
+            t.name.toLowerCase().includes(currentToken) &amp;&amp;
+            !usedTags.includes(t.name.toLowerCase())
+        );
+
+        if (matches.length === 0) {
+            suggestionsBox.classList.remove(&#x27;visible&#x27;);
+            return;
+        }
+
+        suggestionsBox.textContent = &#x27;&#x27;;
+        matches.forEach(t =&gt; {
+            const name = t.name;
+            const idx = name.toLowerCase().indexOf(currentToken);
+            const part1 = name.substring(0, idx);
+            const part2 = name.substring(idx, idx + currentToken.length);
+            const part3 = name.substring(idx + currentToken.length);
+
+            const item = document.createElement(&#x27;div&#x27;);
+            item.className = &#x27;snipo-suggestion-item&#x27;;
+            item.dataset.val = name;
+
+            item.appendChild(document.createTextNode(part1));
+            const matchSpan = document.createElement(&#x27;span&#x27;);
+            matchSpan.className = &#x27;match&#x27;;
+            matchSpan.textContent = part2;
+            item.appendChild(matchSpan);
+            item.appendChild(document.createTextNode(part3));
+
+            suggestionsBox.appendChild(item);
+        });
+
+        suggestionsBox.classList.add(&#x27;visible&#x27;);
+    });
+
+    suggestionsBox.addEventListener(&#x27;click&#x27;, (e) =&gt; {
+        const item = e.target.closest(&#x27;.snipo-suggestion-item&#x27;);
+        if (item) {
+            const selectedTag = item.getAttribute(&#x27;data-val&#x27;);
+            const tokens = tagsInput.value.split(&#x27;,&#x27;);
+            tokens.pop();
+            tokens.push(selectedTag);
+            tagsInput.value = tokens.join(&#x27;, &#x27;) + &#x27;, &#x27;;
+            tagsInput.focus();
+            suggestionsBox.classList.remove(&#x27;visible&#x27;);
+        }
+    });
+
+    overlay.querySelector(&#x27;#snipo-cancel&#x27;).addEventListener(&#x27;click&#x27;, close);
+    overlay.addEventListener(&#x27;click&#x27;, (e) =&gt; {
+        if (e.target === overlay) close();
+        // Close suggestions if clicked outside
+        if (!tagsInput.contains(e.target) &amp;&amp; !suggestionsBox.contains(e.target)) {
+            suggestionsBox.classList.remove(&#x27;visible&#x27;);
+        }
+    });
+
+    overlay.querySelector(&#x27;#snipo-save&#x27;).addEventListener(&#x27;click&#x27;, async () =&gt; {
+        const title = overlay.querySelector(&#x27;#snipo-title&#x27;).value;
+        const language = overlay.querySelector(&#x27;#snipo-language&#x27;).value;
+        const filename = overlay.querySelector(&#x27;#snipo-filename&#x27;).value; // Get filename
+        const description = overlay.querySelector(&#x27;#snipo-desc&#x27;).value;
+        const folderId = overlay.querySelector(&#x27;#snipo-folder&#x27;).value || null;
+        const tagsInputVal = overlay.querySelector(&#x27;#snipo-tags&#x27;).value;
+        const tagNames = tagsInputVal.split(&#x27;,&#x27;).map(t =&gt; t.trim()).filter(t =&gt; t);
+
+        const saveBtn = overlay.querySelector(&#x27;#snipo-save&#x27;);
+        saveBtn.innerText = &#x27;Saving...&#x27;;
+        saveBtn.disabled = true;
+
+        // Backend expects array of strings for tags
+        // It handles creation/lookup automatically
+
+        // Send Save Request
+        chrome.runtime.sendMessage({
+            action: &quot;saveDraftSnippet&quot;,
+            draftId: draftId,
+            code: snippetData.code,
+            language: language,
+            title: title,
+            description: description,
+            folder_id: folderId,
+            tags: tagNames, // Send Names
+            filename: filename // Send filename
+        }, (response) =&gt; {
+            if (chrome.runtime.lastError) {
+                console.error(&quot;Save failed:&quot;, chrome.runtime.lastError.message);
+                saveBtn.innerText = &#x27;Save Snippet&#x27;;
+                saveBtn.disabled = false;
+                showToast(false, &quot;Failed to connect to background script.&quot;);
+                return;
+            }
+            if (response &amp;&amp; response.success) {
+                close();
+            } else {
+                saveBtn.innerText = &#x27;Save Snippet&#x27;;
+                saveBtn.disabled = false;
+                showToast(false, response ? response.error : &quot;Unknown error&quot;);
+            }
+        });
+    });
+}
+// ----------------
+&lt;/script&gt;&lt;script&gt;window.addEventListener(&quot;load&quot;,()=&gt;{document.querySelector(&quot;#snipo-filename&quot;).value=&quot;fetch-json.ts&quot;;document.querySelector(&quot;#snipo-folder&quot;).value=&quot;1&quot;;document.querySelector(&quot;#snipo-tags&quot;).value=&quot;typescript, http, utilities&quot;;document.activeElement.blur();});&lt;/script&gt;"></iframe></div></figure></div></main></body></html>

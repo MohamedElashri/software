@@ -184,6 +184,7 @@ asset = [
 [[project]]
 id = "snippy"
 name = "Snippy"
+screenshot = "snippy"
 section = "cli"
 repo = "MohamedElashri/snipo"
 tagline = "Browse, edit and copy snippets from your Snipo server in the terminal."
@@ -317,6 +318,7 @@ asset = []
 [[project]]
 id = "snipo-extension"
 name = "Snipo for browsers"
+screenshot = "snipo-extension"
 section = "extensions"
 repo = "MohamedElashri/snipo"
 tagline = "Save selected text to your Snipo server from Chrome and Firefox."

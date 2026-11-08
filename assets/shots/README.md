@@ -1,7 +1,8 @@
 # Screenshots
 
 Each project's own repository is the first source. When it has no screenshot,
-the installed app is captured on macOS with demo data, never real hosts or files.
+the app is captured on macOS with demo data, never real hosts or files.
+Compositions and terminal-output renders are identified below.
 Terminal tools run in a separate Kwi window with a throwaway `$HOME`.
 
 | File | Source |
@@ -10,6 +11,8 @@ Terminal tools run in a separate Kwi window with a throwaway `$HOME`.
 | `hession-{light,dark}.png` | hession repo, `docs/screenshots/` |
 | `hedit-{light,dark}.png` | hedit repo, `docs/images/` |
 | `snipo-{light,dark}.png` | snipo repo, `docs/demo*.png` |
+| `snippy-{light,dark}.png` | Snippy 2.2.1 release binary, real PTY detail view against a throwaway local Snipo database; ANSI output rendered with pyte and Pillow, Menlo 22 px, light/dark terminal palettes |
+| `snipo-extension-{light,dark}.png` | Composition in `assets/compose/`: sample documentation beside the extension 2.2.1 save page, using its actual HTML, CSS and JavaScript with fixture draft/folder/tag responses; the save form retains its native dark appearance in both variants |
 | `zirq.png` | zirq repo, `assets/readme/screenshot.png` |
 | `sivro-{light,dark}.png` | sivro repo, `docs/images/` (demo `sales.parquet`) |
 | `ternway-{light,dark}.png` | Ternway 0.3.0, launched with a throwaway `$HOME` and demo SSH hosts on documentation IP ranges |
