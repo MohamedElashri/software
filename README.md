@@ -24,5 +24,4 @@ python3 scripts/sync-releases.py  # requires GITHUB_TOKEN or a logged-in gh
 ```
 
 For screenshots, add light/dark PNGs to `assets/shots/` and run
-`scripts/build-images.sh` (requires ImageMagick, `avifenc` and `cwebp`). See the
-[screenshot guide](assets/shots/README.md) for details.
+`scripts/build-images.sh` (requires ImageMagick, `avifenc` and `cwebp`).
