@@ -29,7 +29,7 @@ BROWSERS = [
     "/Applications/Waterfox.app/Contents/MacOS/waterfox",
     "firefox",
 ]
-OS_NAMES = {"macos": "macOS", "linux": "Linux", "windows": "Windows", "firefox": "Firefox"}
+OS_NAMES = {"macos": "macOS", "linux": "Linux", "windows": "Windows", "firefox": "Firefox", "chrome": "Chrome"}
 SECTION_NAMES = {"apps": "Desktop app", "cli": "Command-line tool", "extensions": "Browser extension"}
 
 STYLE = """
