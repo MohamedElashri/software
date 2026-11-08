@@ -11,7 +11,7 @@ Terminal tools run in a separate Kwi window with a throwaway `$HOME`.
 | `hession-{light,dark}.png` | hession repo, `docs/screenshots/` |
 | `hedit-{light,dark}.png` | hedit repo, `docs/images/` |
 | `snipo-{light,dark}.png` | snipo repo, `docs/demo*.png` |
-| `snippy-{light,dark}.png` | Snippy 2.2.1 release binary, real PTY detail view against a throwaway local Snipo database; ANSI output rendered with pyte and Pillow, Menlo 22 px, light/dark terminal palettes |
+| `snippy-{light,dark}.png` | Snippy 2.2.1 release binary in Rex Beta, captured directly from the native terminal against a throwaway local Snipo database; cropped to the terminal content at native resolution (1408×880), with the complete sample snippet, file tabs and keyboard hints visible |
 | `snipo-extension-{light,dark}.png` | Composition in `assets/compose/`: sample documentation beside the extension 2.2.1 save page, using its actual HTML, CSS and JavaScript with fixture draft/folder/tag responses; the save form retains its native dark appearance in both variants |
 | `zirq.png` | zirq repo, `assets/readme/screenshot.png` |
 | `sivro-{light,dark}.png` | sivro repo, `docs/images/` (demo `sales.parquet`) |
