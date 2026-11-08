@@ -1395,6 +1395,7 @@
       "published_label": "Apr 11, 2026",
       "release_url": "https://github.com/MohamedElashri/json-formatter/releases/tag/v1.0.1",
       "repo_url": "https://github.com/MohamedElashri/json-formatter",
+      "license": "MIT",
       "assets": [
         {
           "os": "firefox",
