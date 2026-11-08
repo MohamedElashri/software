@@ -20,7 +20,7 @@ Terminal tools run in a separate Kwi window with a throwaway `$HOME`.
 | `imgblock-{light,dark}.png` | ImgBlock 1.0.1 before and after on a local demo article, composed from `assets/compose/` |
 | `devtab-{light,dark}.png` | DevTab 1.3.0 from Firefox Add-ons in a throwaway profile, cropped to the new-tab page |
 | `txm.png` | `txm dashboard` (2.1.0 release binary) in Kwi, with three demo native sessions |
-| `sanad.png` | `sanad check && sanad plan` (1.0.1) in Kwi, run in a clone of this repository |
+| `sanad-{light,dark}.png` | Sanad 1.0.2's real `sanad check && sanad plan` output in Rex Beta, run in an isolated clone of this repository; both commands verify online, with the current formatted update table; native terminal capture cropped to 1408×880 |
 | `agrep.png` | agrep 0.1.1 in Kwi on a short demo Arabic corpus, matching across tashkil, tatweel and ta marbuta |
 | `free-mac.png` | `free -h -t && free -m -s 1 -c 2` (free-mac 0.4) in Kwi |
 | `nida-{light,dark}.png` | The Nida documentation site (built with Nida), headless Waterfox at 1440 px |
