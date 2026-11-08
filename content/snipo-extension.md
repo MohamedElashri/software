@@ -16,6 +16,6 @@ The Chrome and Firefox companion to a running [Snipo server](../snipo/). Select 
 
 Install from the [Chrome Web Store](https://chromewebstore.google.com/detail/snipo-code-snippet-manage/gagllhkjibjhllhkmiphjpahbgnmgana) or [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/snipo-code-snippet-manager/). Store versions may lag the GitHub release shown here.
 
-The downloads on this page are release ZIPs: extract the Chrome package and load it as an unpacked extension; the Firefox package is for temporary loading or store submission, rather than signed installation. Use Firefox Add-ons for a signed installation.
+Release ZIPs are available under **All downloads** for manual or temporary loading. Use the store links above for regular installation and automatic updates.
 
 In the extension options, enter your Snipo server URL and a dedicated API token with write permission, test the connection, and save. Use [Snippy](../snippy/) if you prefer to work in the terminal.

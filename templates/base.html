@@ -134,18 +134,19 @@
 {{- /* Quick download rows, one per platform. Call with (dict "P" project "R" release). */ -}}
 {{- define "dl-rows" -}}
 {{- $r := .R }}{{ $p := .P -}}
+{{- $firefox := "" }}{{ with $r.store_url }}{{ $firefox = . }}{{ end }}{{ with $p.firefox_store }}{{ $firefox = . }}{{ end -}}
 <ul class="dl-rows">
-  {{- with $p.chrome_store }}
-  <li data-os="chrome">
-    <a class="dl-row" href="{{ . }}" aria-label="Add {{ $p.name }} to Chrome from Chrome Web Store">
+  {{- range slice (dict "os" "chrome" "name" "Chrome" "store" "Chrome Web Store" "url" $p.chrome_store) (dict "os" "firefox" "name" "Firefox" "store" "Firefox Add-ons" "url" $firefox) }}{{ if .url }}
+  <li data-os="{{ .os }}">
+    <a class="dl-row" href="{{ .url }}" aria-label="Add {{ $p.name }} to {{ .name }} from {{ .store }}">
       <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v8m0 0L4.8 7.3M8 10.5l3.2-3.2M3 13.5h10"/></svg>
-      <span class="dl-os">Add to Chrome</span>
-      <span class="dl-meta">Chrome Web Store</span>
+      <span class="dl-os">Add to {{ .name }}</span>
+      <span class="dl-meta">{{ .store }}</span>
       <span class="dl-size"></span>
     </a>
   </li>
-  {{- end }}
-  {{- range $r.assets }}{{ if .primary }}
+  {{- end }}{{ end }}
+  {{- range $r.assets }}{{ if and .primary (not (or (and (eq .os "chrome") $p.chrome_store) (and (eq .os "firefox") $firefox))) }}
   <li data-os="{{ .os }}">
     <a class="dl-row" href="{{ if eq $r.source "amo" }}{{ $r.store_url }}{{ else }}{{ .url }}{{ end }}"
        aria-label="{{ if eq .os "firefox" }}Add {{ $p.name }} to Firefox{{ if eq $r.source "amo" }} from Firefox Add-ons{{ end }}{{ else }}Download {{ $p.name }} {{ $r.version }} for {{ .os_label }}{{ with .arch_label }}, {{ . }}{{ end }}, {{ .kind_label }}, {{ .size_label }}{{ end }}">
@@ -207,7 +208,9 @@
 {{- with $r.published }}{{ $app = merge $app (dict "datePublished" .) }}{{ end -}}
 {{- with $r.release_url }}{{ $app = merge $app (dict "downloadUrl" . "releaseNotes" .) }}{{ end -}}
 {{- with $r.store_url }}{{ $app = merge $app (dict "downloadUrl" . "installUrl" .) }}{{ end -}}
-{{- with $p.chrome_store }}{{ if $r.store_url }}{{ $app = merge $app (dict "installUrl" (slice . $r.store_url)) }}{{ else }}{{ $app = merge $app (dict "installUrl" .) }}{{ end }}{{ end -}}
+{{- $firefox := "" }}{{ with $r.store_url }}{{ $firefox = . }}{{ end }}{{ with $p.firefox_store }}{{ $firefox = . }}{{ end -}}
+{{- with $firefox }}{{ $app = merge $app (dict "installUrl" .) }}{{ end -}}
+{{- with $p.chrome_store }}{{ if $firefox }}{{ $app = merge $app (dict "installUrl" (slice . $firefox)) }}{{ else }}{{ $app = merge $app (dict "installUrl" .) }}{{ end }}{{ end -}}
 {{- with $r.license }}{{ $app = merge $app (dict "license" (printf "https://spdx.org/licenses/%s.html" .)) }}{{ end }}
 <script type="application/ld+json">{{ jsonify $app }}</script>
 <script type="application/ld+json">{{ jsonify (dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" (slice (dict "@type" "ListItem" "position" 1 "name" "Software" "item" $site) (dict "@type" "ListItem" "position" 2 "name" $p.name "item" .CanonicalURL))) }}</script>

@@ -13,6 +13,7 @@
 #   source      github (default) | amo  (Firefox Add-ons is the source of truth)
 #   amo         AMO slug, when source = "amo"
 #   chrome_store optional Chrome Web Store listing URL
+#   firefox_store optional Firefox Add-ons listing URL (overrides release downloads)
 #   tagline     one line, shown in the index
 #   homepage    optional project site
 #   screenshot  optional base name in data/shots.json; "<name>-light"/"<name>-dark" are
@@ -324,6 +325,8 @@ section = "extensions"
 repo = "MohamedElashri/snipo"
 tagline = "Save selected text to your Snipo server from Chrome and Firefox."
 homepage = "https://github.com/MohamedElashri/snipo/tree/main/extension"
+chrome_store = "https://chromewebstore.google.com/detail/snipo-code-snippet-manage/gagllhkjibjhllhkmiphjpahbgnmgana"
+firefox_store = "https://addons.mozilla.org/firefox/addon/snipo-code-snippet-manager/"
 platforms = ["chrome", "firefox"]
 checksums = '^checksums\.txt$'
 install = []

@@ -55,7 +55,8 @@
       {{ unsafeHTML .Page.BodyHTML }}
       <ul class="links">
         {{- with $r }}{{ with .release_url }}<li><a href="{{ . }}">Release notes</a></li>{{ end }}{{ end }}
-        {{- with $r }}{{ with .store_url }}<li><a href="{{ . }}">Firefox Add-ons</a></li>{{ end }}{{ end }}
+        {{- $firefox := "" }}{{ with $r.store_url }}{{ $firefox = . }}{{ end }}{{ with $p.firefox_store }}{{ $firefox = . }}{{ end }}
+        {{- with $firefox }}<li><a href="{{ . }}">Firefox Add-ons</a></li>{{ end }}
         {{- with $p.chrome_store }}<li><a href="{{ . }}">Chrome Web Store</a></li>{{ end }}
         {{- with $p.homepage }}<li><a href="{{ . }}">Website</a></li>{{ end }}
         <li><a href="https://github.com/{{ $p.repo }}">GitHub repository</a></li>

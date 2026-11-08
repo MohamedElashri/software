@@ -114,7 +114,8 @@ class BuildTest(unittest.TestCase):
             entry = RELEASES[project["id"]]
             for item in entry.get("assets", []):
                 if item["primary"]:
-                    url = entry["store_url"] if entry["source"] == "amo" else item["url"]
+                    url = project.get(f'{item["os"]}_store') or (
+                        entry["store_url"] if entry["source"] == "amo" else item["url"])
                     with self.subTest(project["id"], os=item["os"]):
                         self.assertIn(url, html)
 
@@ -139,7 +140,26 @@ class BuildTest(unittest.TestCase):
                         + r'"? aria-label="Add ' + re.escape(project["name"])
                         + r' to Chrome from Chrome Web Store">',
                     )
-                    self.assertIn(RELEASES[project["id"]]["store_url"], html)
+                    firefox = project.get("firefox_store") or RELEASES[project["id"]].get("store_url")
+                    if firefox:
+                        self.assertRegex(
+                            html,
+                            r'<a class="?dl-row"? href="?' + re.escape(firefox)
+                            + r'"? aria-label="Add ' + re.escape(project["name"])
+                            + r' to Firefox from Firefox Add-ons">',
+                        )
+
+    def test_snipo_store_links_replace_quick_zip_downloads(self):
+        index = (PUBLIC / "index.html").read_text()
+        page = (PUBLIC / "snipo-extension" / "index.html").read_text()
+        card = re.search(r'<article aria-labelledby="?c-snipo-extension"?>(.*?)</article>', index, re.S).group(1)
+        quick = re.search(r'<section class="?quick"?[^>]*>(.*?)</section>', page, re.S).group(1)
+        project = next(p for p in PROJECTS if p["id"] == "snipo-extension")
+        for html in (card, quick):
+            for store in ("chrome_store", "firefox_store"):
+                self.assertIn(project[store], html)
+            for asset in RELEASES["snipo-extension"]["assets"]:
+                self.assertNotIn(asset["url"], html)
 
 
 @unittest.skipUnless((PUBLIC / "index.html").exists(), "run `nida build` first")
@@ -202,7 +222,9 @@ class SeoTest(unittest.TestCase):
                 self.assertIn("Chrome", app["operatingSystem"])
                 self.assertIn("Chrome", self.meta(head, "description"))
                 self.assertIn(project["chrome_store"], app["installUrl"])
-                self.assertIn(RELEASES[project["id"]]["store_url"], app["installUrl"])
+                firefox = project.get("firefox_store") or RELEASES[project["id"]].get("store_url")
+                if firefox:
+                    self.assertIn(firefox, app["installUrl"])
 
 
 class Audit(HTMLParser):
