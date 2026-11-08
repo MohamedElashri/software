@@ -143,20 +143,20 @@ asset = [
 ]
 
 [[project]]
-id = "kwi"
-name = "Kwi for Mac"
+id = "zirq"
+name = "Zirq"
 section = "apps"
-repo = "MohamedElashri/kwi-mac"
+repo = "MohamedElashri/zirq"
 tagline = "A Metal-accelerated terminal for Apple Silicon with bidirectional Arabic, Persian and Hebrew."
-screenshot = "kwi"
+screenshot = "zirq"
 platforms = ["macos"]
 checksums = '^SHA256SUMS$'
 install = [
-  { label = "Homebrew", cmd = "brew tap MohamedElashri/kwi-mac https://github.com/MohamedElashri/kwi-mac.git && brew install --cask mohamedelashri/kwi-mac/kwi-mac" },
-  { label = "Script", cmd = "curl -fsSL https://raw.githubusercontent.com/MohamedElashri/kwi-mac/main/install.sh | bash" },
+  { label = "Homebrew", cmd = "brew tap MohamedElashri/zirq https://github.com/MohamedElashri/zirq.git && brew install --cask mohamedelashri/zirq/zirq" },
+  { label = "Script", cmd = "curl -fsSL https://raw.githubusercontent.com/MohamedElashri/zirq/main/install.sh | bash" },
 ]
 asset = [
-  { os = "macos", arch = "arm64", kind = "zip", match = '^Kwi-arm64\.zip$' },
+  { os = "macos", arch = "arm64", kind = "zip", match = '^(?:Zirq|Kwi)-arm64\.zip$' },
 ]
 
 [[project]]

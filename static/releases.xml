@@ -62,10 +62,10 @@
     <summary>A small static site generator for blogs, personal sites and documentation.</summary>
   </entry>
   <entry>
-    <title>Kwi for Mac 0.2.0</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/kwi/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/kwi-mac/releases/tag/v0.2.0"/>
-    <id>tag:melashri.net,2026:software/kwi/0.2.0</id>
+    <title>Zirq 0.2.0</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/zirq/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/zirq/releases/tag/v0.2.0"/>
+    <id>tag:melashri.net,2026:software/zirq/0.2.0</id>
     <published>2026-11-04T11:41:18Z</published>
     <updated>2026-11-04T11:41:18Z</updated>
     <summary>A Metal-accelerated terminal for Apple Silicon with bidirectional Arabic, Persian and Hebrew.</summary>

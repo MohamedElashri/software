@@ -10,7 +10,7 @@ Terminal tools run in a separate Kwi window with a throwaway `$HOME`.
 | `hession-{light,dark}.png` | hession repo, `docs/screenshots/` |
 | `hedit-{light,dark}.png` | hedit repo, `docs/images/` |
 | `snipo-{light,dark}.png` | snipo repo, `docs/demo*.png` |
-| `kwi.png` | kwi-mac repo, `assets/readme/screenshot.png` |
+| `zirq.png` | zirq repo, `assets/readme/screenshot.png` |
 | `sivro-{light,dark}.png` | sivro repo, `docs/images/` (demo `sales.parquet`) |
 | `ternway-{light,dark}.png` | Ternway 0.3.0, launched with a throwaway `$HOME` and demo SSH hosts on documentation IP ranges |
 | `json-formatter-{light,dark}.png` | JSON Formatter 1.0.1 content script on a local page of `releases.json`, cropped to the page |

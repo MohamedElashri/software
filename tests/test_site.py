@@ -120,8 +120,8 @@ class BuildTest(unittest.TestCase):
 
     def test_pages_have_theme_toggle(self):
         for path in PUBLIC.rglob("index.html"):
-            if path.parent.name == "1":
-                continue  # nida's /page/1/ redirect stub
+            if "<title>Redirect</title>" in path.read_text()[:300]:
+                continue  # Nida's pagination and legacy URL redirects.
             with self.subTest(path.relative_to(PUBLIC).as_posix()):
                 self.assertIn("theme-toggle", path.read_text())
 

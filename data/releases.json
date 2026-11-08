@@ -611,16 +611,16 @@
         }
       ]
     },
-    "kwi": {
+    "zirq": {
       "source": "github",
       "tag": "v0.2.0",
       "version": "0.2.0",
       "published": "2026-11-04",
       "published_at": "2026-11-04T11:41:18Z",
       "published_label": "Nov 4, 2026",
-      "release_url": "https://github.com/MohamedElashri/kwi-mac/releases/tag/v0.2.0",
-      "repo_url": "https://github.com/MohamedElashri/kwi-mac",
-      "checksums_url": "https://github.com/MohamedElashri/kwi-mac/releases/download/v0.2.0/SHA256SUMS",
+      "release_url": "https://github.com/MohamedElashri/zirq/releases/tag/v0.2.0",
+      "repo_url": "https://github.com/MohamedElashri/zirq",
+      "checksums_url": "https://github.com/MohamedElashri/zirq/releases/download/v0.2.0/SHA256SUMS",
       "assets": [
         {
           "os": "macos",
@@ -632,7 +632,7 @@
           "kind_label": "Archive (.zip)",
           "kind_short": ".zip",
           "name": "Kwi-arm64.zip",
-          "url": "https://github.com/MohamedElashri/kwi-mac/releases/download/v0.2.0/Kwi-arm64.zip",
+          "url": "https://github.com/MohamedElashri/zirq/releases/download/v0.2.0/Kwi-arm64.zip",
           "size": 78181617,
           "size_label": "78.2 MB",
           "sha256": "825b700cb4447d726b13a3a37f7bf7bb5b0d14baf284d89b9161ef5c330cd958",
