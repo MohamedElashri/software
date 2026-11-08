@@ -1,8 +1,10 @@
 {
-  "agrep": {"widths": [640, 1280, 1600], "width": 1600, "height": 973},
+  "agrep-dark": {"widths": [640, 1088], "width": 1088, "height": 680},
+  "agrep-light": {"widths": [640, 1088], "width": 1088, "height": 680},
   "devtab-dark": {"widths": [640, 1280, 1600], "width": 1600, "height": 774},
   "devtab-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 774},
-  "free-mac": {"widths": [640, 1280, 1600], "width": 1600, "height": 973},
+  "free-mac-dark": {"widths": [640, 1280, 1408], "width": 1408, "height": 880},
+  "free-mac-light": {"widths": [640, 1280, 1408], "width": 1408, "height": 880},
   "hedit-dark": {"widths": [640, 1280, 1600], "width": 1600, "height": 975},
   "hedit-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 975},
   "hession-dark": {"widths": [640, 1280, 1440], "width": 1440, "height": 900},
@@ -11,7 +13,8 @@
   "imgblock-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 1000},
   "json-formatter-dark": {"widths": [640, 1280, 1600], "width": 1600, "height": 705},
   "json-formatter-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 705},
-  "mdiff": {"widths": [640, 1280, 1600], "width": 1600, "height": 981},
+  "mdiff-dark": {"widths": [640, 1280, 1600], "width": 1600, "height": 941},
+  "mdiff-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 941},
   "nida-dark": {"widths": [640, 1280, 1440], "width": 1440, "height": 900},
   "nida-light": {"widths": [640, 1280, 1440], "width": 1440, "height": 900},
   "sanad-dark": {"widths": [640, 1280, 1408], "width": 1408, "height": 880},
@@ -26,6 +29,8 @@
   "snippy-light": {"widths": [640, 1280, 1408], "width": 1408, "height": 880},
   "ternway-dark": {"widths": [640, 1280, 1600], "width": 1600, "height": 1041},
   "ternway-light": {"widths": [640, 1280, 1600], "width": 1600, "height": 1041},
-  "txm": {"widths": [640, 1280, 1600], "width": 1600, "height": 801},
-  "zirq": {"widths": [640, 1280, 1600], "width": 1600, "height": 747}
+  "txm-dark": {"widths": [640, 880], "width": 880, "height": 550},
+  "txm-light": {"widths": [640, 880], "width": 880, "height": 550},
+  "zirq-dark": {"widths": [640, 1152], "width": 1152, "height": 720},
+  "zirq-light": {"widths": [640, 1152], "width": 1152, "height": 720}
 }
