@@ -354,14 +354,14 @@ id = "json-formatter"
 name = "JSON Formatter"
 section = "extensions"
 repo = "MohamedElashri/json-formatter"
+source = "amo"
+amo = "json-format"
 tagline = "Readable, collapsible JSON in Firefox."
 screenshot = "json-formatter"
 homepage = "https://blog.melashri.net/posts/json-formatter/"
 platforms = ["firefox"]
 install = []
-asset = [
-  { os = "firefox", arch = "any", kind = "xpi", match = '^json-formatter-[\d.]+\.xpi$' },
-]
+asset = []
 
 [[project]]
 id = "imgblock"

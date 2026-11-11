@@ -1387,13 +1387,12 @@
       ]
     },
     "json-formatter": {
-      "source": "github",
-      "tag": "v1.0.1",
-      "version": "1.0.1",
-      "published": "2026-04-11",
-      "published_at": "2026-04-11T02:35:59Z",
-      "published_label": "Apr 11, 2026",
-      "release_url": "https://github.com/MohamedElashri/json-formatter/releases/tag/v1.0.1",
+      "source": "amo",
+      "version": "1.0.2",
+      "published": "2026-11-08",
+      "published_at": "2026-11-08T02:54:21Z",
+      "published_label": "Nov 8, 2026",
+      "store_url": "https://addons.mozilla.org/en-US/firefox/addon/json-format/",
       "repo_url": "https://github.com/MohamedElashri/json-formatter",
       "license": "MIT",
       "assets": [
@@ -1406,11 +1405,11 @@
           "arch_label": "",
           "kind_label": "Add-on (.xpi)",
           "kind_short": ".xpi",
-          "name": "json-formatter-1.0.1.xpi",
-          "url": "https://github.com/MohamedElashri/json-formatter/releases/download/v1.0.1/json-formatter-1.0.1.xpi",
-          "size": 15197,
-          "size_label": "15 KB",
-          "sha256": "e0ccbba830b3e613a8af0ede1116d33d9a3c31044fa83a7afbd5d512fe1f0b8c",
+          "name": "json_format-1.0.2.xpi",
+          "url": "https://addons.mozilla.org/firefox/downloads/file/5223093/json_format-1.0.2.xpi",
+          "size": 39149,
+          "size_label": "39 KB",
+          "sha256": "1719af5d4efb7ee058aeb7695e035cd013b22c54fad658bf975367d3263d43cd",
           "primary": true
         }
       ]

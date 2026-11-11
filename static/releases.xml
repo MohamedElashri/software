@@ -35,6 +35,15 @@
     <summary>A searchable home for coding-agent sessions from this machine and your SSH hosts.</summary>
   </entry>
   <entry>
+    <title>JSON Formatter 1.0.2</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/json-formatter/"/>
+    <link rel="related" type="text/html" href="https://addons.mozilla.org/en-US/firefox/addon/json-format/"/>
+    <id>tag:melashri.net,2026:software/json-formatter/1.0.2</id>
+    <published>2026-11-08T02:54:21Z</published>
+    <updated>2026-11-08T02:54:21Z</updated>
+    <summary>Readable, collapsible JSON in Firefox.</summary>
+  </entry>
+  <entry>
     <title>Zirq 0.3.0</title>
     <link rel="alternate" type="text/html" href="https://melashri.net/software/zirq/"/>
     <link rel="related" type="text/html" href="https://github.com/MohamedElashri/zirq/releases/tag/v0.3.0"/>
@@ -132,15 +141,6 @@
     <published>2026-09-30T21:36:06Z</published>
     <updated>2026-09-30T21:36:06Z</updated>
     <summary>Arabic-aware grep.</summary>
-  </entry>
-  <entry>
-    <title>JSON Formatter 1.0.1</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/json-formatter/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/json-formatter/releases/tag/v1.0.1"/>
-    <id>tag:melashri.net,2026:software/json-formatter/1.0.1</id>
-    <published>2026-04-11T02:35:59Z</published>
-    <updated>2026-04-11T02:35:59Z</updated>
-    <summary>Readable, collapsible JSON in Firefox.</summary>
   </entry>
   <entry>
     <title>free for macOS 0.4</title>
