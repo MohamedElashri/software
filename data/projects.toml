@@ -13,6 +13,7 @@
 #   source      github (default) | amo  (Firefox Add-ons is the source of truth)
 #   amo         AMO slug, when source = "amo"
 #   chrome_store optional Chrome Web Store listing URL
+#   chrome_coming_soon optional placeholder until a Chrome Web Store listing is available
 #   firefox_store optional Firefox Add-ons listing URL (overrides release downloads)
 #   tagline     one line, shown in the index
 #   homepage    optional project site
@@ -356,6 +357,7 @@ section = "extensions"
 repo = "MohamedElashri/json-formatter"
 source = "amo"
 amo = "json-format"
+chrome_coming_soon = true
 tagline = "Readable, collapsible JSON in Firefox."
 screenshot = "json-formatter"
 homepage = "https://blog.melashri.net/posts/json-formatter/"
@@ -370,6 +372,7 @@ section = "extensions"
 repo = "MohamedElashri/imgblock"
 source = "amo"
 amo = "imgblock"
+chrome_coming_soon = true
 tagline = "Remove every non-icon image from a page with one click."
 screenshot = "imgblock"
 platforms = ["firefox"]

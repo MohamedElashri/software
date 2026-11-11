@@ -157,6 +157,15 @@
     </a>
   </li>
   {{- end }}{{ end }}
+  {{- if and $p.chrome_coming_soon (not $p.chrome_store) }}
+  <li>
+    <span class="dl-row dl-row-pending">
+      <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="M8 4.5V8l2.5 1.5"/></svg>
+      <span class="dl-os">Chrome</span>
+      <span class="dl-meta">Coming soon</span>
+    </span>
+  </li>
+  {{- end }}
 </ul>
 {{- end -}}
 
