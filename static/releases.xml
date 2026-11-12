@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://melashri.net/software/releases.xml"/>
   <link rel="alternate" type="text/html" href="https://melashri.net/software/"/>
   <id>https://melashri.net/software/</id>
-  <updated>2026-11-12T12:08:38Z</updated>
+  <updated>2026-11-12T14:44:23Z</updated>
   <author><name>Mohamed Elashri</name></author>
+  <entry>
+    <title>Sanad 1.1.0</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/sanad/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/sanad/releases/tag/v1.1.0"/>
+    <id>tag:melashri.net,2026:software/sanad/1.1.0</id>
+    <published>2026-11-12T14:44:23Z</published>
+    <updated>2026-11-12T14:44:23Z</updated>
+    <summary>Generate, review and update GitHub's native Actions lockfiles.</summary>
+  </entry>
   <entry>
     <title>hedit 0.3.0</title>
     <link rel="alternate" type="text/html" href="https://melashri.net/software/hedit/"/>
@@ -51,15 +60,6 @@
     <published>2026-11-08T01:12:20Z</published>
     <updated>2026-11-08T01:12:20Z</updated>
     <summary>A Metal-accelerated terminal for Apple Silicon with bidirectional Arabic, Persian and Hebrew.</summary>
-  </entry>
-  <entry>
-    <title>Sanad 1.0.2</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/sanad/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/sanad/releases/tag/v1.0.2"/>
-    <id>tag:melashri.net,2026:software/sanad/1.0.2</id>
-    <published>2026-11-07T00:10:27Z</published>
-    <updated>2026-11-07T00:10:27Z</updated>
-    <summary>Generate, review and update GitHub's native Actions lockfiles.</summary>
   </entry>
   <entry>
     <title>Ternway 0.3.1</title>
