@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://melashri.net/software/releases.xml"/>
   <link rel="alternate" type="text/html" href="https://melashri.net/software/"/>
   <id>https://melashri.net/software/</id>
-  <updated>2026-11-12T14:44:23Z</updated>
+  <updated>2026-11-12T23:19:33Z</updated>
   <author><name>Mohamed Elashri</name></author>
+  <entry>
+    <title>Hession 0.4.0</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/hession/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/hession/releases/tag/v0.4.0"/>
+    <id>tag:melashri.net,2026:software/hession/0.4.0</id>
+    <published>2026-11-12T23:19:33Z</published>
+    <updated>2026-11-12T23:19:33Z</updated>
+    <summary>A searchable home for coding-agent sessions from this machine and your SSH hosts.</summary>
+  </entry>
   <entry>
     <title>Sanad 1.1.0</title>
     <link rel="alternate" type="text/html" href="https://melashri.net/software/sanad/"/>
@@ -33,15 +42,6 @@
     <published>2026-11-09T15:37:04Z</published>
     <updated>2026-11-09T15:37:04Z</updated>
     <summary>A small static site generator for blogs, personal sites and documentation.</summary>
-  </entry>
-  <entry>
-    <title>Hession 0.2.1</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/hession/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/hession/releases/tag/v0.2.1"/>
-    <id>tag:melashri.net,2026:software/hession/0.2.1</id>
-    <published>2026-11-09T13:15:13Z</published>
-    <updated>2026-11-09T13:15:13Z</updated>
-    <summary>A searchable home for coding-agent sessions from this machine and your SSH hosts.</summary>
   </entry>
   <entry>
     <title>JSON Formatter 1.0.2</title>
