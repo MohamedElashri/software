@@ -9,6 +9,8 @@ id = "hedit"
 
 A native text editor for Linux, macOS and Windows that keeps your open files and unsaved notes from one session to the next. It covers code editing and project search, and it can also page through large files and follow logs as they grow.
 
+Linux downloads include AppImage, DEB, RPM and tarball packages for x64 and ARM64. On Linux, the install script verifies and installs the tarball under `~/.local`.
+
 - Recovery checkpoints, closed-file history and undo/redo across sessions
 - Multiple cursors, split panes, completions and go-to-definition
 - Git workspace with file, hunk and line staging, history, branches, conflict review and stashes

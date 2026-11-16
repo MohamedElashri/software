@@ -140,6 +140,12 @@ install = [
 ]
 asset = [
   { os = "macos", arch = "universal", kind = "zip", match = '-macos-universal\.zip$' },
+  { os = "linux", arch = "x64", kind = "appimage", match = '-linux-x86_64\.AppImage$' },
+  { os = "linux", arch = "arm64", kind = "appimage", match = '-linux-aarch64\.AppImage$' },
+  { os = "linux", arch = "x64", kind = "deb", match = '-linux-x86_64\.deb$' },
+  { os = "linux", arch = "arm64", kind = "deb", match = '-linux-aarch64\.deb$' },
+  { os = "linux", arch = "x64", kind = "rpm", match = '-linux-x86_64\.rpm$' },
+  { os = "linux", arch = "arm64", kind = "rpm", match = '-linux-aarch64\.rpm$' },
   { os = "linux", arch = "x64", kind = "tar.gz", match = '-linux-x86_64\.tar\.gz$' },
   { os = "linux", arch = "arm64", kind = "tar.gz", match = '-linux-aarch64\.tar\.gz$' },
   { os = "windows", arch = "x64", kind = "zip", match = '-windows-x86_64\.zip$' },
