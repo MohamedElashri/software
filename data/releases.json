@@ -709,14 +709,14 @@
     },
     "zirq": {
       "source": "github",
-      "tag": "v0.3.0",
-      "version": "0.3.0",
-      "published": "2026-11-08",
-      "published_at": "2026-11-08T01:12:20Z",
-      "published_label": "Nov 8, 2026",
-      "release_url": "https://github.com/MohamedElashri/zirq/releases/tag/v0.3.0",
+      "tag": "v0.3.1",
+      "version": "0.3.1",
+      "published": "2026-11-20",
+      "published_at": "2026-11-20T09:55:29Z",
+      "published_label": "Nov 20, 2026",
+      "release_url": "https://github.com/MohamedElashri/zirq/releases/tag/v0.3.1",
       "repo_url": "https://github.com/MohamedElashri/zirq",
-      "checksums_url": "https://github.com/MohamedElashri/zirq/releases/download/v0.3.0/SHA256SUMS",
+      "checksums_url": "https://github.com/MohamedElashri/zirq/releases/download/v0.3.1/SHA256SUMS",
       "assets": [
         {
           "os": "macos",
@@ -728,10 +728,10 @@
           "kind_label": "Archive (.zip)",
           "kind_short": ".zip",
           "name": "Zirq-arm64.zip",
-          "url": "https://github.com/MohamedElashri/zirq/releases/download/v0.3.0/Zirq-arm64.zip",
-          "size": 78321952,
-          "size_label": "78.3 MB",
-          "sha256": "93c78fea71ca0e767969a93f31163288101ea3b72ddcf07f530f84d9160ea2fc",
+          "url": "https://github.com/MohamedElashri/zirq/releases/download/v0.3.1/Zirq-arm64.zip",
+          "size": 78562500,
+          "size_label": "78.6 MB",
+          "sha256": "37aa7b501b827e58f6cd646a4b86341319df946ed6fe33dc914f54b91ee9930b",
           "primary": true
         }
       ]
@@ -1456,9 +1456,9 @@
     },
     "devtab": {
       "source": "amo",
-      "version": "1.3.2",
+      "version": "1.4.0",
       "published": "2026-11-20",
-      "published_at": "2026-11-20T01:07:39Z",
+      "published_at": "2026-11-20T09:41:04Z",
       "published_label": "Nov 20, 2026",
       "store_url": "https://addons.mozilla.org/en-US/firefox/addon/mdevtab/",
       "repo_url": "https://github.com/MohamedElashri/DevTab",
@@ -1473,11 +1473,11 @@
           "arch_label": "",
           "kind_label": "Add-on (.xpi)",
           "kind_short": ".xpi",
-          "name": "mdevtab-1.3.2.xpi",
-          "url": "https://addons.mozilla.org/firefox/downloads/file/5279813/mdevtab-1.3.2.xpi",
-          "size": 295699,
-          "size_label": "296 KB",
-          "sha256": "1cb6a2e2b77ddd231820bb4eb2979f8ab955059619a9398338ff0ebc98819d14",
+          "name": "mdevtab-1.4.0.xpi",
+          "url": "https://addons.mozilla.org/firefox/downloads/file/5281140/mdevtab-1.4.0.xpi",
+          "size": 301298,
+          "size_label": "301 KB",
+          "sha256": "2ede8594820b7cdc9e94600ee3280c102616de0f7c3456715fa5b8252af144e9",
           "primary": true
         }
       ]
