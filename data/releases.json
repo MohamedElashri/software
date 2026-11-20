@@ -2,14 +2,14 @@
   "projects": {
     "mdiff": {
       "source": "github",
-      "tag": "v0.2.0",
-      "version": "0.2.0",
-      "published": "2026-11-15",
-      "published_at": "2026-11-15T12:39:59Z",
-      "published_label": "Nov 15, 2026",
-      "release_url": "https://github.com/MohamedElashri/mdiff/releases/tag/v0.2.0",
+      "tag": "v0.2.1",
+      "version": "0.2.1",
+      "published": "2026-11-19",
+      "published_at": "2026-11-19T23:11:20Z",
+      "published_label": "Nov 19, 2026",
+      "release_url": "https://github.com/MohamedElashri/mdiff/releases/tag/v0.2.1",
       "repo_url": "https://github.com/MohamedElashri/mdiff",
-      "checksums_url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.2.0/SHA256SUMS",
+      "checksums_url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.2.1/SHA256SUMS",
       "assets": [
         {
           "os": "macos",
@@ -20,11 +20,11 @@
           "arch_label": "Apple silicon",
           "kind_label": "Archive (.zip)",
           "kind_short": ".zip",
-          "name": "mdiff-0.2.0-aarch64-apple-darwin.zip",
-          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.2.0/mdiff-0.2.0-aarch64-apple-darwin.zip",
-          "size": 16350499,
+          "name": "mdiff-0.2.1-aarch64-apple-darwin.zip",
+          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.2.1/mdiff-0.2.1-aarch64-apple-darwin.zip",
+          "size": 16448424,
           "size_label": "16.4 MB",
-          "sha256": "9fbe6681ceb1b876c94d1a62806ec350a6bc57b7d9d4d14ad0426975b1f8e4cb",
+          "sha256": "618932fe9ebea5904720619abcf3bf0fff0ac40b0dd4832f5ae0c930a87a37c8",
           "primary": true
         },
         {
@@ -36,11 +36,11 @@
           "arch_label": "Intel",
           "kind_label": "Archive (.zip)",
           "kind_short": ".zip",
-          "name": "mdiff-0.2.0-x86_64-apple-darwin.zip",
-          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.2.0/mdiff-0.2.0-x86_64-apple-darwin.zip",
-          "size": 17349139,
-          "size_label": "17.3 MB",
-          "sha256": "07adb7756a66898f227eb344ccf19c4a50151003c716530f54c4eabfff38a5fb",
+          "name": "mdiff-0.2.1-x86_64-apple-darwin.zip",
+          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.2.1/mdiff-0.2.1-x86_64-apple-darwin.zip",
+          "size": 17443475,
+          "size_label": "17.4 MB",
+          "sha256": "11c15d88dfa8336f6b03982771f3c81bd8096091333f5752a92a6a583249a7f2",
           "primary": false
         },
         {
@@ -52,11 +52,11 @@
           "arch_label": "x64",
           "kind_label": "AppImage",
           "kind_short": "AppImage",
-          "name": "mdiff-0.2.0-x86_64-unknown-linux-gnu.AppImage",
-          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.2.0/mdiff-0.2.0-x86_64-unknown-linux-gnu.AppImage",
-          "size": 96664056,
-          "size_label": "96.7 MB",
-          "sha256": "e5596563dd97293f5d8bfe29a492dc8b8f62c3af82755e1f5c5118e1a432aba8",
+          "name": "mdiff-0.2.1-x86_64-unknown-linux-gnu.AppImage",
+          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.2.1/mdiff-0.2.1-x86_64-unknown-linux-gnu.AppImage",
+          "size": 96766456,
+          "size_label": "96.8 MB",
+          "sha256": "b46742826fa375a038ba4f1f3390d0b6a2ef8d4b8bc4f8ee77843e52bfa458e0",
           "primary": true
         },
         {
@@ -68,11 +68,11 @@
           "arch_label": "x64",
           "kind_label": "Debian package (.deb)",
           "kind_short": ".deb",
-          "name": "mdiff-0.2.0-x86_64-unknown-linux-gnu.deb",
-          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.2.0/mdiff-0.2.0-x86_64-unknown-linux-gnu.deb",
-          "size": 19314922,
-          "size_label": "19.3 MB",
-          "sha256": "796f6395516820d124c09c598625d2d7a6dfcf9d1b4c6393884abf5ff6cdf217",
+          "name": "mdiff-0.2.1-x86_64-unknown-linux-gnu.deb",
+          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.2.1/mdiff-0.2.1-x86_64-unknown-linux-gnu.deb",
+          "size": 19414986,
+          "size_label": "19.4 MB",
+          "sha256": "7dcd1d25a2d8c1ef7b754fef2b8da0967acfaa10e7978c7729043917e1245e63",
           "primary": false
         }
       ]
