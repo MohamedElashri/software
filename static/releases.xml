@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://melashri.net/software/releases.xml"/>
   <link rel="alternate" type="text/html" href="https://melashri.net/software/"/>
   <id>https://melashri.net/software/</id>
-  <updated>2026-11-20T09:55:29Z</updated>
+  <updated>2026-11-22T06:03:29Z</updated>
   <author><name>Mohamed Elashri</name></author>
+  <entry>
+    <title>hedit 0.7.0</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/hedit/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/hedit/releases/tag/v0.7.0"/>
+    <id>tag:melashri.net,2026:software/hedit/0.7.0</id>
+    <published>2026-11-22T06:03:29Z</published>
+    <updated>2026-11-22T06:03:29Z</updated>
+    <summary>A text and log editor with durable buffers and CUDA debugging.</summary>
+  </entry>
   <entry>
     <title>Zirq 0.3.1</title>
     <link rel="alternate" type="text/html" href="https://melashri.net/software/zirq/"/>
@@ -33,15 +42,6 @@
     <published>2026-11-19T23:11:20Z</published>
     <updated>2026-11-19T23:11:20Z</updated>
     <summary>Native code review for macOS and Linux.</summary>
-  </entry>
-  <entry>
-    <title>hedit 0.6.2</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/hedit/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/hedit/releases/tag/v0.6.2"/>
-    <id>tag:melashri.net,2026:software/hedit/0.6.2</id>
-    <published>2026-11-19T16:22:22Z</published>
-    <updated>2026-11-19T16:22:22Z</updated>
-    <summary>A text and log editor with durable buffers and CUDA debugging.</summary>
   </entry>
   <entry>
     <title>Hession 0.5.5</title>
