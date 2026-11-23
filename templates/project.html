@@ -17,7 +17,9 @@
           {{- with $r }}{{ with .license }}<span>{{ . }}</span>{{ end }}{{ end }}
         </p>
         <p class="lead">{{ $p.tagline }}</p>
-        <p class="project-actions"><a class="gh-button" href="https://github.com/{{ $p.repo }}" aria-label="{{ $p.name }} on GitHub: {{ $p.repo }}">{{ template "gh-icon" }}<span>{{ $p.repo }}</span></a></p>
+        <p class="project-actions"><a class="gh-button" href="https://github.com/{{ $p.repo }}" aria-label="{{ $p.name }} on GitHub: {{ $p.repo }}">{{ template "gh-icon" }}<span>{{ $p.repo }}</span></a>
+          {{ with (dig .Config.Extra "support").url }}<a class="gh-button tip-button" href="{{ . }}"><span aria-hidden="true">♥</span> Leave a tip on Ko-fi</a>{{ end }}
+        </p>
       </header>
 
       {{- with $r }}{{ with .assets }}
@@ -54,13 +56,15 @@
       <h2 id="about-title">About</h2>
       {{ unsafeHTML .Page.BodyHTML }}
       <ul class="links">
-        {{- with $r }}{{ with .release_url }}<li><a href="{{ . }}">Release notes</a></li>{{ end }}{{ end }}
+        {{- if $p.release_notes_path }}<li><a href="https://github.com/{{ $p.repo }}/{{ $p.release_notes_path }}">Release notes</a></li>
+        {{- else }}{{ with $r }}{{ with .release_url }}<li><a href="{{ . }}">Release notes</a></li>{{ end }}{{ end }}{{ end }}
         {{- $firefox := "" }}{{ with $r.store_url }}{{ $firefox = . }}{{ end }}{{ with $p.firefox_store }}{{ $firefox = . }}{{ end }}
         {{- with $firefox }}<li><a href="{{ . }}">Firefox Add-ons</a></li>{{ end }}
         {{- with $p.chrome_store }}<li><a href="{{ . }}">Chrome Web Store</a></li>{{ end }}
         {{- with $p.homepage }}<li><a href="{{ . }}">Website</a></li>{{ end }}
-        <li><a href="https://github.com/{{ $p.repo }}">GitHub repository</a></li>
+        <li><a href="https://github.com/{{ $p.repo }}">Source code</a></li>
         <li><a href="https://github.com/{{ $p.repo }}/issues">Report an issue</a></li>
+        {{- with $p.license_path }}<li><a href="https://github.com/{{ $p.repo }}/{{ . }}">License</a></li>{{ end }}
       </ul>
     </section>
 

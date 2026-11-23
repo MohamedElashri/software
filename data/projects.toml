@@ -15,6 +15,8 @@
 #   chrome_store optional Chrome Web Store listing URL
 #   chrome_coming_soon optional placeholder until a Chrome Web Store listing is available
 #   firefox_store optional Firefox Add-ons listing URL (overrides release downloads)
+#   license_path  optional license location within the GitHub repository
+#   release_notes_path  optional release notes location within the GitHub repository
 #   tagline     one line, shown in the index
 #   homepage    optional project site
 #   screenshot  optional base name in data/shots.json; "<name>-light"/"<name>-dark" are
@@ -41,6 +43,7 @@ id = "mdiff"
 name = "mdiff"
 section = "apps"
 repo = "MohamedElashri/mdiff"
+license_path = "blob/main/LICENCE.md"
 tagline = "Native code review for macOS and Linux."
 screenshot = "mdiff"
 platforms = ["macos", "linux"]
@@ -61,6 +64,7 @@ id = "ternway"
 name = "Ternway"
 section = "apps"
 repo = "MohamedElashri/ternway"
+license_path = "blob/main/LICENSE"
 tagline = "A desktop terminal for local shells and agentless Linux server management over SSH."
 screenshot = "ternway"
 platforms = ["macos", "linux"]
@@ -84,6 +88,7 @@ id = "sivro"
 name = "Sivro"
 section = "apps"
 repo = "MohamedElashri/sivro"
+license_path = "blob/main/LICENSE"
 tagline = "A local, read-only explorer for Parquet, CSV, JSON, Excel and SQLite."
 screenshot = "sivro"
 platforms = ["macos", "linux", "windows"]
@@ -110,6 +115,7 @@ id = "hession"
 name = "Hession"
 section = "apps"
 repo = "MohamedElashri/hession"
+license_path = "blob/main/LICENSE"
 tagline = "A searchable home for coding-agent sessions from this machine and your SSH hosts."
 screenshot = "hession"
 platforms = ["macos", "linux"]
@@ -132,6 +138,8 @@ id = "hedit"
 name = "hedit"
 section = "apps"
 repo = "MohamedElashri/hedit"
+license_path = "blob/main/LICENSE"
+homepage = "https://melashri.net/hedit/"
 tagline = "A text and log editor with durable buffers and CUDA debugging."
 screenshot = "hedit"
 platforms = ["macos", "linux", "windows"]
@@ -156,6 +164,7 @@ id = "zirq"
 name = "Zirq"
 section = "apps"
 repo = "MohamedElashri/zirq"
+license_path = "tree/main/LICENSES"
 tagline = "A Metal-accelerated terminal for Apple Silicon with bidirectional Arabic, Persian and Hebrew."
 screenshot = "zirq"
 platforms = ["macos"]
@@ -347,6 +356,8 @@ id = "devtab"
 name = "DevTab"
 section = "extensions"
 repo = "MohamedElashri/DevTab"
+license_path = "blob/master/LICENSE"
+release_notes_path = "blob/master/CHANGELOG.md"
 source = "amo"
 amo = "mdevtab"
 chrome_store = "https://chromewebstore.google.com/detail/devtab/bohcncbmpdonbeamifbibleeghmbdece/"

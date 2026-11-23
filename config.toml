@@ -39,3 +39,6 @@ livereload = true
 host = "https://uma.elashri.net"
 website_id = ""
 share_id = ""
+
+[extra.support]
+url = "https://ko-fi.com/melashri"
