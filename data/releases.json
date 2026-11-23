@@ -2,14 +2,14 @@
   "projects": {
     "mdiff": {
       "source": "github",
-      "tag": "v0.3.2",
-      "version": "0.3.2",
+      "tag": "v0.3.3",
+      "version": "0.3.3",
       "published": "2026-11-23",
-      "published_at": "2026-11-23T14:15:58Z",
+      "published_at": "2026-11-23T20:53:47Z",
       "published_label": "Nov 23, 2026",
-      "release_url": "https://github.com/MohamedElashri/mdiff/releases/tag/v0.3.2",
+      "release_url": "https://github.com/MohamedElashri/mdiff/releases/tag/v0.3.3",
       "repo_url": "https://github.com/MohamedElashri/mdiff",
-      "checksums_url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.3.2/SHA256SUMS",
+      "checksums_url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.3.3/SHA256SUMS",
       "assets": [
         {
           "os": "macos",
@@ -20,11 +20,11 @@
           "arch_label": "Apple silicon",
           "kind_label": "Archive (.zip)",
           "kind_short": ".zip",
-          "name": "mdiff-0.3.2-aarch64-apple-darwin.zip",
-          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.3.2/mdiff-0.3.2-aarch64-apple-darwin.zip",
-          "size": 19921944,
+          "name": "mdiff-0.3.3-aarch64-apple-darwin.zip",
+          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.3.3/mdiff-0.3.3-aarch64-apple-darwin.zip",
+          "size": 19921047,
           "size_label": "19.9 MB",
-          "sha256": "904273c8045be9556288a8fb0ba17b420ae0ef71b0f282f339b32dd0df6caecc",
+          "sha256": "7bb99d6cdcd5e92bce700829adc1ad3e8728f07c13c670c722a1548d9e1602a7",
           "primary": true
         },
         {
@@ -36,11 +36,11 @@
           "arch_label": "Intel",
           "kind_label": "Archive (.zip)",
           "kind_short": ".zip",
-          "name": "mdiff-0.3.2-x86_64-apple-darwin.zip",
-          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.3.2/mdiff-0.3.2-x86_64-apple-darwin.zip",
-          "size": 21287083,
+          "name": "mdiff-0.3.3-x86_64-apple-darwin.zip",
+          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.3.3/mdiff-0.3.3-x86_64-apple-darwin.zip",
+          "size": 21287586,
           "size_label": "21.3 MB",
-          "sha256": "ec41802bc9043483439cdd6a26fe33b9d46a8376c553a35b72b226de2fe2b0ff",
+          "sha256": "3f1b3eae816f02b0db7e516a210e951ded69df12135d3c0775d95259e7f7e132",
           "primary": false
         },
         {
@@ -52,11 +52,11 @@
           "arch_label": "x64",
           "kind_label": "AppImage",
           "kind_short": "AppImage",
-          "name": "mdiff-0.3.2-x86_64-unknown-linux-gnu.AppImage",
-          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.3.2/mdiff-0.3.2-x86_64-unknown-linux-gnu.AppImage",
-          "size": 100911608,
+          "name": "mdiff-0.3.3-x86_64-unknown-linux-gnu.AppImage",
+          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.3.3/mdiff-0.3.3-x86_64-unknown-linux-gnu.AppImage",
+          "size": 100923896,
           "size_label": "100.9 MB",
-          "sha256": "d06fbcd1f11f90a0194b6e91456e16a149d868840ebff0616a920cbde8db46a1",
+          "sha256": "5509d27c732bbaff5fc07870d472069d13f6422519ce1e89e2e1d3de851e6417",
           "primary": true
         },
         {
@@ -68,11 +68,11 @@
           "arch_label": "x64",
           "kind_label": "Debian package (.deb)",
           "kind_short": ".deb",
-          "name": "mdiff-0.3.2-x86_64-unknown-linux-gnu.deb",
-          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.3.2/mdiff-0.3.2-x86_64-unknown-linux-gnu.deb",
-          "size": 23982840,
+          "name": "mdiff-0.3.3-x86_64-unknown-linux-gnu.deb",
+          "url": "https://github.com/MohamedElashri/mdiff/releases/download/v0.3.3/mdiff-0.3.3-x86_64-unknown-linux-gnu.deb",
+          "size": 23983440,
           "size_label": "24.0 MB",
-          "sha256": "140c5ee9f298c79cc0c6952a5d52ca8fa1a0e550dd1ebed7e9ee8a51df138060",
+          "sha256": "952e39703a6f150c3e4028158052b9142fcf614d12f78121dac2571457834bf9",
           "primary": false
         }
       ]
@@ -410,15 +410,15 @@
     },
     "hession": {
       "source": "github",
-      "tag": "v0.5.6",
-      "version": "0.5.6",
+      "tag": "v0.5.7",
+      "version": "0.5.7",
       "published": "2026-11-23",
-      "published_at": "2026-11-23T14:23:47Z",
+      "published_at": "2026-11-23T20:41:18Z",
       "published_label": "Nov 23, 2026",
-      "release_url": "https://github.com/MohamedElashri/hession/releases/tag/v0.5.6",
+      "release_url": "https://github.com/MohamedElashri/hession/releases/tag/v0.5.7",
       "repo_url": "https://github.com/MohamedElashri/hession",
       "license": "MIT",
-      "checksums_url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.6/SHA256SUMS",
+      "checksums_url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.7/SHA256SUMS",
       "assets": [
         {
           "os": "macos",
@@ -429,11 +429,11 @@
           "arch_label": "Universal",
           "kind_label": "Disk image (.dmg)",
           "kind_short": ".dmg",
-          "name": "Hession-v0.5.6-darwin-universal-dmg.dmg",
-          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.6/Hession-v0.5.6-darwin-universal-dmg.dmg",
-          "size": 22931784,
+          "name": "Hession-v0.5.7-darwin-universal-dmg.dmg",
+          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.7/Hession-v0.5.7-darwin-universal-dmg.dmg",
+          "size": 22932977,
           "size_label": "22.9 MB",
-          "sha256": "deed4d6ba777b8472d219c1e5b1f448ee92c9af8a570e321d8e1afcf933f764e",
+          "sha256": "283837cef727b7957f15e23d68e0ef120161b8a7160a5431ace0a1f56650be9b",
           "primary": true
         },
         {
@@ -445,11 +445,11 @@
           "arch_label": "x64",
           "kind_label": "AppImage",
           "kind_short": "AppImage",
-          "name": "Hession-v0.5.6-linux-amd64-appimage.AppImage",
-          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.6/Hession-v0.5.6-linux-amd64-appimage.AppImage",
+          "name": "Hession-v0.5.7-linux-amd64-appimage.AppImage",
+          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.7/Hession-v0.5.7-linux-amd64-appimage.AppImage",
           "size": 90958328,
           "size_label": "91.0 MB",
-          "sha256": "5b7f28e0293589959e5af6556b1ce5b99654d621b606f3aeeb2ea90e5974e263",
+          "sha256": "e0f2396f8c325c2a55d7df4c5d24b30cbae51c5dd3f135096268d9654bd9f330",
           "primary": true
         },
         {
@@ -461,11 +461,11 @@
           "arch_label": "ARM64",
           "kind_label": "AppImage",
           "kind_short": "AppImage",
-          "name": "Hession-v0.5.6-linux-aarch64-appimage.AppImage",
-          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.6/Hession-v0.5.6-linux-aarch64-appimage.AppImage",
+          "name": "Hession-v0.5.7-linux-aarch64-appimage.AppImage",
+          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.7/Hession-v0.5.7-linux-aarch64-appimage.AppImage",
           "size": 89324040,
           "size_label": "89.3 MB",
-          "sha256": "3b98c062de776cb54d090a0e3025674bc9e7519cb60bca0591f8b2a0a13a03b7",
+          "sha256": "5d5a903f416c22c5c848748f53a7aeff2c426e59036264fe2ee515f02a5f5f9f",
           "primary": false
         },
         {
@@ -477,11 +477,11 @@
           "arch_label": "x64",
           "kind_label": "Debian package (.deb)",
           "kind_short": ".deb",
-          "name": "Hession-v0.5.6-linux-amd64-deb.deb",
-          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.6/Hession-v0.5.6-linux-amd64-deb.deb",
-          "size": 13797222,
+          "name": "Hession-v0.5.7-linux-amd64-deb.deb",
+          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.7/Hession-v0.5.7-linux-amd64-deb.deb",
+          "size": 13797438,
           "size_label": "13.8 MB",
-          "sha256": "519975439706b5bbf66339ae4e5ba7c16c628eb63ba80a85f1367e1185afba23",
+          "sha256": "ed996eed8ea8ff2be6a4543c69b69f50ab098de0917ef16664417720b57381aa",
           "primary": false
         },
         {
@@ -493,11 +493,11 @@
           "arch_label": "ARM64",
           "kind_label": "Debian package (.deb)",
           "kind_short": ".deb",
-          "name": "Hession-v0.5.6-linux-arm64-deb.deb",
-          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.6/Hession-v0.5.6-linux-arm64-deb.deb",
-          "size": 14193272,
+          "name": "Hession-v0.5.7-linux-arm64-deb.deb",
+          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.7/Hession-v0.5.7-linux-arm64-deb.deb",
+          "size": 14198332,
           "size_label": "14.2 MB",
-          "sha256": "f7fac84452c8d8fd638ed27b6bee64f70e8d5dc456eb95cdbb15f7d9fa1e7a31",
+          "sha256": "80a7a9f48927b36902d33cdbcbb6a1aa53a265a4a99af532ef4bad1402911f4e",
           "primary": false
         },
         {
@@ -509,11 +509,11 @@
           "arch_label": "x64",
           "kind_label": "RPM package (.rpm)",
           "kind_short": ".rpm",
-          "name": "Hession-v0.5.6-linux-x86_64-rpm.rpm",
-          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.6/Hession-v0.5.6-linux-x86_64-rpm.rpm",
-          "size": 13803845,
+          "name": "Hession-v0.5.7-linux-x86_64-rpm.rpm",
+          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.7/Hession-v0.5.7-linux-x86_64-rpm.rpm",
+          "size": 13804077,
           "size_label": "13.8 MB",
-          "sha256": "26fb07108078d64a767359ce111a901b0cd97d43cf079fc758882a7529a65719",
+          "sha256": "5c40d3e6a36e4fd0ae275f9782b4abe96b9c122d473e34f1beabaeaba9ba0b4a",
           "primary": false
         },
         {
@@ -525,11 +525,11 @@
           "arch_label": "ARM64",
           "kind_label": "RPM package (.rpm)",
           "kind_short": ".rpm",
-          "name": "Hession-v0.5.6-linux-aarch64-rpm.rpm",
-          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.6/Hession-v0.5.6-linux-aarch64-rpm.rpm",
-          "size": 14199663,
+          "name": "Hession-v0.5.7-linux-aarch64-rpm.rpm",
+          "url": "https://github.com/MohamedElashri/hession/releases/download/v0.5.7/Hession-v0.5.7-linux-aarch64-rpm.rpm",
+          "size": 14204757,
           "size_label": "14.2 MB",
-          "sha256": "c809eb81d49c3d082aa97597ffb86755044515fd7efbab4c0770381f9490efb0",
+          "sha256": "6ce8fafb260725c36e970e1bc4353cf55f08234bbd89d97ddd415fdbd331300d",
           "primary": false
         }
       ]
@@ -709,14 +709,14 @@
     },
     "zirq": {
       "source": "github",
-      "tag": "v0.3.2",
-      "version": "0.3.2",
+      "tag": "v0.3.3",
+      "version": "0.3.3",
       "published": "2026-11-23",
-      "published_at": "2026-11-23T14:50:22Z",
+      "published_at": "2026-11-23T20:57:24Z",
       "published_label": "Nov 23, 2026",
-      "release_url": "https://github.com/MohamedElashri/zirq/releases/tag/v0.3.2",
+      "release_url": "https://github.com/MohamedElashri/zirq/releases/tag/v0.3.3",
       "repo_url": "https://github.com/MohamedElashri/zirq",
-      "checksums_url": "https://github.com/MohamedElashri/zirq/releases/download/v0.3.2/SHA256SUMS",
+      "checksums_url": "https://github.com/MohamedElashri/zirq/releases/download/v0.3.3/SHA256SUMS",
       "assets": [
         {
           "os": "macos",
@@ -728,10 +728,10 @@
           "kind_label": "Archive (.zip)",
           "kind_short": ".zip",
           "name": "Zirq-arm64.zip",
-          "url": "https://github.com/MohamedElashri/zirq/releases/download/v0.3.2/Zirq-arm64.zip",
-          "size": 78567124,
+          "url": "https://github.com/MohamedElashri/zirq/releases/download/v0.3.3/Zirq-arm64.zip",
+          "size": 78566978,
           "size_label": "78.6 MB",
-          "sha256": "cd17c08d3cdc0b68edd3ffdd7a11f28655d44a1648414c13ef08b732056cfdc8",
+          "sha256": "9183062e1016ddfef38d014809a3f961551d3262ed1f141eb83ca9792433f04c",
           "primary": true
         }
       ]
