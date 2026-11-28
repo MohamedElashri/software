@@ -5,8 +5,35 @@
   <link rel="self" type="application/atom+xml" href="https://melashri.net/software/releases.xml"/>
   <link rel="alternate" type="text/html" href="https://melashri.net/software/"/>
   <id>https://melashri.net/software/</id>
-  <updated>2026-11-28T00:29:51Z</updated>
+  <updated>2026-11-28T12:17:16Z</updated>
   <author><name>Mohamed Elashri</name></author>
+  <entry>
+    <title>Snippy 2.2.6</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/snippy/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.6"/>
+    <id>tag:melashri.net,2026:software/snippy/2.2.6</id>
+    <published>2026-11-28T12:17:16Z</published>
+    <updated>2026-11-28T12:17:16Z</updated>
+    <summary>Browse, edit and copy snippets from your Snipo server in the terminal.</summary>
+  </entry>
+  <entry>
+    <title>Snipo for browsers 2.2.6</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/snipo-extension/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.6"/>
+    <id>tag:melashri.net,2026:software/snipo-extension/2.2.6</id>
+    <published>2026-11-28T12:17:16Z</published>
+    <updated>2026-11-28T12:17:16Z</updated>
+    <summary>Save selected text to your Snipo server from Chrome and Firefox.</summary>
+  </entry>
+  <entry>
+    <title>Snipo 2.2.6</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/snipo/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.6"/>
+    <id>tag:melashri.net,2026:software/snipo/2.2.6</id>
+    <published>2026-11-28T12:17:16Z</published>
+    <updated>2026-11-28T12:17:16Z</updated>
+    <summary>A self-hosted snippet manager for code fragments, commands and notes.</summary>
+  </entry>
   <entry>
     <title>Hession 0.5.8</title>
     <link rel="alternate" type="text/html" href="https://melashri.net/software/hession/"/>
@@ -15,33 +42,6 @@
     <published>2026-11-28T00:29:51Z</published>
     <updated>2026-11-28T00:29:51Z</updated>
     <summary>A searchable home for coding-agent sessions from this machine and your SSH hosts.</summary>
-  </entry>
-  <entry>
-    <title>Snippy 2.2.4</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/snippy/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.4"/>
-    <id>tag:melashri.net,2026:software/snippy/2.2.4</id>
-    <published>2026-11-27T19:57:41Z</published>
-    <updated>2026-11-27T19:57:41Z</updated>
-    <summary>Browse, edit and copy snippets from your Snipo server in the terminal.</summary>
-  </entry>
-  <entry>
-    <title>Snipo for browsers 2.2.4</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/snipo-extension/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.4"/>
-    <id>tag:melashri.net,2026:software/snipo-extension/2.2.4</id>
-    <published>2026-11-27T19:57:41Z</published>
-    <updated>2026-11-27T19:57:41Z</updated>
-    <summary>Save selected text to your Snipo server from Chrome and Firefox.</summary>
-  </entry>
-  <entry>
-    <title>Snipo 2.2.4</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/snipo/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.4"/>
-    <id>tag:melashri.net,2026:software/snipo/2.2.4</id>
-    <published>2026-11-27T19:57:41Z</published>
-    <updated>2026-11-27T19:57:41Z</updated>
-    <summary>A self-hosted snippet manager for code fragments, commands and notes.</summary>
   </entry>
   <entry>
     <title>hedit 0.7.8</title>
