@@ -5,8 +5,44 @@
   <link rel="self" type="application/atom+xml" href="https://melashri.net/software/releases.xml"/>
   <link rel="alternate" type="text/html" href="https://melashri.net/software/"/>
   <id>https://melashri.net/software/</id>
-  <updated>2026-11-27T15:32:24Z</updated>
+  <updated>2026-11-28T00:29:51Z</updated>
   <author><name>Mohamed Elashri</name></author>
+  <entry>
+    <title>Hession 0.5.8</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/hession/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/hession/releases/tag/v0.5.8"/>
+    <id>tag:melashri.net,2026:software/hession/0.5.8</id>
+    <published>2026-11-28T00:29:51Z</published>
+    <updated>2026-11-28T00:29:51Z</updated>
+    <summary>A searchable home for coding-agent sessions from this machine and your SSH hosts.</summary>
+  </entry>
+  <entry>
+    <title>Snippy 2.2.4</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/snippy/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.4"/>
+    <id>tag:melashri.net,2026:software/snippy/2.2.4</id>
+    <published>2026-11-27T19:57:41Z</published>
+    <updated>2026-11-27T19:57:41Z</updated>
+    <summary>Browse, edit and copy snippets from your Snipo server in the terminal.</summary>
+  </entry>
+  <entry>
+    <title>Snipo for browsers 2.2.4</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/snipo-extension/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.4"/>
+    <id>tag:melashri.net,2026:software/snipo-extension/2.2.4</id>
+    <published>2026-11-27T19:57:41Z</published>
+    <updated>2026-11-27T19:57:41Z</updated>
+    <summary>Save selected text to your Snipo server from Chrome and Firefox.</summary>
+  </entry>
+  <entry>
+    <title>Snipo 2.2.4</title>
+    <link rel="alternate" type="text/html" href="https://melashri.net/software/snipo/"/>
+    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.4"/>
+    <id>tag:melashri.net,2026:software/snipo/2.2.4</id>
+    <published>2026-11-27T19:57:41Z</published>
+    <updated>2026-11-27T19:57:41Z</updated>
+    <summary>A self-hosted snippet manager for code fragments, commands and notes.</summary>
+  </entry>
   <entry>
     <title>hedit 0.7.8</title>
     <link rel="alternate" type="text/html" href="https://melashri.net/software/hedit/"/>
@@ -35,15 +71,6 @@
     <summary>A Metal-accelerated terminal for Apple Silicon with bidirectional Arabic, Persian and Hebrew.</summary>
   </entry>
   <entry>
-    <title>Hession 0.5.7</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/hession/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/hession/releases/tag/v0.5.7"/>
-    <id>tag:melashri.net,2026:software/hession/0.5.7</id>
-    <published>2026-11-23T20:41:18Z</published>
-    <updated>2026-11-23T20:41:18Z</updated>
-    <summary>A searchable home for coding-agent sessions from this machine and your SSH hosts.</summary>
-  </entry>
-  <entry>
     <title>Ternway 0.5.4</title>
     <link rel="alternate" type="text/html" href="https://melashri.net/software/ternway/"/>
     <link rel="related" type="text/html" href="https://github.com/MohamedElashri/ternway/releases/tag/v0.5.4"/>
@@ -60,33 +87,6 @@
     <published>2026-11-23T20:33:11Z</published>
     <updated>2026-11-23T20:33:11Z</updated>
     <summary>A local, read-only explorer for Parquet, CSV, JSON, Excel and SQLite.</summary>
-  </entry>
-  <entry>
-    <title>Snippy 2.2.3</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/snippy/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.3"/>
-    <id>tag:melashri.net,2026:software/snippy/2.2.3</id>
-    <published>2026-11-23T20:02:22Z</published>
-    <updated>2026-11-23T20:02:22Z</updated>
-    <summary>Browse, edit and copy snippets from your Snipo server in the terminal.</summary>
-  </entry>
-  <entry>
-    <title>Snipo for browsers 2.2.3</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/snipo-extension/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.3"/>
-    <id>tag:melashri.net,2026:software/snipo-extension/2.2.3</id>
-    <published>2026-11-23T20:02:22Z</published>
-    <updated>2026-11-23T20:02:22Z</updated>
-    <summary>Save selected text to your Snipo server from Chrome and Firefox.</summary>
-  </entry>
-  <entry>
-    <title>Snipo 2.2.3</title>
-    <link rel="alternate" type="text/html" href="https://melashri.net/software/snipo/"/>
-    <link rel="related" type="text/html" href="https://github.com/MohamedElashri/snipo/releases/tag/v2.2.3"/>
-    <id>tag:melashri.net,2026:software/snipo/2.2.3</id>
-    <published>2026-11-23T20:02:22Z</published>
-    <updated>2026-11-23T20:02:22Z</updated>
-    <summary>A self-hosted snippet manager for code fragments, commands and notes.</summary>
   </entry>
   <entry>
     <title>DevTab 1.4.2</title>
